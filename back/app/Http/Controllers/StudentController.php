@@ -23,8 +23,16 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> file('image')->store('public/images');
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'class' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
+        ]);
 
+        $request -> file('image')->store('public/images');
         $student = new Student();
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
@@ -47,7 +55,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-         return Student::findOrFail($id);
+        return Student::findOrFail($id);
     }
 
     /**
@@ -59,8 +67,16 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request -> file('image')->store('public/images');
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'class' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
+        ]);
         
+        $request -> file('image')->store('public/images');
         $student = Student::findOrFail($id);
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
@@ -69,7 +85,7 @@ class StudentController extends Controller
         $student->gender = $request->gender;
         $student->image =$request->file('image')->hashName();
         $student->save();
-         return response()->json([
+        return response()->json([
             'Message' => 'Updated',
             'data' => $student
         ], 200);

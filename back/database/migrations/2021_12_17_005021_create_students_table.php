@@ -20,7 +20,7 @@ class CreateStudentsTable extends Migration
             $table->string('class');
             $table->integer('phone');
             $table->string('gender');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
