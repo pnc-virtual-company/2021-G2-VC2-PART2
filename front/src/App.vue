@@ -31,7 +31,7 @@ import Navigation from "./components/nav/Navigation.vue";
 export default {
   name: "App",
   components: {
-    "app-nav": Navigation,
+    'app-nav': Navigation,
   },
 
   data() {
