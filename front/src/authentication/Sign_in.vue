@@ -33,7 +33,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="login" color="primary" to="/ex">Login</v-btn>
+                <v-btn @click="login" color="primary" to="">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -44,8 +44,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  const API_URL = "http://127.0.0.1:8000/api";
+  import axios from '../../axios-request.js'
   export default {
     name: "Login",
     return: {
@@ -59,9 +58,8 @@
           password: this.password,
           errorMessage: 'Login succesfully'
         };
-        axios.post(API_URL + "/login", user).then(res => {
+        axios.post("/login", user).then(res => {
           this.users = res.data.user;
-          //  this.$emit("signin-user", this.signin);
           localStorage.setItem("userID", res.data.user.id);
           this.$router.push('/ex');
         })
