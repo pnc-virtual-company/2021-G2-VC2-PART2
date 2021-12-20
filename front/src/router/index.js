@@ -1,14 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {createRouter, createWebHistory} from 'vue-router';
-// import Users from './../components/views/UsersView.vue';
-// import Students from './../components/views/StudentsView.vue';
-// import Permission from './../components/views/PermissionView.vue';
-// import Disciples from './../components/views/DisciplesView.vue';
 import Signin from '../authentication/Sign_in.vue';
+import Users from '../components/views/UsersView.vue';
+import Student from '../components/views/StudentsView.vue';
+import Permission from '../components/views/PermissionView.vue';
+import Disciples from '../components/views/DisciplesView.vue';
 
 Vue.use(VueRouter)
-
 const routes = [
   {
     path: '/Signin',
@@ -17,33 +15,35 @@ const routes = [
   },
   {
     path: '/',
-    name: 'signin',
+    name: 'Signin',
     component: Signin
   },
-  // {
-  //   path: '/Users',
-  //   name: 'users',
-  //   component: Users
-  // },
-  // {
-  //   path: '/Students',
-  //   name: 'students',
-  //   component: Students
-  // },
-  // {
-  //   path: '/Permission',
-  //   name: 'permission',
-  //   component: Permission
-  // },
-  // {
-  //   path: '/Disciples',
-  //   name: 'disciples',
-  //   component: Disciples
-  // },
+  {
+    path: '/users',
+    name: 'user',
+    component: Users
+  },
+  {
+    path: '/students',
+    name: 'Student',
+    component: Student
+  },
+  {
+    path: '/permission',
+    name: 'Permission',
+    component: Permission
+  },
+  {
+    path: '/disciples',
+    name: 'Disciples',
+    component: Disciples
+  },
 ]
 
-const router = createRouter({
-  history: createWebHistory(),
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
-});
+})
+
 export default router

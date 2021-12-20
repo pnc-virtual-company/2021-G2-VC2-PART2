@@ -1,3 +1,15 @@
 <template>
-  <h1>Permission</h1>
+    <div>
+        <h1>Welcome to Permission page</h1>
+    </div>
 </template>
+
+<script>
+    export default {
+        
+    }
+</script>
+
+<style scoped>
+
+</style>

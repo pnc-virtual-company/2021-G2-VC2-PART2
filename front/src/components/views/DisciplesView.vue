@@ -1,3 +1,15 @@
 <template>
-    <h1>Disciples</h1>
+    <div>
+        <h1>Welcome to Disciple page</h1>
+    </div>
 </template>
+
+<script>
+    export default {
+        
+    }
+</script>
+
+<style scoped>
+
+</style>

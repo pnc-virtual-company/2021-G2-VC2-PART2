@@ -1,78 +1,71 @@
 <template>
   <v-app id="inspire">
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <link
-                  href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"
-                  rel="stylesheet"
-                />
-                <v-toolbar-title>Sign in</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form >
-                  <v-text-field
-                    prepend-icon="email"
-                    name="Email"
-                    label="Email"
-                    type="text"
-                    v-model="email"
-                  ></v-text-field>
-                  <v-text-field
-                    id="password"
-                    prepend-icon="lock"
-                    name="password"
-                    label="Password"
-                    type="password"
-                    v-model="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn @click="login" color="primary" to="">Login</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
+    <v-container fluid fill-height>
+      <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>Login</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+              <v-form>
+                <v-text-field
+                  prepend-icon="email"
+                  label="Email"
+                  type="text"
+                  v-model="email"
+                ></v-text-field>
+                <v-text-field
+                  id="password"
+                  prepend-icon="lock"
+                  label="Password"
+                  type="password"
+                  v-model="password"
+                ></v-text-field>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" to="/" @click="signin">Login</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </v-app>
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
+  import axios from '../axios-request.js'
   export default {
-    name: "Login",
-    return: {
-      email: null,
-      password: null,
+    emits: ["userLogin"],
+    data() {
+      return {
+        email: '',
+        password: '',
+        islogin: true,
+      }
     },
     methods: {
-      login() {
-        let user = {
+      signin(){
+        let userSignin = {
           email: this.email,
-          password: this.password,
-          errorMessage: 'Login succesfully'
-        };
-        axios.post("/login", user).then(res => {
-          this.users = res.data.user;
-          localStorage.setItem("userID", res.data.user.id);
-          this.$router.push('/ex');
-        })
-        .catch(error => {
-          this.isInvalid = true
+          password: this.password
+        }
+        axios.post('/login', userSignin).then(res =>{
+          this.$emit('userLogin', this.islogin);
+          this.$router.push('/users');
+          localStorage.setItem("UserID", res.data.data.id);
+          console.log(res.data);
+        }).catch(error => {
           console.log(error);
-          this.errorMessage = 'Invalid password, please try again';
+          this.errorMessage = 'Your input is not valid, please try again!';
         })
-        console.log(user);
-      },
+      }
     },
   };
 </script>
 
-<style>
+<style scoped>
+
 </style>
