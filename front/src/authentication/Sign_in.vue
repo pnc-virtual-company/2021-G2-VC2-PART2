@@ -44,38 +44,36 @@
 </template>
 
 <script>
-import axios from 'axios';
-const API_URL = "http://127.0.0.1:8000/api";
-export default {
-  name: "Login",
-  return: {
-    email: null,
-    password: null,
-  },
-  methods: {
-     login() {
-            let user = {
-                email: this.email,
-                password: this.password,
-                errorMessage: 'Login succesfully'
-            };
-
-            axios.post(API_URL + "/login", user).then(res => {
-                this.users = res.data.user;
-               //  this.$emit("signin-user", this.signin);
-                localStorage.setItem("userID", res.data.user.id);
-                this.$router.push('/ex');
-
-            })
-            .catch(error => {
-                this.isInvalid = true
-                console.log(error);
-                this.errorMessage = 'Invalid password, please try again';
-            })
-            console.log(user);
-        },
-  },
-};
+  import axios from 'axios';
+  const API_URL = "http://127.0.0.1:8000/api";
+  export default {
+    name: "Login",
+    return: {
+      email: null,
+      password: null,
+    },
+    methods: {
+      login() {
+        let user = {
+          email: this.email,
+          password: this.password,
+          errorMessage: 'Login succesfully'
+        };
+        axios.post(API_URL + "/login", user).then(res => {
+          this.users = res.data.user;
+          //  this.$emit("signin-user", this.signin);
+          localStorage.setItem("userID", res.data.user.id);
+          this.$router.push('/ex');
+        })
+        .catch(error => {
+          this.isInvalid = true
+          console.log(error);
+          this.errorMessage = 'Invalid password, please try again';
+        })
+        console.log(user);
+      },
+    },
+  };
 </script>
 
 <style>
