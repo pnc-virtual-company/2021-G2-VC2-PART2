@@ -1,44 +1,43 @@
 <template>
-  <v-app>
-    <v-navigation-drawer v-model="showDrawer" absolute bottom temporary>
-      <app-nav></app-nav>
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      <v-app-bar-nav-icon
-        @click.stop="showDrawer = !showDrawer"
-      ></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Admin</v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+   <v-app>
+    <app-nav
+      v-if="user !== null">
+    </app-nav>
     <v-main>
-      <router-view class="pa-12"></router-view>
+      <router-view @userLogin="logined"></router-view>  
     </v-main>
-
-    <v-footer app> </v-footer>
   </v-app>
 </template>
 
 <script>
-import Navigation from "./components/nav/Navigation.vue";
-
-export default {
-  name: "App",
-  components: {
-    'app-nav': Navigation,
-  },
-
-  data() {
-    return {
-      showDrawer: false,
-    };
-  },
-};
+  import Navigation from "./components/nav/Navigation.vue";
+  export default {
+    name: "App",
+    components: {
+      'app-nav': Navigation,
+    },
+    data() {
+      return {
+        menubar: false,
+        showDrawer: false,
+        isLogin: true
+      };
+    },
+    methods: {
+      logined(login){
+        this.menubar = login;
+        this.isLogin = !login;
+      },
+    },
+    mounted() {
+      let userid = localStorage.getItem('UserID');
+      if ( userid != null){
+        this.menubar = true;
+      }
+    },
+  };
 </script>
- 
+
+<style scoped>
+  
+</style>
