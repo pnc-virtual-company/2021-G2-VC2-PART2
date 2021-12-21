@@ -10,32 +10,26 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/Signin',
-    name: 'signin',
     component: Signin
   },
   {
     path: '/',
-    name: 'Signin',
     component: Signin
   },
   {
     path: '/users',
-    name: 'user',
     component: Users
   },
   {
     path: '/students',
-    name: 'Student',
     component: Student
   },
   {
     path: '/permission',
-    name: 'Permission',
     component: Permission
   },
   {
     path: '/disciples',
-    name: 'Disciples',
     component: Disciples
   },
 ]

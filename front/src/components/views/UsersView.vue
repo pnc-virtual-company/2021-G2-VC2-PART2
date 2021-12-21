@@ -1,5 +1,6 @@
 <template>
-  <v-simple-table>
+  <v-container>
+    <v-simple-table>
       <template v-slot:default>
         <thead>
           <tr>
@@ -7,7 +8,6 @@
             <th class="text-left">class</th>
             <th class="text-left">Gender</th>
             <th class="text-left">Phone number</th>
-            
           </tr>
         </thead>
         <tbody>
@@ -20,6 +20,7 @@
         </tbody>
       </template>
     </v-simple-table>
+  </v-container>
 </template>
 
 <script>
