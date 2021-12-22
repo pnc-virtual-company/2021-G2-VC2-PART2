@@ -1,9 +1,10 @@
 <template>
    <v-app>
-    <app-nav>
-    </app-nav>
+  
+    <navigation v-if="menubar"></navigation>
+    
     <v-main>
-      <router-view @userLogin="logined"></router-view>  
+      <router-view @userLogin="logined" @userLogout="Logout"></router-view>  
     </v-main>
   </v-app>
 </template>
@@ -13,27 +14,30 @@
   export default {
     name: "App",
     components: {
-      'app-nav': Navigation,
+      Navigation,
     },
     data() {
       return {
         menubar: false,
-        isLogin: true,
         userID : '',
       };
     },
     methods: {
       logined(login){
         this.menubar = login;
-        this.isLogin = !login;
         console.log(login);
       },
+      Logout(logout){
+        this.menubar = logout;
+        console.log(logout);
+      }
+
     },
     mounted() {
       this.userID = localStorage.getItem('UserID');
       if ( this.userID != null){
         this.menubar = true;
-        this.isLogin = false;
+  
       }
     },
   };
