@@ -1,12 +1,5 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="student_list"
-    sort-by="class"
-    hide-default-header
-    hide-default-footer
-    class="elevation-1"
-  >
+  <v-data-table :headers="headers" :items="student_list" sort-by="class" hide-default-header hide-default-footer class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Students List</v-toolbar-title>
@@ -73,12 +66,7 @@
       image: null,
       id: null,
       headers: [
-        {
-          text: "First Name",
-          align: "start",
-          sortable: false,
-          value: "first_name",
-        },
+        { text: "First Name", align: "start", sortable: false, value: "first_name" },
         { text: "Last Name", value: "last_name" },
         { text: "Class", value: "class" },
         { text: "Gender", value: "gender" },
@@ -190,9 +178,10 @@
           axios.post("/students", newStudent).then((res) => {
             console.log(res.data);
             this.getStudents();
-          }).catch((error) => {
-            console.log(error.response.data.errors);
-          });
+          })
+          // .catch((error) => {
+          //   console.log(error.response.data.errors);
+          // });
           this.phone = null;
           this.first_name = "";
           this.last_name = "";
@@ -210,6 +199,7 @@
 </script>
 
 <style scoped>
+
   .a {
     overflow-y: hidden;
     overflow-x: hidden;
@@ -229,4 +219,5 @@
     height: 100%;
     padding: 20px;
   }
+
 </style>

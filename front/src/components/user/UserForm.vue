@@ -8,37 +8,12 @@
         <div class="">
           <form>
             <h2>User</h2>
-            <v-text-field
-              v-model="name"
-              :error-messages="nameErrors"
-              :counter="10"
-              label="Name"
-              required
-              @input="$v.name.$touch()"
-              @blur="$v.name.$touch()"
-            ></v-text-field>
-            <v-text-field
-              v-model="email"
-              :error-messages="emailErrors"
-              label="E-mail"
-              required
-              @input="$v.email.$touch()"
-              @blur="$v.email.$touch()"
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              :error-messages="passwordError"
-              label="Password"
-              type="password"
-              required
-              @input="$v.password.$touch()"
-              @blur="$v.password.$touch()"
-            ></v-text-field>
+            <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Name" required @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+            <v-text-field v-model="email" :error-messages="emailErrors" label="E-mail" required @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="password" :error-messages="passwordError" label="Password" type="password" required @input="$v.password.$touch()" @blur="$v.password.$touch()"></v-text-field>
             <v-select v-model="select" :items="items" :error-messages="selectErrors" label="Role" required @change="$v.select.$touch()" @blur="$v.select.$touch()"></v-select>
-            <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :studentsList="studentsList" label="Select Students" required
-            ></v-select>
-            <v-file-input label="Picture" prepend-icon="mdi-camera" v-model="picture">
-            </v-file-input>
+            <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :studentsList="studentsList" label="Select Students" required></v-select>
+            <v-file-input label="Picture" prepend-icon="mdi-paperclip" v-model="picture"></v-file-input>
             <v-btn class="mr-4" @click="submit"> submit </v-btn>
             <v-btn @click="clear"> clear </v-btn>
           </form>
@@ -48,7 +23,6 @@
   </div>
 </template>
 
-
 <script>
     import axios from '../../axios-request.js'
     import { validationMixin } from "vuelidate";
@@ -56,26 +30,26 @@
     export default {
     mixins: [validationMixin],
     validations: {
-        password: { required, maxLength: maxLength(10) },
-        name: { required, maxLength: maxLength(10) },
-        email: { required, email },
-        select: { required },
-        checkbox: {
+      password: { required, maxLength: maxLength(10) },
+      name: { required, maxLength: maxLength(10) },
+      email: { required, email },
+      select: { required },
+      checkbox: {
         checked(val) {
             return val;
         },
-        },
+      },
     },
 
     data: () => ({
-        studentsList: [],
-        showStudents: false,
-        dialog: false,
-        name: "",
-        email: "",
-        select: null,
-        items: ["SOCIAL AFFAIR OFFICER", "STUDENT"],
-        picture: null,
+      studentsList: [],
+      showStudents: false,
+      dialog: false,
+      name: "",
+      email: "",
+      select: null,
+      items: ["SOCIAL AFFAIR OFFICER", "STUDENT"],
+      picture: null,
     }),
 
     computed: {

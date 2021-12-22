@@ -2,7 +2,6 @@
    <v-app>
   
     <navigation v-if="menubar"></navigation>
-    
     <v-main>
       <router-view @userLogin="logined" @userLogout="Logout"></router-view>  
     </v-main>

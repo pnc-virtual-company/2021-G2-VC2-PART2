@@ -2,9 +2,9 @@
     <v-container>
         <template>
             <v-card-title >
-                    Users List
-                    <v-spacer></v-spacer>
-                    <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
+                Users List
+                <v-spacer></v-spacer>
+                <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
             </v-card-title>
             <v-card color="" green>
                 <v-simple-table>
@@ -17,7 +17,6 @@
                             <th>Action</th>
                         </thead> 
                         <tbody>
-                            <!-- <tr class="" v-for="(item, index) in userinfo" :key="index"> -->
                             <tr>
                                 <td>Lyden</td>
                                 <td>lyden@gmail.com</td>
