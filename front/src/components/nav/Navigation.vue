@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-navigation-drawer v-model="sidebar" app absolute left temporary>
+    <v-navigation-drawer  v-model="sidebar" app absolute left temporary>
       <v-list>
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item v-for="item in menuItems" :key="item.title" :to="item.path">

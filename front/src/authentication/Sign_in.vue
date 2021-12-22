@@ -12,6 +12,7 @@
                 <v-text-field prepend-icon="email" label="Email" type="text" v-model="email"></v-text-field>
                 <v-text-field id="password" prepend-icon="lock" label="Password" type="password" v-model="password"></v-text-field>
               </v-form>
+              <p>{{errorMessage}}</p>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -33,6 +34,7 @@
         email: '',
         password: '',
         islogin: true,
+        errorMessage: '',
       }
     },
     methods: {
@@ -42,9 +44,9 @@
           password: this.password
         }
         axios.post('/login', userSignin).then(res =>{
+          localStorage.setItem("UserID", res.data.data.id);
           this.$emit('userLogin', this.islogin);
           this.$router.push('/users');
-          localStorage.setItem("UserID", res.data.data.id);
           console.log(res.data);
         }).catch(error => {
           console.log(error);

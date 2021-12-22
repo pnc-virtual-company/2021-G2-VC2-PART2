@@ -1,7 +1,6 @@
 <template>
    <v-app>
-    <app-nav
-      v-if="user !== null">
+    <app-nav>
     </app-nav>
     <v-main>
       <router-view @userLogin="logined"></router-view>  
@@ -19,20 +18,22 @@
     data() {
       return {
         menubar: false,
-        showDrawer: false,
-        isLogin: true
+        isLogin: true,
+        userID : '',
       };
     },
     methods: {
       logined(login){
         this.menubar = login;
         this.isLogin = !login;
+        console.log(login);
       },
     },
     mounted() {
-      let userid = localStorage.getItem('UserID');
-      if ( userid != null){
+      this.userID = localStorage.getItem('UserID');
+      if ( this.userID != null){
         this.menubar = true;
+        this.isLogin = false;
       }
     },
   };
