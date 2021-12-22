@@ -12,7 +12,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar >
+    <v-toolbar color="blue">
       <span class="hidden-sm-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar">
         </v-app-bar-nav-icon>
@@ -23,8 +23,8 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn active-class="grey-5 red--text" text v-for="item in menuItems" :key="item.title" :to="item.path">
-          <v-icon left class="orange--text">{{ item.icon }}</v-icon>{{ item.title }}
+        <v-btn active-class="white-5 white--text" text v-for="item in menuItems" :key="item.title" :to="item.path">
+          <v-icon left class="yellow--text">{{ item.icon }}</v-icon>{{ item.title }}
         </v-btn>
       </v-toolbar-items> 
     </v-toolbar>
@@ -39,10 +39,10 @@
         sidebar: false,
         group: false,
         menuItems: [
-          { title: 'Users', path: '/users', icon: 'mdi-account-multiple-plus' },
-          { title: 'Students', path: '/students', icon: 'mdi-account-box' },
-          { title: 'Permission', path: '/permission', icon: 'mdi-account-key' },
-          { title: 'Discipline', path: '/disciples', icon: 'mdi-account-star' },
+          { title: 'Users', path: '/users', icon: 'mdi-account-circle' },
+          { title: 'Students', path: '/students', icon: 'mdi-account-multiple' },
+          { title: 'Permission', path: '/permission', icon: 'mdi-book-open-page-variant' },
+          { title: 'Discipline', path: '/disciples', icon: 'mdi-folder-open' },
           { title: 'logout', path: '/', icon: 'mdi-login' },
         ]
       }
