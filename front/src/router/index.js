@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Signin from '../authentication/Sign_in.vue';
 import Users from '../components/views/UsersView.vue';
-import Student from '../components/views/StudentsView.vue';
+import Student from '../components/views/StudentCrudView.vue';
 import Permission from '../components/views/PermissionView.vue';
 import Disciples from '../components/views/DisciplesView.vue';
 
@@ -21,7 +21,7 @@ const routes = [
     component: Users
   },
   {
-    path: '/students',
+    path: '/studentcrudview',
     component: Student
   },
   {

@@ -40,7 +40,7 @@
         group: false,
         menuItems: [
           { title: 'Users', path: '/users', icon: 'mdi-account-circle' },
-          { title: 'Students', path: '/students', icon: 'mdi-account-multiple' },
+          { title: 'Students', path: '/studentcrudview', icon: 'mdi-account-multiple' },
           { title: 'Permission', path: '/permission', icon: 'mdi-book-open-page-variant' },
           { title: 'Discipline', path: '/disciples', icon: 'mdi-folder-open' },
           { title: 'logout', path: '/', icon: 'mdi-login' },
