@@ -8,23 +8,9 @@
         <div class="">
           <form>
             <h2>User</h2>
-            <v-text-field
-              v-model="name"
-              :counter="10"
-              label="Name"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="email"
-              label="E-mail"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="setPassword"
-              label="Password"
-              type="password"
-              required
-            ></v-text-field>
+            <v-text-field v-model="name" :counter="10" label="Name" required></v-text-field>
+            <v-text-field v-model="email" label="E-mail" required></v-text-field>
+            <v-text-field v-model="setPassword" label="Password" type="password" required></v-text-field>
             <v-select v-model="select" :items="items" label="Role" required ></v-select>
             <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :items='studentsList' label="Select Students" required
             ></v-select>
@@ -39,10 +25,9 @@
   </div>
 </template>
 
-
 <script>
-    import axios from '../../axios-request.js'
-    export default {
+  import axios from '../../axios-request.js'
+  export default {
     data: () => ({
         studentsList: ['Dara', 'pupha','vichear'],
         studentSelected: '',
@@ -55,57 +40,48 @@
         picture: null,
         setPassword: '',
     }),
-
-    computed: {
-        
-    },
-
     methods: {
-
-        // ============================== Create user =================================
-        AddNewUser() {
-            let newUser = new FormData();
-            newUser.append('username', this.name);
-            newUser.append('email', this.email);
-            newUser.append('password', this.setPassword);
-            newUser.append('role', this.select);
-            newUser.append('image', this.picture);
-            axios.post('/register', newUser).then(res =>{
-                console.log(res.data);
-                this.dialog = false;
-            })
-        },
-        cancel() {
+      AddNewUser() {
+        let newUser = new FormData();
+        newUser.append('username', this.name);
+        newUser.append('email', this.email);
+        newUser.append('password', this.setPassword);
+        newUser.append('role', this.select);
+        newUser.append('image', this.picture);
+        axios.post('/register', newUser).then(res =>{
+          console.log(res.data);
+          this.dialog = false;
+        })
+      },
+      cancel() {
         this.dialog = false;
-        },
-        
+      },
 
-        // ============================== GET STUDENTS =================================
-
-        getAllStudent(){
-            axios.get('/students').then(res =>{
-                let allStudents = res.data;
-                for(let student of allStudents){
-                    this.studentsList.push(student.first_name);
-                }
-            })
-        },
+      getAllStudent(){
+        axios.get('/students').then(res =>{
+          let allStudents = res.data;
+          for(let student of allStudents){
+            this.studentsList.push(student.first_name);
+          }
+        })
+      },
     },
     mounted() {
-        this.getAllStudent();
-    },
-    };
+      this.getAllStudent();
+    }
+  }
+
 </script>
 
 
 <style scoped>
-    .create-user-btn {
+  .create-user-btn {
     top: 85vh;
     float: right;
     position: fixed;
-    }
+  }
 
-    form {
+  form{
     padding: 15px;
-    }
+  }
 </style>

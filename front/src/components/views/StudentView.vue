@@ -1,53 +1,56 @@
 <template>
-  <v-data-table :headers="headers" :items="student_list" sort-by="class" hide-default-header hide-default-footer class="elevation-1">
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>Students List</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="530px">
-          <template v-slot:activator="{ on, attrs }" >
-            <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
-          </template>
-<!-- form create and edit students -->
-          <v-row justify="center" class="a">
-              <v-card ref="form" class="form">
-                  <v-text-field ref="first name" v-model="first_name" label="First Name" required></v-text-field>
-                  <v-text-field ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
-                  <v-radio-group v-model="sex" row>
-                    <v-radio label="Female" value="Female"></v-radio>
-                    <v-radio label="Male" value="Male"></v-radio>
-                  </v-radio-group>
-                  <v-autocomplete ref="class" v-model="getClass" :items="classes" label="Class" placeholder="Select class..." required></v-autocomplete>
-                  <v-text-field ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
-                  <v-file-input prepend-icon="mdi-camera" label="Picture" v-model="image"></v-file-input>
-                <v-divider class="mt-12"></v-divider>
-                <v-card-actions>
-                  <v-btn color="blue darken-1" text @click="close"> Cancel</v-btn>
-                  <v-btn color="blue darken-1" text @click="save"> {{ formTitle }}</v-btn>
-                </v-card-actions>
-              </v-card>
-          </v-row>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5"
-              >Are you sure you want to delete this Student?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon mediem class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon mediem @click="deleteItem(item)"> mdi-delete </v-icon>
-    </template>
-  </v-data-table>
+  <div>
+    <v-data-table :headers="headers" :items="student_list" sort-by="class" hide-default-header hide-default-footer class="elevation-1">
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Students List</v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+          <v-dialog v-model="dialog" max-width="530px">
+            <template v-slot:activator="{ on, attrs }" >
+              <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
+            </template>
+            <!-- form create and edit students -->
+            <v-row justify="center" class="a">
+                <v-card ref="form" class="form">
+                    <v-text-field ref="first name" v-model="first_name" label="First Name" required></v-text-field>
+                    <v-text-field ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
+                    <v-radio-group v-model="sex" row>
+                      <v-radio label="Female" value="Female"></v-radio>
+                      <v-radio label="Male" value="Male"></v-radio>
+                    </v-radio-group>
+                    <v-autocomplete ref="class" v-model="getClass" :items="classes" label="Class" placeholder="Select class..." required></v-autocomplete>
+                    <v-text-field ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
+                    <v-file-input prepend-icon="mdi-camera" label="Picture" v-model="image"></v-file-input>
+                  <v-divider class="mt-12"></v-divider>
+                  <v-card-actions>
+                    <v-btn color="blue darken-1" text @click="close"> Cancel</v-btn>
+                    <v-btn color="blue darken-1" text @click="save"> {{ formTitle }}</v-btn>
+                  </v-card-actions>
+                </v-card>
+            </v-row>
+          </v-dialog>
+          <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="text-h5"
+                >Are you sure you want to delete this Student?</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon mediem class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon mediem @click="deleteItem(item)"> mdi-delete </v-icon>
+      </template>
+    </v-data-table>
+  </div>
+  
 </template>
 
 
