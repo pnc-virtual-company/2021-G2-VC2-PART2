@@ -30,13 +30,11 @@
         this.menubar = logout;
         console.log(logout);
       }
-
     },
     mounted() {
       this.userID = localStorage.getItem('UserID');
       if ( this.userID != null){
         this.menubar = true;
-  
       }
     },
   };

@@ -19,7 +19,7 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required|max:50',
             'email' => 'required|unique:users',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
 
@@ -57,6 +57,18 @@ class UserController extends Controller
             'data' => $user,
             'token' => $token
         ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUser($id)
+    {
+        $isDeleted = User::destroy($id);
+        
     }
 }
 

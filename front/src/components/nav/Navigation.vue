@@ -3,10 +3,9 @@
     <div class="navbar">
       <ul>
         <div class="circle">
-          <img :src="url + userInfo.profile" alt="">
+          <img :src="imgUrl + user.profile" alt="">
         </div>
-        <!-- <p>{{userInfo.username}}</p> -->
-        <p>Admin</p>
+        <p>{{user.username}}</p>
         <v-list-item :to="{ path: '/home' }">
           <v-icon >mdi-home</v-icon>
           <v-list-item-title >Home</v-list-item-title>
@@ -29,12 +28,10 @@
         </v-list-item>
       </ul>
       <div class="navbar-right">
-        <div class="blog">
-          <span>{{userInfo.role}}</span>
-          <v-btn icon class="btn-Signout">
-            <v-icon @click="Signout" style="font-size:35px;">mdi-import</v-icon>
-          </v-btn>
-        </div>
+        <span>{{user.role}}</span>
+        <v-btn icon class="btn-Signout">
+          <v-icon @click="Signout" style="font-size:35px;">mdi-import</v-icon>
+        </v-btn>
       </div>
     </div>
   </nav>
@@ -48,8 +45,8 @@
       return{
         isSignout: false,
         userID: '',
-        userInfo: '',
-        url: "http://127.0.0.1:8000/storage/images/",
+        user: '',
+        imgUrl: "http://127.0.0.1:8000/storage/images/",
       }
     },
     methods: {
@@ -60,11 +57,11 @@
       }
     },
     mounted() {
-      this.userID = localStorage.getItem('userid');
+      this.userID = localStorage.getItem('userID');
       axios.get('/users').then(res => {
         for(let user of res.data){
           if(user.id == this.userID){
-            this.userInfo = user;
+            this.user = user;
           }
         }
       })
@@ -106,7 +103,6 @@
     }
     
     .btn-Signout {
-      /* color: rgb(252, 248, 248); */
       font-size: 30px;
       text-transform: uppercase; 
       text-decoration: none;
@@ -121,7 +117,6 @@
     span{
       margin-right: 200px;
       margin-top: 5%;
-      /* color: #fff; */
     }
     
 </style>

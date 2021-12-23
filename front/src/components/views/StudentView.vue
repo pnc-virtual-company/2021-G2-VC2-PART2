@@ -6,8 +6,8 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="530px">
-          <template v-slot:activator="{ on, attrs }" class="create-user-btn">
-            <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
+          <template v-slot:activator="{ on, attrs }" >
+            <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
           </template>
 <!-- form create and edit students -->
           <v-row justify="center" class="a">
@@ -209,8 +209,8 @@
 
   }
 
-  .create-user-btn{
-    top: 85vh;
+  #create-user-btn{
+    top: 80vh;
     float: right;
     position: fixed;
   }
