@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Signin from '../authentication/Sign_in.vue';
+import Home from '../components/views/HomeView.vue';
 import Users from '../components/views/UsersView.vue';
-import Student from '../components/views/StudentCrudView.vue';
+import Student from '../components/views/StudentView.vue';
 import Permission from '../components/views/PermissionView.vue';
 import Disciples from '../components/views/DisciplesView.vue';
 
@@ -17,11 +18,15 @@ const routes = [
     component: Signin
   },
   {
+    path: '/home',
+    component: Home
+  },
+  {
     path: '/user',
     component: Users
   },
   {
-    path: '/studentcrudview',
+    path: '/student',
     component: Student
   },
   {
