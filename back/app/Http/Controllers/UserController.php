@@ -19,7 +19,7 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required|max:50',
             'email' => 'required|unique:users',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
 
@@ -57,6 +57,38 @@ class UserController extends Controller
             'data' => $user,
             'token' => $token
         ]);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $request->validate([
+            'username' => 'required|max:50',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
+        return response()->json([
+            'Message' => 'Updated',
+            'data' => $user,
+        ]);
+  
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUser($id)
+    {
+        $isDeleted = User::destroy($id);
+        
     }
 }
 
