@@ -77,4 +77,15 @@ class PermissionController extends Controller
     {
         return Permission::destroy($id);   
     }
+
+    /**
+   
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search($class)
+    {
+        return Permission::where('class', $class)->get();
+    }
 }
