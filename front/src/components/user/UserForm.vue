@@ -7,17 +7,19 @@
       <v-card>
         <div class="">
           <form>
-            <h2>User</h2>
-            <v-text-field v-model="name" :counter="10" label="Name" required></v-text-field>
-            <v-text-field v-model="email" label="E-mail" required></v-text-field>
-            <v-text-field v-model="setPassword" label="Password" type="password" required></v-text-field>
-            <v-select v-model="select" :items="items" label="Role" required ></v-select>
-            <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :items='studentsList' label="Select Students" required
-            ></v-select>
-            <v-file-input label="Picture" prepend-icon="mdi-camera" v-model="picture">
+            <v-text-field v-model="name" prepend-icon="mdi-account" label="Username" required></v-text-field>
+            <v-text-field v-model="email"  prepend-icon="mdi-email" label="E-mail"  required></v-text-field>
+            <v-text-field v-model="setPassword" prepend-icon="mdi-lock"  label="Password" type="password" required></v-text-field>
+            <v-select v-model="select" prepend-icon="mdi-lock-reset" :items="items" label="Role" required ></v-select>
+            <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :items='studentsList' label="Select Students" required></v-select>
+            <v-file-input label="Choose image" prepend-icon="mdi-file-image" v-model="picture">
             </v-file-input>
-            <v-btn @click="cancel"> Cancel </v-btn>
-            <v-btn class="mr-4" @click="AddNewUser"> submit </v-btn>
+            <!-- <v-btn color="primary" > Cancel </v-btn>
+            <v-btn color="error" class="mr-4" > submit </v-btn> -->
+             <v-card-actions>
+              <v-btn color="error" @click="cancel"> Cancel</v-btn>
+              <v-btn color="primary" @click="AddNewUser"> Create</v-btn>
+             </v-card-actions> 
           </form>
         </div>
       </v-card>

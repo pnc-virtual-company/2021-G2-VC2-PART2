@@ -3,18 +3,18 @@
     <div class="navbar">
       <ul>
         <div class="circle">
-          <img :src="imgUrl + user.profile" alt="">
+          <v-img height="40" width="40" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
         </div>
-        <p>{{user.username}}</p>
+        <p>{{userAction.username}}</p>
         <v-list-item :to="{ path: '/home' }">
           <v-icon class="white--text">mdi-home</v-icon>
           <v-list-item-title class="white--text">Home</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/user' }">
+        <v-list-item :to="{ path: '/user' }" v-if="userAction.role == 'Admin'">
           <v-icon class="white--text">mdi-account-circle-outline</v-icon>
           <v-list-item-title class="white--text">Users</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/student' }" >
+        <v-list-item :to="{ path: '/student' }">
           <v-icon class="white--text">mdi-account-group-outline</v-icon>
           <v-list-item-title class="white--text">Students</v-list-item-title>
         </v-list-item>
@@ -43,8 +43,9 @@
     emits: ['sign-out'],
     data(){
       return{
+        userAction: [],
         isSignout: false,
-        userID: '',
+        userID: null,
         user: '',
         imgUrl: "http://127.0.0.1:8000/storage/images/",
       }
@@ -54,10 +55,16 @@
         this.$emit('sign-out', this.isSignout);
         this.$router.push('/');
         localStorage.clear();
+      },
+      getActionUser(){
+        axios.get('/getUserByID/' + this.userID).then(res=> {
+          console.log(res.data);
+          this.userAction = res.data;
+        })
       }
     },
     mounted() {
-      this.userID = localStorage.getItem('userID');
+      this.userID = localStorage.getItem('UserID');
       axios.get('/users').then(res => {
         for(let user of res.data){
           if(user.id == this.userID){
@@ -65,6 +72,8 @@
           }
         }
       })
+      this.getActionUser();
+      console.log(this.userID);
     },
   }
 </script>
@@ -76,6 +85,14 @@
       padding: 0;
       font-family: sans-serif;
     }
+    .rounded-circle{
+      margin-top: 6px;
+    }
+    p{
+      margin-top: 15px;
+      margin-left: 5px;
+      color: white;
+    }
     img{
       width: 100%;
       height: 100%;
@@ -85,8 +102,7 @@
     .navbar {
       display: flex;
       justify-content: space-between;
-      background-color: #159de0;
-      /* background-color: #37474F; */
+      background-color: #37474F;
     }
     nav{
       position: sticky;
@@ -98,11 +114,6 @@
       float: right;
       height: 8.5vh;
     }
-    .navbar-right {
-      height: 100%;
-      margin: 0;
-      z-index: 1;  
-    }
     
     .btn-Signout {
       font-size: 30px;
@@ -111,14 +122,6 @@
       cursor: pointer;
       margin-top: 5px;
       margin-right: 20px;
-    }
-    p{
-      margin-top: 16px;
-      margin-right: 10px;
-    }
-    span{
-      margin-right: 200px;
-      /* margin-top: 5%; */
     }
     
 </style>

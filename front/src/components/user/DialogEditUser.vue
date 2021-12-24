@@ -3,7 +3,6 @@
     <v-dialog v-model="dialog" width="500">
       <v-card class="pa-md-4 mx-lg-auto">
         <form>
-          <h2>User</h2>
           <v-text-field
             v-model="name"
             :counter="10"
@@ -33,8 +32,8 @@
         </form>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="dialog = false"> Cancel </v-btn>
-          <v-btn class="mr-4" @click="UpdateUser"> Update </v-btn>
+          <v-btn color="error" @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="primary"  class="mr-4" @click="UpdateUser"> Update </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

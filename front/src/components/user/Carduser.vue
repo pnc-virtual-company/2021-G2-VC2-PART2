@@ -4,11 +4,11 @@
       <v-dialog v-model="dialogDelete" max-width="450px">
         <v-card>
           <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title>
-          <hr/>
+          <br>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
-            <v-btn depressed color="error" @click="deleteItemConfirm">OK</v-btn>
+            <v-btn depressed color="error" @click="deleteItemConfirm">YES</v-btn>
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
@@ -27,7 +27,7 @@
         <v-simple-table>
           <template v-slot:default>
             <thead class="blue-grey darken-2">
-              <!-- <th>Profile</th> -->
+              <th>Profile</th>
               <th>Username</th>
               <th>Email</th>
               <th>Role</th>
@@ -35,18 +35,19 @@
             </thead>
             <tbody>
               <tr class="data" v-for="(user, index) in userList" :key="index">
-                <!-- <td>
-                  <v-img height="80" width="80" :src="imgUrl + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
-                </td> -->
+                <td>
+                  <v-img height="50" width="50" :src="imgUrl + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
+                </td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
                 <td>
-                  <v-icon mediem class="mr-2" @click="editItem(user)">mdi-pencil</v-icon>
+                  <v-icon mediem class="mr-2" @click="editItem(user)">mdi-account-edit</v-icon>
                   <v-icon mediem @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
-                  <Updateuser v-if="dialog" :dataStudent="dataStudent"></Updateuser>
                 </td>
               </tr>
+               <Updateuser v-if="dialog" 
+               :dataStudent="dataStudent"></Updateuser>
             </tbody>
           </template>
         </v-simple-table>
@@ -119,5 +120,8 @@
 
   thead th {
     color: #fff;
+  }
+  td{
+    margin-left: 10%;
   }
 </style>

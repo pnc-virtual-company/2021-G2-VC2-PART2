@@ -20,7 +20,9 @@ use App\Http\Controllers\StudentController;
 Route::get('/user', [UserController::class, 'index']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
 Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
+Route::get('/getUserByID/{id}', [UserController::class, 'getUserByID']);
 // Public Student
 Route::get('students', [StudentController::class, 'index']);
 Route::get('students/{id}', [StudentController::class, 'show']);

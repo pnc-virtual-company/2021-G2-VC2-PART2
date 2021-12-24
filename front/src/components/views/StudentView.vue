@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-data-table :headers="headers" :items="student_list" sort-by="class" hide-default-header hide-default-footer class="elevation-1">
+    <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Students List</v-toolbar-title>
@@ -8,9 +8,8 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="530px">
             <template v-slot:activator="{ on, attrs }" >
-              <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
+              <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right v-if="userAction.role !=='STUDENT'">+</v-btn>
             </template>
-            <!-- form create and edit students -->
             <v-row justify="center" class="a">
                 <v-card ref="form" class="form">
                     <v-text-field ref="first name" v-model="first_name" label="First Name" required></v-text-field>
@@ -20,32 +19,31 @@
                       <v-radio label="Male" value="Male"></v-radio>
                     </v-radio-group>
                     <v-autocomplete ref="class" v-model="getClass" :items="classes" label="Class" placeholder="Select class..." required></v-autocomplete>
-                    <v-text-field ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
-                    <v-file-input prepend-icon="mdi-camera" label="Picture" v-model="image"></v-file-input>
-                  <v-divider class="mt-12"></v-divider>
+                    <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
+                    <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
                   <v-card-actions>
-                    <v-btn color="blue darken-1" text @click="close"> Cancel</v-btn>
-                    <v-btn color="blue darken-1" text @click="save"> {{ formTitle }}</v-btn>
+                    <v-btn color="error"  @click="close"> Cancel </v-btn>
+                    <v-btn color="primary"  @click="save"> Create </v-btn>
                   </v-card-actions>
                 </v-card>
             </v-row>
           </v-dialog>
-          <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5"
-                >Are you sure you want to delete this Student?</v-card-title>
+          <v-dialog v-model="dialogDelete" max-width="470px">
+            <v-card >
+              <v-card-title class="red--text">Are you sure you want to delete this student?</v-card-title>
+              <br>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
+                <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon mediem class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+      <template v-slot:item.actions="{ item }" >
+        <v-icon mediem class="mr-2" @click="editItem(item)"> mdi-account-edit </v-icon>
         <v-icon mediem @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
     </v-data-table>
@@ -58,6 +56,9 @@
   import axios from "../../axios-request.js";
   export default {
     data: () => ({
+      userID: null,
+      userAction: true,
+      showfilInput: true,
       dialog: false,
       dialogDelete: false,
       classes: ["WEP A", "WEP B", "SNA", "CLASS A", "CLASS B", "CLASS C"],
@@ -119,6 +120,7 @@
         this.image = item.image;
         this.id = item.id;
         this.dialog = true;
+        this.showfilInput = false;
       },
       deleteItem(item) {
         this.id = item.id;
@@ -152,17 +154,16 @@
       },
       save() {
         if (this.editedIndex > -1) {
-          let editStudent = new FormData();
-          editStudent.append("first_name", this.first_name);
-          editStudent.append("last_name", this.last_name);
-          editStudent.append("class", this.getClass);
-          editStudent.append("phone", this.phone);
-          editStudent.append("gender", this.sex);
-          editStudent.append("image", this.image);
-
-          console.log(this.image);
+          let editStudent = {
+            "first_name": this.first_name,
+            "last_name": this.last_name,
+            "class": this.getClass,
+            "phone": this.phone,
+            "gender": this.sex
+          }
           axios.put("/students/" + this.id, editStudent).then((res) => {
             console.log(res.data);
+            this.getStudents();
           });
           this.phone = null;
           this.first_name = "";
@@ -194,14 +195,26 @@
         }
         this.close();
       },
+      getActionUser(){
+        axios.get('/getUserByID/' + this.userID).then(res=> {
+          console.log(res.data);
+          this.userAction = res.data;
+        })
+      }
     },
     mounted() {
+      this.userID = localStorage.getItem('UserID');
       this.getStudents();
+      this.getActionUser();
     },
   };
 </script>
 
 <style scoped>
+
+  .main{
+    background: #000;
+  }
 
   .a {
     overflow-y: hidden;

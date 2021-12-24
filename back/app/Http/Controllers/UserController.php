@@ -39,6 +39,25 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function updateUser(Request $request, $id)
+    {
+        $request->validate([
+            'username' => 'required|max:50',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
+        return response()->json([
+            'Message' => 'Updated',
+            'data' => $user,
+        ]);
+    }
     public function logout(Request $request)
     {
         auth()->user()->tokens()->delete();
@@ -69,6 +88,17 @@ class UserController extends Controller
     {
         $isDeleted = User::destroy($id);
         
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserByID($id)
+    {
+        return User::findOrFail($id);
     }
 }
 
