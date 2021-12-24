@@ -19,3 +19,7 @@ use App\Http\Controllers\UserController;
 Route::get('/user', [UserController::class, 'index']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
+Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
+Route::get('/getUserByID/{id}', [UserController::class, 'getUserByID']);
+Route::get('/searchUser/search/{username}', [UserController::class, 'searchUser']);
