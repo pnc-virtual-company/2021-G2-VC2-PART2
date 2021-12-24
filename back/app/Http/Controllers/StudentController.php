@@ -106,4 +106,9 @@ class StudentController extends Controller
             return response()->json(['massage'=>'Not Found'], 404);
         }
     }
+
+    public function searchStudent($studentname)
+    {
+        return Student::where('first_name','like', '%'.$studentname.'%')->get();
+    }
 }
