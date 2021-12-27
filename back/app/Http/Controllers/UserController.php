@@ -90,6 +90,11 @@ class UserController extends Controller
         
     }
 
+    public function searchUser($username)
+    {
+        return User::where('username','like', '%'.$username.'%')->get();
+    }
+
         /**
      * Display the specified resource.
      *
@@ -101,21 +106,3 @@ class UserController extends Controller
         return User::findOrFail($id);
     }
 }
-
-
-
-// {
-//     "Message": "Created",
-//     "data": {
-//       "username": "istrator",
-//       "email": "admin@gmail.com",
-//       "role": "Admin",
-//       "image": "npCSAQs5xrmoAgpFply1LcpYRic1hOLvx5Q56Uew.jpg",
-//       "updated_at": "2021-12-20T07:10:49.000000Z",
-//       "created_at": "2021-12-20T07:10:49.000000Z",
-//       "id": 1
-//     },
-//     "token": "1|eyJuuEBwFeh2kJUG0pkQGT6eDrJqnjZ6vuFKzVg3"
-//   }
-
-// password:Admin@2021!@#$
