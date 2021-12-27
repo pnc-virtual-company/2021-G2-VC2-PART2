@@ -57,8 +57,7 @@ export default {
     };
   },
   methods: {
-
-    //======================== update User ===========================================================
+  //======================== update User ===========================================================
       UpdateUser(){
           let editUser = {
               'username': this.name,
@@ -72,9 +71,7 @@ export default {
               this.dialog = false;
           })
       },
-
-      //======================== update User ===========================================================
-
+  //======================== update User ===========================================================
       getAllStudent(){
         axios.get('/students').then(res =>{
           let allStudents = res.data;

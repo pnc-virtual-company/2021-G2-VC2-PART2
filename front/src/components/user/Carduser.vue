@@ -21,6 +21,8 @@
           label="Search"
           single-line
           hide-details
+          @keyup="searchUser"
+          v-model="searchUsername"
         ></v-text-field>
       </v-card-title>
       <v-card color="" green>
@@ -73,6 +75,7 @@
       dataStudent: "",
       dialogDelete: false,
       userID: null,
+      searchUsername:''
     }),
     methods: {
       getAllUser() {
@@ -96,6 +99,16 @@
         this.dialog = true;
         this.dataStudent = user;
       },
+      searchUser(){
+        if(this.searchUsername !== ''){
+          axios.get('/searchUser/search/' + this.searchUsername).then(res=>{
+            this.userList = res.data;
+            
+          })
+        }else{
+          this.getAllUser();
+        }
+      }
     },
     mounted() {
       this.getAllUser();

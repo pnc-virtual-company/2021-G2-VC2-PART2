@@ -5,7 +5,7 @@
                 <v-card-title >
                     Students List
                     <v-spacer></v-spacer>
-                    <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
+                    <v-text-field v-on:keyup="searchStudent" append-icon="mdi-magnify" label="Search" single-line hide-details v-model="searchUsername" ></v-text-field> 
                 </v-card-title>
                 <v-card color="" green>
                     <v-simple-table>
@@ -40,7 +40,17 @@
 <script>
 
     export default {
-        
+        data(){
+            return{
+                searchUsername:''
+            }
+        },
+        methods: {
+            searchStudent(){
+                console.log(this.searchUsername);
+                console.log("hello");
+            }
+        },
     }
 
 </script>
