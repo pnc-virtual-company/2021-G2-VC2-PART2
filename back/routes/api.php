@@ -23,9 +23,11 @@ Route::post('/login', [UserController::class, 'login']);
 Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
 Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
 Route::get('/getUserByID/{id}', [UserController::class, 'getUserByID']);
+Route::get('/searchUser/search/{username}', [UserController::class, 'searchUser']);
 // Public Student
 Route::get('students', [StudentController::class, 'index']);
 Route::get('students/{id}', [StudentController::class, 'show']);
 Route::post('students', [StudentController::class, 'store']);
 Route::put('students/{id}', [StudentController::class, 'update']);
 Route::delete('students/{id}', [StudentController::class, 'destroy']);
+Route::get('/searchStudent/search/{studentname}', [StudentController::class, 'searchStudent']);

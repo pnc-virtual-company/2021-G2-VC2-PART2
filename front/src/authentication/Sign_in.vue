@@ -8,9 +8,9 @@
               <img src="../assets/pnc.png" alt="">
             </div>
             <v-card-text>
-              <v-form class="form-input">
+              <v-form>
                 <!-- <v-text-field prepend-icon="email" label="Email" type="text" v-model="email"></v-text-field>
-                <v-text-field id="password" prepend-icon="lock" label="Password" type="password" v-model="password"></v-text-field> -->
+                <v-text-field prepend-icon="lock" label="Password" type="password" v-model="password"></v-text-field> -->
                 <label for="email" class="email">Email</label><br>
                 <input type="email" id="email" v-model="email">
                 <br><br>
@@ -70,7 +70,7 @@
   }
 
   #form-bg{
-    background: rgba(0, 0, 0, 0.596);
+    background: rgba(0, 0, 0, 0.637);
     height: 55vh;
   }
 
@@ -88,7 +88,7 @@
   input[type="email"],
   input[type="password"]{
     margin: auto;
-    background: #ffffffcc;
+    background: #aaaaaa7a;
     border-radius: 5px;
     font-size: 15px;
     padding: 15px;
@@ -114,4 +114,5 @@
     width: 77.3%; 
     margin-right: 12.3%;
   }
+  
 </style>
