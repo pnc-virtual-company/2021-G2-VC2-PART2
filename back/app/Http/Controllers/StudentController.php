@@ -1,81 +1,94 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-
-
-class UserController extends Controller
-{   
+use App\Models\Student;
+class StudentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        return User::all();
+        return Student::get()->all();
     }
 
-    public function register(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:50',
-            'email' => 'required|unique:users',
-            'password' => 'required|min:8',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'class' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
 
         $request -> file('image')->store('public/images');
-        $user = new User();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
-        $user->image =$request->file('image')->hashName();
-        $user->save();
-        $token = $user->createToken('MyToken')->plainTextToken;
+        $student = new Student();
+        $student->first_name = $request->first_name;
+        $student->last_name = $request->last_name;
+        $student->class = $request->class;
+        $student->phone = $request->phone;
+        $student->gender = $request->gender;
+        $student->image =$request->file('image')->hashName();
+        $student->save();
         return response()->json([
             'Message' => 'Created',
-            'data' => $user,
-            'token' => $token
+            'data' => $student,
         ], 201);
     }
 
-    public function updateUser(Request $request, $id)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return Student::findOrFail($id);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'username' => 'required|max:50',
-            'email' => 'required|unique:users',
-            'password' => 'required|min:8',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'class' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
-
-        $user = User::findOrFail($id);
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
-        $user->save();
+        
+        $request -> file('image')->store('public/images');
+        $student = Student::findOrFail($id);
+        $student->first_name = $request->first_name;
+        $student->last_name = $request->last_name;
+        $student->class = $request->class;
+        $student->phone = $request->phone;
+        $student->gender = $request->gender;
+        $student->image =$request->file('image')->hashName();
+        $student->save();
         return response()->json([
             'Message' => 'Updated',
-            'data' => $user,
-        ]);
-    }
-    public function logout(Request $request)
-    {
-        auth()->user()->tokens()->delete();
-        return response()->json(['Message' => 'Logouted']);
-    }
-
-    public function login(Request $request)
-    {
-        $user = User::where('email', $request->email)->first();
-        if(!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['Message' => 'Bed login']);
-        }
-        $token = $user->createToken('MyToken')->plainTextToken;
-        return response()->json([
-            'Message' => 'Logined',
-            'data' => $user,
-            'token' => $token
-        ]);
+            'data' => $student
+        ], 200);
     }
 
     /**
@@ -84,25 +97,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function deleteUser($id)
+    public function destroy($id)
     {
-        $isDeleted = User::destroy($id);
-        
+        $isDeleted = Student::destroy($id);
+        if($isDeleted == 1){
+            return response()->json(['massage'=>'Deleted'], 200);
+        }else{
+            return response()->json(['massage'=>'Not Found'], 404);
+        }
     }
 
-    public function searchUser($username)
+    public function searchStudent($studentname)
     {
-        return User::where('username','like', '%'.$username.'%')->get();
-    }
-
-        /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getUserByID($id)
-    {
-        return User::findOrFail($id);
+        return Student::where('first_name','like', '%'.$studentname.'%')->get();
     }
 }
