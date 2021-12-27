@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DiscipleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Public route
+Route::get('disciple', [DiscipleController::class, 'index']);
+Route::get('disciple/{id}', [DiscipleController::class, 'show']);
+Route::get('disciple/search/{class}', [DiscipleController::class, 'search']);
+
+// Private route
+Route::post('disciple', [DiscipleController::class, 'store']);
+Route::put('disciple/{id}', [DiscipleController::class, 'update']);
+Route::delete('disciple/{id}', [DiscipleController::class, 'destroy']);
