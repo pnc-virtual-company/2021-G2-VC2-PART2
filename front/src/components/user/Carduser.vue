@@ -46,8 +46,9 @@
                   <v-icon mediem @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
                 </td>
               </tr>
-               <Updateuser v-if="dialog" 
-               :dataStudent="dataStudent"></Updateuser>
+                <Updateuser 
+                v-if="dialog" 
+                :dataStudent="dataStudent"></Updateuser>
             </tbody>
           </template>
         </v-simple-table>

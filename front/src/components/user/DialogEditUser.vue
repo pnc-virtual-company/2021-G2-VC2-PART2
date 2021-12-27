@@ -57,6 +57,8 @@ export default {
     };
   },
   methods: {
+
+    //======================== update User ===========================================================
       UpdateUser(){
           let editUser = {
               'username': this.name,
@@ -69,7 +71,18 @@ export default {
               console.log(res.data);
               this.dialog = false;
           })
-      }
+      },
+
+      //======================== update User ===========================================================
+
+      getAllStudent(){
+        axios.get('/students').then(res =>{
+          let allStudents = res.data;
+          for(let student of allStudents){
+            this.studentsList.push(student.first_name);
+          }
+        })
+      },
   },
     mounted() {
         this.name = this.dataStudent.username;
@@ -77,6 +90,7 @@ export default {
         this.select = this.dataStudent.role;
         this.setPassword = this.dataStudent.password;
         this.editID = this.dataStudent.id;
+        this.getAllStudent();
     },
 };
 </script>
