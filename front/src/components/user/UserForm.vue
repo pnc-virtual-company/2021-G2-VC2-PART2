@@ -14,8 +14,6 @@
             <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :items='studentsList' label="Select Students" required></v-select>
             <v-file-input label="Choose image" prepend-icon="mdi-file-image" v-model="picture">
             </v-file-input>
-            <!-- <v-btn color="primary" > Cancel </v-btn>
-            <v-btn color="error" class="mr-4" > submit </v-btn> -->
              <v-card-actions>
               <v-btn color="error" @click="cancel"> Cancel</v-btn>
               <v-btn color="primary" @click="AddNewUser"> Create</v-btn>
