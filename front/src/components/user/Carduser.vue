@@ -4,7 +4,7 @@
             <v-card-title >
                     Users List
                     <v-spacer></v-spacer>
-                    <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
+                    <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details v-model="search" @keyup="searchUsername"></v-text-field> 
             </v-card-title>
             <v-card color="" green>
                 <v-simple-table>
@@ -37,7 +37,6 @@
 </template>
 
 <script>
-
     export default {
         
     }
