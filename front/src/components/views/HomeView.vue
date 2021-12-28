@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>Home Page</h1>
+        
     </div>
 </template>
 
@@ -11,7 +11,12 @@
 </script>
 
 <style  scoped>
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
     .container{
-        background-image: url('');
+        background: #000;
     }
 </style>

@@ -1,10 +1,11 @@
 <template>
+<v-container>
   <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">
     <template v-slot:top>
       <v-toolbar flat>
-        <v--title>Students List</v--title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-title>Students List</v-title>
         <v-spacer></v-spacer>
+        <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
         <v-dialog v-model="dialog" max-width="530px">
           <template v-slot:activator="{ on, attrs }" >
             <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right v-if="userAction.role !=='STUDENT'">+</v-btn>
@@ -46,6 +47,7 @@
       <v-icon mediem @click="deleteItem(item)"> mdi-delete </v-icon>
     </template>
   </v-data-table>
+</v-container>
 </template>
 
 <script>
@@ -179,9 +181,6 @@
             console.log(res.data);
             this.getStudents();
           })
-          // .catch((error) => {
-          //   console.log(error.response.data.errors);
-          // });
           this.phone = null;
           this.first_name = "";
           this.last_name = "";
@@ -208,6 +207,9 @@
 
 <style scoped>
 
+  /* .table{
+    background: #37474F;
+  } */
   .main{
     background: #000;
   }
@@ -222,14 +224,18 @@
   }
 
   #create-user-btn{
-    top: 80vh;
+    top: 77vh;
     float: right;
+    left: 102%;
     position: fixed;
   }
   .form {
     width: 100%;
     height: 100%;
     padding: 20px;
+  }
+  .search{
+    margin-right: -10px;
   }
 
 </style>

@@ -7,9 +7,6 @@ import Student from '../components/views/StudentView.vue';
 import Permission from '../components/views/PermissionView.vue';
 import Disciples from '../components/views/DisciplesView.vue';
 
-// import PermissionView from '../components/views/PermissionView.vue'
-// import PermissionForm from '../components/views/PermissionForm.vue'
-
 Vue.use(VueRouter)
 const routes = [
   {
@@ -47,5 +44,4 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
 export default router

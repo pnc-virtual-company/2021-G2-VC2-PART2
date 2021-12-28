@@ -12,6 +12,7 @@
                 class="input-field"
                 outlined
                 dense
+                white
                 v-model="email"
                 :error-messages="emailErrors"
                 label="E-mail"
@@ -23,6 +24,7 @@
                 class="input-field"
                 outlined
                 dense
+                white
                 v-model="password"
                 :error-messages="passwordErrors"
                 label="Password"
