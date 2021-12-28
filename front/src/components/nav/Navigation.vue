@@ -5,24 +5,24 @@
         <div class="circle">
           <v-img height="40" width="40" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
         </div>
-        <p style="margin-right:20px">{{userAction.username}}</p>
-        <v-list-item :to="{ path: '/home' }" style="margin-right:20px">
+        <p>{{userAction.username}}</p>
+        <v-list-item :to="{ path: '/home' }">
           <v-icon class="white--text">mdi-home</v-icon>
           <v-list-item-title class="white--text">Home</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/user' }" v-if="userAction.role == 'Admin'" style="margin-right:20px">
+        <v-list-item :to="{ path: '/user' }" v-if="userAction.role == 'Admin'">
           <v-icon class="white--text">mdi-account-circle-outline</v-icon>
           <v-list-item-title class="white--text">Users</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/student' }" v-if="userAction.role != 'STUDENT'" style="margin-right:20px">
+        <v-list-item :to="{ path: '/student' }" v-if="userAction.role != 'STUDENT'">
           <v-icon class="white--text">mdi-account-group-outline</v-icon>
           <v-list-item-title class="white--text">Students</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/permission' }" style="margin-right:20px">
+        <v-list-item :to="{ path: '/permission' }">
           <v-icon class="white--text">mdi-comment-account-outline</v-icon>
           <v-list-item-title class="white--text">Permission</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/disciples' }" style="margin-right:20px">
+        <v-list-item :to="{ path: '/disciples' }">
           <v-icon class="white--text">mdi-account-multiple-outline</v-icon>
           <v-list-item-title class="white--text">Disciple</v-list-item-title>
         </v-list-item>
@@ -85,15 +85,18 @@
       padding: 0;
       font-family: sans-serif;
     }
+
     .rounded-circle{
       margin-top: 6px;
     }
+
     p{
       margin-top: 17px;
       margin-left: 5px;
       color: white;
       font-size: 15px;
     }
+
     img{
       width: 100%;
       height: 100%;
@@ -103,13 +106,14 @@
     .navbar {
       display: flex;
       justify-content: space-between;
-      background-color: #2ea8ff;
+      background-color: #37474F;
     }
 
     nav{
       top: 0;
       box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 8px, rgba(0, 0, 0, 0.23) 0px 4px 4px;
     }
+
     ul{
       display: flex;
       float: right;

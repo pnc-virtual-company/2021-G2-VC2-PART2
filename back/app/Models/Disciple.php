@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class Disciple extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'class', 
-        'startAt', 
-        'endAt', 
         'type', 
         'description'
     ];
 
-    public function student(){
+    public function Student(){
         return $this->belongsTo(Student::class);
     }
 }

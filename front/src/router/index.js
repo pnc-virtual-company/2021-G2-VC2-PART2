@@ -7,12 +7,11 @@ import Student from '../components/views/StudentView.vue';
 import Permission from '../components/views/PermissionView.vue';
 import Disciples from '../components/views/DisciplesView.vue';
 
-import PermissionView from '../components/views/PermissionView.vue'
-import PermissionForm from '../components/views/PermissionForm.vue'
+// import PermissionView from '../components/views/PermissionView.vue'
+// import PermissionForm from '../components/views/PermissionForm.vue'
 
 Vue.use(VueRouter)
 const routes = [
-<<<<<<< HEAD
   {
     path: '/Signin',
     component: Signin
@@ -41,11 +40,6 @@ const routes = [
     path: '/disciples',
     component: Disciples
   },
-=======
-  { path: "/permission", component: PermissionView },
-  { path: "/permissionform", component: PermissionForm },
-  { path: "/", component: PermissionView }
->>>>>>> permissions
 ]
 
 const router = new VueRouter({
