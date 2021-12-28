@@ -7,11 +7,12 @@
       <v-card>
         <div class="">
           <form>
-            <h1>Disciple notice</h1>
+            <h1>Disciple notice</h1> <br>
             <!-- choose student -->
             <label for="cars">Choose student</label>
                 <select class="selected" id="cars" v-model="studentSelected">
-                    <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
+                    <!-- <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option> -->
+                     <option v-for="student of studentsList" :key="student" :value=student>{{student}}</option>
                 </select>
             <!-- choose the type -->
             <label for="cars">Choose leave type</label>
@@ -44,11 +45,11 @@
 
   export default {
     data: () => ({
-      studentSelected: null,
+      studentSelected:null,
       type: null,
       description: null,
-      leavetype: ["play Foodball", "sleep", "tired", "drink beer"],
-      studentsList: [],
+      leavetype: ["Misconduct", "Oral warning", "Warning letter", "Termination"],
+      studentsList: ["Den","Vantheav","Siny","Cannary","Vicheka","Sovanthy"],
       dialog : false,
 
     }),
@@ -80,6 +81,9 @@
 </script>
 
 <style scoped>
+    h1{
+        margin-left: 18%;
+    }
   .create-user-btn {
     top: 85vh;
     float: right;
