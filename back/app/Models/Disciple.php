@@ -10,7 +10,7 @@ class Disciple extends Model
     use HasFactory;
 
     protected $fillable = [
-        'class', 
+        'dateWn', 
         'type', 
         'description'
     ];

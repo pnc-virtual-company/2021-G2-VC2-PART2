@@ -119,7 +119,7 @@ export default {
   .name{
     width: 200px;
     height: auto;
-    margin-top: 52px;
+    margin-top: 57px;
   }
 
   .u-name{

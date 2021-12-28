@@ -8,26 +8,17 @@
         <div class="">
           <form>
             <h1>Disciple notice</h1> <br>
-            <!-- choose student -->
             <label for="cars">Choose student</label>
-                <select class="selected" id="cars" v-model="studentSelected">
-                    <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
-                </select>
-            <!-- choose the type -->
+              <select class="selected" id="cars" v-model="studentSelected">
+                <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
+              </select>
             <label for="cars">Choose leave type</label>
-                <select class="selected" id="cars" v-model="type">f
-                    <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
-                </select>
-            <!-- description -->
-            <v-textarea
-              label="Description"
-              auto-grow
-              outlined
-              row-height="15"
-              v-model="description"
-            ></v-textarea>
-            
-            <!-- button cancel and create -->
+              <select class="selected" id="cars" v-model="type">
+                <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
+              </select>
+            <label for="cars">Start Date: </label><br>
+            <input type="date" name="" id="" v-model="date"><br>
+            <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
             <v-card-actions>
               <v-btn color="error" @click="dialog = false"> Cancel</v-btn>
               <v-btn color="primary" @click="CreateDisciple"> Create</v-btn>
@@ -40,11 +31,12 @@
 </template>
 
 <script>
-  import axios from '../../axios-request.js'
 
+  import axios from '../../axios-request.js'
   export default {
     data: () => ({
       studentSelected:null,
+      date:null,
       type: null,
       description: null,
       leavetype: ["Misconduct", "Oral warning", "Warning letter", "Termination"],
@@ -55,10 +47,10 @@
         CreateDisciple(){
           let newDisciple = {
             'student_id': this.studentSelected,
+            'dateWn': this.date,
             'type': this.type,
             'description': this.description,
           }
-          console.log(newDisciple);
           if(this.studentSelected != null){
             axios.post('/disciple', newDisciple).then(res=>{
               console.log(res.data);
@@ -79,9 +71,11 @@
 </script>
 
 <style scoped>
-    h1{
-        margin-left: 18%;
-    }
+
+  h1{
+      margin-left: 18%;
+  }
+  
   .create-user-btn {
     top: 85vh;
     float: right;
@@ -91,6 +85,7 @@
   form{
     padding: 15px;
   }
+
   .selected, input[type=date]{
     width: 100%;
     background: rgba(191, 190, 190, 0.809);

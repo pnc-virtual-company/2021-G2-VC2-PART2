@@ -6,6 +6,7 @@
 </template>
 
 <script>
+
   import DiscipleForm from '../disciple/DiscipleForm.vue';
   import DiscipleCard from '../disciple/DiscipleCard.vue';
   export default {
@@ -15,9 +16,9 @@
       'disciple-card': DiscipleCard
     }
   }
+  
 </script>
 
-<style>
-
+<style scoped>
 
 </style>

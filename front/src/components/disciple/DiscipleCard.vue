@@ -2,9 +2,9 @@
   <v-container>
     <v-row justify="center">
       <div>
-        <h3 class="title">Disciplince</h3>
+        <h3 class="title">Disciples</h3>
       </div>
-      <v-expansion-panels popout>
+      <v-expansion-panels>
         <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions>
           <v-expansion-panel-header>
             <v-row align="center"  no-gutters>
@@ -12,12 +12,17 @@
                 <div>
                   <v-col cols="4">
                     <div class="imgp">
-                      <img alt="Avatar" :src=imgUrl+disciple.student.image />
+                      <div class="w">
+                         <img src='../../assets/warning.png' />
+                      </div>
+                      <div class="p">
+                         <img :src=imgUrl+disciple.student.image />
+                      </div>
                     </div>
                   </v-col>
                 </div>
                 <div class="name">
-                  <v-col class="hidden-xs-only" sm="5" md="3">
+                  <v-col class="hidden-xs-only">
                     <div class="u-name">
                       <h3>{{disciple.student.first_name}} {{disciple.student.last_name}}</h3><br>
                     </div>
@@ -29,9 +34,7 @@
               </div>
               <div class="date-time">
                 <v-col class="text-no-wrap" cols="5" sm="3">
-                  <v-chip v-if="disciple.new" :color="`${disciple.student.first_name} lighten-4`" class="ml-0 mr-2 black--text" label small>
-                    {{ disciple.new }} new
-                  </v-chip>
+                  <strong>{{disciple.dateWn}}</strong>
                 </v-col>
               </div>
               <div class="type">
@@ -40,17 +43,12 @@
                 </v-col>
               </div>
               <div class="action">
-                <v-col>
-                  <div class="btn">
-                    <v-icon mediem class="mr-2">mdi-account-edit</v-icon>
-                    <v-icon mediem>mdi-delete</v-icon>
-                  </div>
-                </v-col>
+                <v-icon mediem class="mr-2">mdi-account-edit</v-icon>
+                <v-icon mediem>mdi-delete</v-icon>
               </div>
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
-            <v-divider></v-divider>
             <v-card-text v-text="disciple.description"></v-card-text>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -59,25 +57,28 @@
   </v-container>
 </template>
 <script>
-import axios from '../../axios-request.js'
-export default {
-  data: () => ({
-    discipleList: [],
-    imgUrl: "http://127.0.0.1:8000/storage/images/",
-    
-  }),
-  methods: {
-    getAllDisciples(){
-      axios.get('/disciples').then(res=>{
-        this.discipleList = res.data;
-      })
-    }
-  },
-  mounted() {
-    this.getAllDisciples();
-  },
-};
+
+  import axios from '../../axios-request.js'
+  export default {
+    data: () => ({
+      discipleList: [],
+      imgUrl: "http://127.0.0.1:8000/storage/images/",
+      
+    }),
+    methods: {
+      getAllDisciple(){
+        axios.get('/disciple').then(res=>{
+          this.discipleList = res.data;
+          console.log(this.discipleList);
+        })
+      }
+    },
+    mounted() {
+      this.getAllDisciple();
+    },
+  };
 </script>
+
 <style scoped>
 
   .title{
@@ -95,10 +96,12 @@ export default {
 
   .date-time{
     width: 20%;
-    margin-left: 50px;
+    height:100%;
+    margin-left: 20%;
+    align-items: center;
   }
   .type{
-    width: 20%;
+    width: 15%;
     text-align: center;
     justify-content: center;
     display: flex;
@@ -107,18 +110,31 @@ export default {
     text-align: center;
     justify-content: center;
     display: flex;
-    width: 20%;
+    width: 10%;
+    justify-content: flex-start;
+    margin-left: 3px;
+  }
+
+  .imgp{
+    display: flex;
+    margin: 0px;
+  }
+
+
+  .w,
+  .p{
+    margin: 10px;
   }
 
   img{
-    width: 110px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
   }
 
   .name{
-    width: 200px;
+    width: 300px;
     height: auto;
-    margin-top: 52px;
+    margin-top: 67px;
   }
 
   .u-name{
