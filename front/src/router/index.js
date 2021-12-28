@@ -5,7 +5,7 @@ import Home from '../components/views/HomeView.vue';
 import Users from '../components/views/UsersView.vue';
 import Student from '../components/views/StudentView.vue';
 import Permission from '../components/views/PermissionView.vue';
-import Disciples from '../components/views/DisciplesView.vue';
+import Disciples from '../components/views/DiscipleView.vue';
 
 Vue.use(VueRouter)
 const routes = [
