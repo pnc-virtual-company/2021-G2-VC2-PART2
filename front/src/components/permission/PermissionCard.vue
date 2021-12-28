@@ -112,8 +112,8 @@ export default {
   }
 
   img{
-    width: 110px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
   }
 
   .name{

@@ -13,10 +13,10 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-card-title>
-        Users List
+      <v-card-title class="title">
+        Users
         <v-spacer></v-spacer>
-        <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
+        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
       </v-card-title>
       <v-card color="" green>
         <v-simple-table>
@@ -111,6 +111,14 @@
 </script>
 
 <style scoped>
+
+  .title{
+    margin-left: -1.5%;
+  }
+
+  .search{
+    margin-right: -1.5%;
+  }
   
   .text-h5 {
     color: white;

@@ -3,9 +3,9 @@
   <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">
     <template v-slot:top>
       <v-toolbar flat>
-        <v-title>Students List</v-title>
+        <v-title class="title">Students</v-title>
         <v-spacer></v-spacer>
-        <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
+        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
         <v-dialog v-model="dialog" max-width="530px">
           <template v-slot:activator="{ on, attrs }" >
             <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right v-if="userAction.role !=='STUDENT'">+</v-btn>
@@ -207,9 +207,14 @@
 
 <style scoped>
 
-  /* .table{
-    background: #37474F;
-  } */
+  .title{
+    margin-left: -1.5%;
+  }
+
+  .search{
+    margin-right: -1.5%;
+  }
+
   .main{
     background: #000;
   }
