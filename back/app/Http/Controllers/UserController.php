@@ -20,7 +20,7 @@ class UserController extends Controller
             'username' => 'required|max:50',
             'email' => 'required|unique:users',
             'password' => 'required|min:8',
-            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
+            'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999',
         ]);
 
         $request -> file('image')->store('public/images');
@@ -29,6 +29,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = $request->role;
+        $user->student_id = $request -> student_id;
         $user->image =$request->file('image')->hashName();
         $user->save();
         $token = $user->createToken('MyToken')->plainTextToken;

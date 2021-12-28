@@ -17,4 +17,16 @@ class Student extends Model
         'gender',
         'image'
     ];
+
+    public function permission(){
+        return $this->hasMany(Permission::class);
+    }
+    
+    public function disciple(){
+        return $this->hasMany(Disciple::class);
+    }
+
+    public function user(){
+        return $this->beLongsTo(User::class);
+    }
 }

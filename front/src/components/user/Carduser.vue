@@ -16,22 +16,19 @@
       <v-card-title>
         Users List
         <v-spacer></v-spacer>
-        <v-text-field
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
       </v-card-title>
       <v-card color="" green>
         <v-simple-table>
           <template v-slot:default>
             <thead class="blue-grey darken-2">
-              <th>Profile</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Action</th>
+           
+                <th>Profile</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+              
             </thead>
             <tbody>
               <tr class="data" v-for="(user, index) in userList" :key="index">
@@ -73,6 +70,7 @@
       dataStudent: "",
       dialogDelete: false,
       userID: null,
+      searchUsername:''
     }),
     methods: {
       getAllUser() {
@@ -96,6 +94,15 @@
         this.dialog = true;
         this.dataStudent = user;
       },
+      searchUser(){
+        if(this.searchUsername !== ''){
+          axios.get('/searchUser/search/' + this.searchUsername).then(res=>{
+            this.userList = res.data;
+          })
+        }else{
+          this.getAllUser();
+        }
+      }
     },
     mounted() {
       this.getAllUser();
@@ -104,16 +111,19 @@
 </script>
 
 <style scoped>
-
+  
   .text-h5 {
     color: white;
   }
+
   .btn-create {
     margin: 10px;
   }
+
   v-radio {
     display: flex;
   }
+
   thead {
     height: 10vh;
     font-size: 18px;
@@ -122,7 +132,5 @@
   thead th {
     color: #fff;
   }
-  td{
-    margin-left: 10%;
-  }
+
 </style>

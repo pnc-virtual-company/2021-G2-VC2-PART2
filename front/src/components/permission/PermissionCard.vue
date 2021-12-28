@@ -1,64 +1,58 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-row justify="center">
-      <v-subheader>Permission List</v-subheader>
-
-      <v-expansion-panels popout>
-        <v-expansion-panel
-          v-for="(permission, i) in permissionList"
-          :key="i"
-          hide-actions
-        >
+      <div>
+        <h3 class="title">Permissions</h3>
+      </div>
+      <v-expansion-panels>
+        <v-expansion-panel v-for="(permission, i) in permissionList" :key="i" hide-actions>
           <v-expansion-panel-header>
-            <v-row align="center" class="spacer" no-gutters>
-              <v-col cols="4" sm="2" md="1">
-                <v-avatar size="36px">
-                  <img
-                    v-if="permission.avatar"
-                    alt="Avatar"
-                    src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-                  />
-                  <v-icon
-                    v-else
-                    :color="permission.color"
-                    v-text="permission.icon"
-                  ></v-icon>
-                </v-avatar>
-              </v-col>
-
-              <v-col class="hidden-xs-only" sm="5" md="3">
-                <strong v-html="permission.name"></strong>
-                <span v-if="permission.total" class="grey--text">
-                  &nbsp;({{ permission.total }})
-                </span>
-              </v-col>
-
-              <v-col class="text-no-wrap" cols="5" sm="3">
-                <v-chip
-                  v-if="permission.new"
-                  :color="`${permission.color} lighten-4`"
-                  class="ml-0 mr-2 black--text"
-                  label
-                  small
-                >
-                  {{ permission.new }} new
-                </v-chip>
-                <strong v-html="permission.class"></strong>
-              </v-col>
-              <v-col> 
-                  <v-title>{{permission.type}}</v-title>
-              </v-col>
-              <v-col>
-                <div class="btn">
-                  <v-icon mediem class="mr-2">mdi-account-edit</v-icon>
-                  <v-icon mediem>mdi-delete</v-icon>
+            <v-row align="center"  no-gutters>
+              <div class="img-and-name">
+                <div>
+                  <v-col cols="4">
+                    <div class="imgp">
+                      <img :src=imgUrl+permission.student.image />
+                    </div>
+                  </v-col>
                 </div>
-              </v-col>
+                <div class="name">
+                  <v-col class="hidden-xs-only">
+                    <div class="u-name">
+                      <h3>{{permission.student.first_name}} {{permission.student.last_name}}</h3><br>
+                    </div>
+                    <div class="class">
+                      <span>{{ permission.student.class }}</span>
+                    </div>
+                  </v-col>
+                </div>
+              </div>
+              <div class="date-time">
+                <v-col class="text-no-wrap" cols="5" sm="3">
+                  <v-chip v-if="permission.new" :color="`${permission.student.first_name} lighten-4`" class="ml-0 mr-2 black--text" label small>
+                    {{ permission.new }} new
+                  </v-chip>
+                  <strong>{{permission.startAt}} - {{permission.endAt}}</strong>
+                </v-col>
+              </div>
+              <div class="type">
+                <v-col> 
+                  <v-title>{{permission.type}}</v-title>
+                </v-col>
+              </div>
+              <div class="action">
+                <v-col>
+                  <div class="btn">
+                    <v-icon mediem class="mr-2">mdi-account-edit</v-icon>
+                    <v-icon mediem>mdi-delete</v-icon>
+                  </div>
+                </v-col>
+              </div>
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-divider></v-divider>
-            <v-card-text v-text="permission.lorem"></v-card-text>
+            <v-card-text v-text="permission.description"></v-card-text>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -66,23 +60,87 @@
   </v-container>
 </template>
 <script>
+import axios from '../../axios-request.js'
 export default {
   data: () => ({
-    permissionList: [
-      {
-        avatar: "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460",
-        name: "John Leider",
-        class: "12 Dec - 13 Dec",
-        type: "Dek home",
-        lorem: "Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum.",
-      },
-    ],
+    permissionList: [],
+    imgUrl: "http://127.0.0.1:8000/storage/images/",
     
   }),
+  methods: {
+    getAllPermissions(){
+      axios.get('/permissions').then(res=>{
+        this.permissionList = res.data;
+      })
+    }
+  },
+  mounted() {
+    this.getAllPermissions();
+  },
 };
 </script>
 <style scoped>
-.btn {
-  margin-left: 60%;
-}
+
+  .title{
+    margin-right: 20%;
+  }
+
+  .btn {
+    margin-left: 60%;
+  }
+
+  .img-and-name{
+    width: 30%;
+    display: flex;
+  }
+
+  .date-time{
+    width: 20%;
+    margin-left: 50px;
+  }
+  .type{
+    width: 20%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+  }
+  .action{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    width: 20%;
+  }
+
+  img{
+    width: 110px;
+    height: 100px;
+  }
+
+  .name{
+    width: 200px;
+    height: auto;
+    margin-top: 52px;
+  }
+
+  .u-name{
+    display: flex;
+    width: 150px;
+    height: 30px;
+    text-transform: uppercase;
+  }
+
+  .class{
+    width: 150px;
+    height: 30px;
+  }
+
+  .hidden-xs-only{
+    margin-left: 2%;
+  }
+
+  .name{
+    padding-bottom: 10px;
+  }
+
 </style>
+

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialog" width="400">
       <template v-slot:activator="{ on, attrs }" class="create-user-btn">
         <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right> + </v-btn>
       </template>
@@ -8,74 +8,24 @@
         <div class="">
           <form>
             <!-- choose student -->
-            <!-- <v-autocomplete 
-                :items="students"
-                prepend-icon="mdi-account-multiple"  
-                label="Choose student" 
-                required 
-                v-model="studentSelected"
-                dense
-                filled
-            ></v-autocomplete> -->
-            <label for="cars">Choose a car:</label>
-                <select name="cars" id="cars">
-                    <option v-for="student of studentsList" :key="student.id" value=student.id>{{student.first_name}} {{student.last_name}}</option>
+            <label for="cars">Choose a student</label>
+                <select class="selected" id="cars" v-model="studentSelected">
+                    <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
                 </select>
 
             <!-- start date -->
-              <v-menu
-                v-model="menu1"
-                :close-on-content-click="false"
-                max-width="290"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    :value="computedDateFormattedMomentjs1"
-                    clearable
-                    label="Start date"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    @click:clear="date1 = null"
-                    prepend-icon="mdi-calendar" 
-                  ></v-text-field>
-                </template>
-                <v-date-picker v-model="date1" @change="menu1 = false"
-                ></v-date-picker>
-              </v-menu>
+              <label for="cars">Start Date: </label><br>
+                <input type="date" name="" id="" v-model="startAt"><br>
 
             <!-- end date -->
-              <v-menu
-                v-model="menu2"
-                :close-on-content-click="false"
-                max-width="290"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    :value="computedDateFormattedMomentjs2"
-                    clearable
-                    label="End date"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    @click:clear="date2 = null"
-                    prepend-icon="mdi-calendar" 
-                  ></v-text-field>
-                </template>
-                <v-date-picker v-model="date2" @change="menu2= false"
-                ></v-date-picker>
-              </v-menu>
+              <label for="cars">Start Date: </label><br>
+                <input type="date" name="" id="" v-model="endAt"><br>
 
             <!-- choose the type -->
-            <v-autocomplete 
-              :items="types"
-              prepend-icon="mdi-format-list-bulleted"  
-              label="Leave the type" 
-              required 
-              v-model="valueType"
-              dense
-              filled
-            ></v-autocomplete>
+            <label for="cars">Choose leave type</label>
+                <select class="selected" id="cars" v-model="type">f
+                    <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
+                </select>
 
             <!-- description -->
             <v-textarea
@@ -83,6 +33,7 @@
               auto-grow
               outlined
               row-height="15"
+              v-model="description"
             ></v-textarea>
             
             <!-- button cancel and create -->
@@ -99,48 +50,39 @@
 
 <script>
   import axios from '../../axios-request.js'
-  import moment from 'moment'
-  import { format, parseISO } from 'date-fns'
 
   export default {
     data: () => ({
-      date1: format(parseISO(new Date().toISOString()), 'yyyy-MM-dd'),
-      date2: format(parseISO(new Date().toISOString()), 'yyyy-MM-dd'),
-      menu1: false,
-      menu2: false,
-
-      studentsList: [],
-      valueType: null,
       studentSelected: null,
+      startAt: null,
+      endAt: null,
+      type: null,
+      description: null,
+      leavetype: ["play Foodball", "sleep", "tired", "drink beer"],
+      studentsList: [],
+      dialog : false,
+
     }),
-
-    computed: {
-        // for date 1
-      computedDateFormattedMomentjs1 () {
-        return this.date1 ? moment(this.date1).format('dddd, MMMM Do YYYY') : ''
-      },
-      computedDateFormattedDatefns1 () {
-        return this.date1 ? format(parseISO(this.date1), 'EEEE, MMMM do yyyy') : ''
-      },
-
-        // for date 2
-      computedDateFormattedMomentjs2 () {
-        return this.date2 ? moment(this.date2).format('dddd, MMMM Do YYYY') : ''
-      },
-      computedDateFormattedDatefns2 () {
-        return this.date2 ? format(parseISO(this.date2), 'EEEE, MMMM do yyyy') : ''
-      },
-    },
     methods: {
-        // CreatePermission(){
-
-        // }
+        CreatePermission(){
+          let newPermission = {
+            'student_id': this.studentSelected,
+            'startAt': this.startAt,
+            'endAt': this.endAt,
+            'type': this.type,
+            'description': this.description,
+          }
+          console.log(newPermission);
+          if(this.studentSelected != null){
+            axios.post('/permissions', newPermission).then(res=>{
+              console.log(res.data);
+              this.dialog = false;
+            })
+          }
+        },
         getAllStudent(){
         axios.get('/students').then(res =>{
-          let allStudents = res.data;
-          for(let student of allStudents){
-            this.studentsList.push(student.first_name);
-          }
+          this.studentsList = res.data;
         })
       },
     },
@@ -159,6 +101,16 @@
 
   form{
     padding: 15px;
+  }
+  .selected, input[type=date]{
+    width: 100%;
+    background: rgba(191, 190, 190, 0.809);
+    border-radius: 2px;
+    height: 35px;
+    padding: 0 5px;
+    color: rgb(49, 47, 47);
+    margin-bottom: 10px;
+    border: none;
   }
 
 </style>

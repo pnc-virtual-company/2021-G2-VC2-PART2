@@ -12,6 +12,7 @@
         components:{
             'permission-form': permissionForm,
             'permission-card': permissionCard
+
         }
     }
 </script>
