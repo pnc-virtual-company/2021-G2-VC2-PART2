@@ -32,7 +32,6 @@
                   <v-chip v-if="disciple.new" :color="`${disciple.student.first_name} lighten-4`" class="ml-0 mr-2 black--text" label small>
                     {{ disciple.new }} new
                   </v-chip>
-                  <strong>{{disciple.startAt}} - {{disciple.endAt}}</strong>
                 </v-col>
               </div>
               <div class="type">

@@ -27,11 +27,10 @@
               row-height="15"
               v-model="description"
             ></v-textarea>
-            
             <!-- button cancel and create -->
             <v-card-actions>
               <v-btn color="error" @click="dialog = false"> Cancel</v-btn>
-              <v-btn color="primary" @click="CreatePermission"> Create</v-btn>
+              <v-btn color="primary" @click="CreateDisciple"> Create</v-btn>
             </v-card-actions> 
           </form>
         </div>
@@ -42,7 +41,6 @@
 
 <script>
   import axios from '../../axios-request.js'
-
   export default {
     data: () => ({
       studentSelected:null,
@@ -51,7 +49,6 @@
       leavetype: ["Misconduct", "Oral warning", "Warning letter", "Termination"],
       studentsList: ["Den","Vantheav","Siny","Cannary","Vicheka","Sovanthy"],
       dialog : false,
-
     }),
     methods: {
         CreateDisciple(){
@@ -69,7 +66,7 @@
           }
         },
         getAllStudent(){
-        axios.get('/students').then(res =>{
+        axios.get('/disciple').then(res =>{
           this.studentsList = res.data;
         })
       },
@@ -103,5 +100,4 @@
     margin-bottom: 10px;
     border: none;
   }
-
 </style>
