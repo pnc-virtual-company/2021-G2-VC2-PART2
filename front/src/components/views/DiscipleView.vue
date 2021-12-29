@@ -1,5 +1,8 @@
 <template>
   <section>
+    <br>
+    <br>
+    <br>
     <disciple-form></disciple-form>
     <disciple-card></disciple-card>
   </section>  

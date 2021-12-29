@@ -7,36 +7,19 @@
       <v-card>
         <div class="">
           <form>
-            <!-- choose student -->
             <label for="cars">Choose a student</label>
-                <select class="selected" id="cars" v-model="studentSelected">
-                    <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
-                </select>
-
-            <!-- start date -->
-              <label for="cars">Start Date: </label><br>
-                <input type="date" name="" id="" v-model="startAt"><br>
-
-            <!-- end date -->
-              <label for="cars">Start Date: </label><br>
-                <input type="date" name="" id="" v-model="endAt"><br>
-
-            <!-- choose the type -->
+              <select class="selected" id="cars" v-model="studentSelected">
+                <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
+              </select>
+            <label for="cars">Start Date: </label><br>
+              <input type="date" name="" id="" v-model="startAt"><br>
+            <label for="cars">End Date: </label><br>
+              <input type="date" name="" id="" v-model="endAt"><br>
             <label for="cars">Choose leave type</label>
-                <select class="selected" id="cars" v-model="type">f
-                    <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
-                </select>
-
-            <!-- description -->
-            <v-textarea
-              label="Description"
-              auto-grow
-              outlined
-              row-height="15"
-              v-model="description"
-            ></v-textarea>
-            
-            <!-- button cancel and create -->
+              <select class="selected" id="cars" v-model="type">f
+                <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
+              </select>
+            <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
             <v-card-actions>
               <v-btn color="error" @click="dialog = false"> Cancel</v-btn>
               <v-btn color="primary" @click="CreatePermission"> Create</v-btn>
@@ -79,6 +62,11 @@
               this.dialog = false;
             })
           }
+          // this.studentSelected = "";
+          // this.startAt = "";
+          // this.endAt = "";
+          // this.type = "";
+          // this.description = "";
         },
         getAllStudent(){
         axios.get('/students').then(res =>{

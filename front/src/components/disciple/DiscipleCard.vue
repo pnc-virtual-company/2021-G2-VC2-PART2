@@ -1,9 +1,10 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <div>
-        <h3 class="title">Disciples</h3>
-      </div>
+      <v-card-title class="title">
+        Disciples<v-spacer></v-spacer>
+        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
+      </v-card-title>
       <v-expansion-panels>
         <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions>
           <v-expansion-panel-header>
@@ -82,7 +83,12 @@
 <style scoped>
 
   .title{
-    margin-right: 20%;
+    width: 100%;
+    margin-left: -2%;
+  }
+
+  .search{
+    margin-right: -2%;
   }
 
   .btn {
@@ -97,11 +103,12 @@
   .date-time{
     width: 20%;
     height:100%;
-    margin-left: 20%;
+    margin-left: 22%;
     align-items: center;
   }
   .type{
     width: 15%;
+    margin-left: -5%;
     text-align: center;
     justify-content: center;
     display: flex;
@@ -112,7 +119,7 @@
     display: flex;
     width: 10%;
     justify-content: flex-start;
-    margin-left: 3px;
+    margin-left: 5%;
   }
 
   .imgp{

@@ -1,67 +1,49 @@
 <template>
   <v-container>
     <v-row justify="center">
+      <v-card-title class="title">
+        Permissions<v-spacer></v-spacer>
+        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
+      </v-card-title>
       <div>
-        <h3 class="title">Permissions</h3>
+        <v-dialog v-model="dialogUpdate" width="400">
+        <v-card>
+          <div class="">
+            <form>
+              <label for="cars">Choose a student</label>
+                <select class="selected" id="cars" v-model="studentSelected">
+                  <option v-for="student of studentList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
+                </select>
+              <label for="cars">Start Date: </label><br>
+                <input type="date" name="" id="" v-model="startAt"><br>
+              <label for="cars">Start Date: </label><br>
+                  <input type="date" name="" id="" v-model="endAt"><br>
+              <label for="cars">Choose leave type</label>
+                <select class="selected" id="cars" v-model="type">
+                  <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
+                </select>
+              <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
+              <v-card-actions>
+                <v-btn color="error" @click="dialogUpdate = false"> Cancel</v-btn>
+                <v-btn color="primary" @click="UpdatePermission"> Update</v-btn>
+              </v-card-actions> 
+            </form>
+          </div>
+        </v-card>
+      </v-dialog>
       </div>
-      <!-- ===========================Form update========================================= -->
-        <div>
-          <v-dialog v-model="dialogUpdate" width="400">
-          <v-card>
-            <div class="">
-              <form>
-                <!-- choose student -->
-                <label for="cars">Choose a student</label>
-                    <select class="selected" id="cars" v-model="studentSelected">
-                        <option v-for="student of studentList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
-                    </select>
-
-                <!-- start date -->
-                  <label for="cars">Start Date: </label><br>
-                    <input type="date" name="" id="" v-model="startAt"><br>
-
-                <!-- end date -->
-                  <label for="cars">Start Date: </label><br>
-                    <input type="date" name="" id="" v-model="endAt"><br>
-
-                <!-- choose the type -->
-                <label for="cars">Choose leave type</label>
-                    <select class="selected" id="cars" v-model="type">
-                        <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
-                    </select>
-
-                <!-- description -->
-                <v-textarea
-                  label="Description"
-                  auto-grow
-                  outlined
-                  row-height="15"
-                  v-model="description"
-                ></v-textarea>
-                
-                <!-- button cancel and create -->
-                <v-card-actions>
-                  <v-btn color="error" @click="dialogUpdate = false"> Cancel</v-btn>
-                  <v-btn color="primary" @click="UpdatePermission"> Update</v-btn>
-                </v-card-actions> 
-              </form>
-            </div>
-          </v-card>
-        </v-dialog>
-        </div>
-      <!-- ===========================Dialog delete========================================= -->
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card >
-            <v-card-title class="red--text">Are you sure you want to delete this Permission?</v-card-title>
-            <hr>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+      <v-dialog v-model="dialogDelete" max-width="500px">
+        <v-card >
+          <br>
+          <v-card-title class="red--text">Are you sure you want to delete this Permission?</v-card-title><br>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
+            <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-expansion-panels>
         <v-expansion-panel v-for="(permission, i) in permissionList" :key="i" hide-actions>
           <v-expansion-panel-header>
@@ -117,85 +99,95 @@
     </v-row>
   </v-container>
 </template>
+
 <script>
-import axios from '../../axios-request.js'
-export default {
-  data: () => ({
-    leavetype: ["play Foodball", "sleep", "tired", "drink beer"],
-    dialogUpdate: false,
-    dialogDelete: false,
-    permissionList: [],
-    studentList: [],
-    perId: null,
-    studentSelected: null,
-    startAt: null,
-    endAt: null,
-    type: null,
-    description: null,
-    imgUrl: "http://127.0.0.1:8000/storage/images/",
-    
-  }),
-  methods: {
-    updatePer(permission){
-      this.dialogUpdate = true;
-      this.studentSelected = permission.student.id;
-      this.perId = permission.id;
-      this.startAt = permission.startAt;
-      this.endAt = permission.endAt;
-      this.description = permission.description;
-      console.log(this.studentSelected);
-    },
-    UpdatePermission(){
-          let updatePermissionItem = {
+
+  import axios from '../../axios-request.js'
+  export default {
+    data: () => ({
+      leavetype: ["play Foodball", "sleep", "tired", "drink beer"],
+      dialogUpdate: false,
+      dialogDelete: false,
+      permissionList: [],
+      studentList: [],
+      perId: null,
+      studentSelected: null,
+      startAt: null,
+      endAt: null,
+      type: null,
+      description: null,
+      imgUrl: "http://127.0.0.1:8000/storage/images/",
+      
+    }),
+    methods: {
+      updatePer(permission){
+        this.dialogUpdate = true;
+        this.studentSelected = permission.student.id;
+        this.perId = permission.id;
+        this.startAt = permission.startAt;
+        this.endAt = permission.endAt;
+        this.description = permission.description;
+        console.log(this.studentSelected);
+      },
+      UpdatePermission(){
+        let updatePermissionItem = {
           'student_id': this.studentSelected,
           'startAt': this.startAt,
           'endAt': this.endAt,
           'type': this.type,
           'description': this.description,
-          }
-          console.log(updatePermissionItem);
-          axios.put('/permissions/'+ this.perId, updatePermissionItem).then(res=>{
-            console.log(res.data);
-            this.getAllPermissions();
-            this.dialogUpdate =false;
-          })
+        }
+        console.log(updatePermissionItem);
+        axios.put('/permissions/'+ this.perId, updatePermissionItem).then(res=>{
+          console.log(res.data);
+          this.getAllPermissions();
+          this.dialogUpdate =false;
+        })
+        this.studentSelected = "";
+        this.startAt = "";
+        this.endAt = "";
+        this.type = "";
+        this.description = "";
+      },
+      deleteItem(id){
+        this.dialogDelete = true;
+        this.perId = id;
+      },
+      closeDelete(){
+        this.dialogDelete = false;
+      },
+      deleteItemConfirm(){
+        axios.delete('/permissions/'+ this.perId).then(res=>{
+          console.log(res.data);
+          this.closeDelete();
+          this.getAllPermissions();
+        })
+      },
+      getAllPermissions(){
+        axios.get('/permissions').then(res=>{
+          this.permissionList = res.data;
+        })
+      },
+      getAllStudent(){
+        axios.get('/students').then(res=>{
+          this.studentList = res.data
+        }) 
+      }
     },
+    mounted() {
+      this.getAllPermissions();
+      this.getAllStudent();
+    },
+  };
 
-    deleteItem(id){
-      this.dialogDelete = true;
-      this.perId = id;
-    },
-    closeDelete(){
-      this.dialogDelete = false;
-    },
-    deleteItemConfirm(){
-      axios.delete('/permissions/'+ this.perId).then(res=>{
-        console.log(res.data);
-        this.closeDelete();
-        this.getAllPermissions();
-      })
-    },
-    getAllPermissions(){
-      axios.get('/permissions').then(res=>{
-        this.permissionList = res.data;
-      })
-    },
-    getAllStudent(){
-      axios.get('/students').then(res=>{
-        this.studentList = res.data
-      }) 
-    }
-  },
-  mounted() {
-    this.getAllPermissions();
-    this.getAllStudent();
-  },
-};
 </script>
+
 <style scoped>
+
   form{
     padding: 15px;
   }
+
   .selected, input[type=date]{
     width: 100%;
     background: rgba(191, 190, 190, 0.809);
@@ -208,9 +200,14 @@ export default {
   }
 
   .title{
-    margin-right: 20%;
+    width: 100%;
+    margin-left: -2%;
   }
 
+  .search{
+    margin-right: -2%;
+  }
+  
   .btn {
     margin-left: 60%;
   }
@@ -222,10 +219,10 @@ export default {
 
   .date-time{
     width: 20%;
-    margin-left: 50px;
+    margin-left: 70px;
   }
   .type{
-    width: 20%;
+    width: 30%;
     text-align: center;
     justify-content: center;
     display: flex;
@@ -235,6 +232,7 @@ export default {
     justify-content: center;
     display: flex;
     width: 20%;
+    margin-left: -12%;
   }
 
   img{

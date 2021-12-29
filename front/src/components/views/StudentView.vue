@@ -1,7 +1,7 @@
 <template>
 <v-container>
-  <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">
-    <template v-slot:top>
+  <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">   
+    <template v-slot:top><br><br>
       <v-toolbar flat>
         <v-title class="title">Students</v-title>
         <v-spacer></v-spacer>
@@ -23,15 +23,15 @@
                   <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
                 <v-card-actions>
                   <v-btn color="error"  @click="close"> Cancel </v-btn>
-                  <v-btn color="primary"  @click="save"> Create </v-btn>
+                  <v-btn color="primary"  @click="save"> {{formTitle}} </v-btn>
                 </v-card-actions>
               </v-card>
           </v-row>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="470px">
           <v-card >
-            <v-card-title class="red--text">Are you sure you want to delete this student?</v-card-title>
-            <hr>
+            <br>
+            <v-card-title class="red--text">Are you sure you want to delete this student?</v-card-title><br>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
@@ -141,6 +141,12 @@
           this.editedItem = Object.assign({}, this.defaultItem);
           this.editedIndex = -1;
         });
+        this.phone = null;
+        this.first_name = "";
+        this.last_name = "";
+        this.sex = "";
+        this.getClass = "";
+        this.image = null;
       },
 
       closeDelete() {

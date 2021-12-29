@@ -57,10 +57,15 @@
           console.log(res.data);
           this.dialog = false;
         })
-        console.log(this.student_id);
       },
       cancel() {
         this.dialog = false;
+        this.name = "";
+        this.email = "";
+        this.setPassword = "";
+        this.select = "";
+        this.picture = "";
+        this.student_id = "";
       },
       getAllStudent(){
         axios.get('/students').then(res =>{

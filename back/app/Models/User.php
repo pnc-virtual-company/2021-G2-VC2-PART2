@@ -47,6 +47,6 @@ class User extends Authenticatable
     ];
 
     public function student(){
-        return $this->beLongsTo(Student::class);
+        return $this->belongsTo(Student::class);
     }
 }

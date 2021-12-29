@@ -3,8 +3,8 @@
     <template>
       <v-dialog v-model="dialogDelete" max-width="450px">
         <v-card>
-          <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title>
-          <hr>
+          <br>
+          <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title><br>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
@@ -22,15 +22,15 @@
         <v-simple-table>
           <template v-slot:default>
             <thead class="blue-grey darken-2">
-              <th>Profile</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Action</th>
+              <th scope="col">Profile</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Action</th>
             </thead>
-            <tbody>
+            <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center; height:10vh;">
               <tr class="data" v-for="(user, index) in userList" :key="index">
-                <td>
+                <td class="img">
                   <v-img height="50" width="50" :src="imgUrl + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
                 </td>
                 <td>{{ user.username }}</td>
@@ -41,9 +41,7 @@
                   <v-icon mediem @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
                 </td>
               </tr>
-                <Updateuser 
-                v-if="dialog" 
-                :dataStudent="dataStudent"></Updateuser>
+              <Updateuser v-if="dialog" :dataStudent="dataStudent"></Updateuser>
             </tbody>
           </template>
         </v-simple-table>
@@ -139,8 +137,8 @@
     color: #fff;
   }
 
-  tbody{
-    height: 10vh;
+  tbody tr{
+    height: 12vh;
   }
 
 </style>

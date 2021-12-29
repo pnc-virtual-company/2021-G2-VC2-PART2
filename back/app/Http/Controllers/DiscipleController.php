@@ -14,7 +14,7 @@ class DiscipleController extends Controller
      */
     public function index()
     {
-        return Disciple::with('student')->get();
+        return Disciple::with('student')->latest()->get();
     }
 
     /**
@@ -73,8 +73,14 @@ class DiscipleController extends Controller
      */
     public function destroy($id)
     {
-        return Disciple::destroy($id);
+        $isDeleted = Disciple::destroy($id);
+        if($isDeleted == 1){
+            return response()->json(['massage'=>'Deleted'], 200);
+        }else{
+            return response()->json(['massage'=>'Not Found'], 404);
+        }
     }
+    
     public function search($class)
     {
         return Disciple::where('class', $class)->get();

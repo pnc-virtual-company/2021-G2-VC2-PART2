@@ -1,5 +1,6 @@
 <template>
   <section>
+      <br>
       <user-form></user-form>
       <user-card></user-card>
   </section>

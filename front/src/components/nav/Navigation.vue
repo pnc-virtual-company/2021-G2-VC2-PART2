@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav v-if="userID" class="navigation" >
     <div class="navbar">
       <ul>
         <div class="circle">
@@ -50,10 +50,17 @@
         imgUrl: "http://127.0.0.1:8000/storage/images/",
       }
     },
+    watch:{
+      userID(){
+        console.log("isIN")
+        return this.userID !== null;
+      }
+    },
     methods: {
       Signout(){
         this.$emit('sign-out', this.isSignout);
         this.$router.push('/');
+        this.userID = null;
         localStorage.clear();
       },
       getActionUser(){
@@ -80,53 +87,57 @@
 
 <style scoped>
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
 
-    .rounded-circle{
-      margin-top: 6px;
-    }
+  .rounded-circle{
+    margin-top: 6px;
+    margin-left: 10px;
+  }
+  
+  p{
+    margin-top: 17px;
+    margin-left: 15px;
+    color: white;
+    font-size: 15px;
+  }
 
-    p{
-      margin-top: 17px;
-      margin-left: 5px;
-      color: white;
-      font-size: 15px;
-    }
+  img{
+    width: 100%;
+    height: 100%;
+    border-radius: 360px;
+  }
+  
+  .navbar {
+    display: flex;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    justify-content: space-between;
+    background-color: #37b8f8;
+  }
 
-    img{
-      width: 100%;
-      height: 100%;
-      border-radius: 360px;
-    }
-   
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      background-color: #37474F;
-    }
+  nav{
+    top: 0;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 8px, rgba(0, 0, 0, 0.23) 0px 4px 4px;
+  }
 
-    nav{
-      top: 0;
-      box-shadow: rgba(0, 0, 0, 0.19) 0px 8px 8px, rgba(0, 0, 0, 0.23) 0px 4px 4px;
-    }
-
-    ul{
-      display: flex;
-      float: right;
-      height: 8.5vh;
-    }
-    
-    .btn-Signout {
-      font-size: 30px;
-      text-transform: uppercase; 
-      text-decoration: none;
-      cursor: pointer;
-      margin-top: 5px;
-      margin-right: 20px;
-    }
+  ul{
+    display: flex;
+    float: right;
+    height: 8.5vh;
+  }
+  
+  .btn-Signout {
+    font-size: 30px;
+    text-transform: uppercase; 
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-right: 20px;
+  }
     
 </style>

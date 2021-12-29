@@ -11,7 +11,7 @@ class UserController extends Controller
 {   
     public function index()
     {
-        return User::all();
+        return User::latest()->get();
     }
 
     public function register(Request $request)
@@ -53,6 +53,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = $request->role;
+        $user->student_id = $request->student_id;
         $user->save();
         return response()->json([
             'Message' => 'Updated',
@@ -85,10 +86,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function deleteUser($id)
     {
         $isDeleted = User::destroy($id);
-        
+        if($isDeleted == 1){
+            return response()->json(['massage'=>'Deleted'], 200);
+        }else{
+            return response()->json(['massage'=>'Not Found'], 404);
+        }
     }
 
     public function searchUser($username)

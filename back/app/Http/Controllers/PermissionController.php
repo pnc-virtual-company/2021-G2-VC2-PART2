@@ -14,7 +14,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return Permission::with('student')->get();
+        return Permission::with('student')->latest()->get();
     }
 
     /**
@@ -24,7 +24,14 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $request->validate([
+            'student_id'=>'required',
+            'startAt'=>'required',
+            'endAt'=>'required|after:startAt',
+            'type'=>'required',
+            'description'=>'nullable',
+        ]);
         $permission = new Permission();
         $permission->student_id = $request->student_id;
         $permission->startAt = $request->startAt;
@@ -55,7 +62,13 @@ class PermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {    $request->validate([
+            'student_id'=>'required',
+            'startAt'=>'required',
+            'endAt'=>'required|after:startAt',
+            'type'=>'required',
+            'description'=>'nullable',
+        ]);
         $permission = Permission::findOrFail($id);
         $permission->student_id = $request->student_id;
         $permission->startAt = $request->startAt;
@@ -75,7 +88,12 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        return Permission::destroy($id);   
+        $isDeleted = Permission::destroy($id);
+        if($isDeleted == 1){
+            return response()->json(['massage'=>'Deleted'], 200);
+        }else{
+            return response()->json(['massage'=>'Not Found'], 404);
+        }
     }
 
 }

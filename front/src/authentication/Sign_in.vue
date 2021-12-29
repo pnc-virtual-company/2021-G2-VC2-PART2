@@ -122,7 +122,7 @@ export default {
   }
 
   form {
-    background: rgba(0, 0, 0, 0.637);
+    background: rgba(247, 247, 247, 0.85);
     height: 50vh;
     width: 80%;
     margin-top: 7vh;
