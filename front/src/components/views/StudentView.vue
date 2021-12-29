@@ -31,7 +31,7 @@
         <v-dialog v-model="dialogDelete" max-width="470px">
           <v-card >
             <v-card-title class="red--text">Are you sure you want to delete this student?</v-card-title>
-            <br>
+            <hr>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>

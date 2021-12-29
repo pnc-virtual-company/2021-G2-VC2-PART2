@@ -57,6 +57,7 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $permission = Permission::findOrFail($id);
+        $permission->student_id = $request->student_id;
         $permission->startAt = $request->startAt;
         $permission->endAt = $request->endAt;
         $permission->type = $request->type;

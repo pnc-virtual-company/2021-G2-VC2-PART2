@@ -4,7 +4,7 @@
       <v-dialog v-model="dialogDelete" max-width="450px">
         <v-card>
           <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title>
-          <br>
+          <hr>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
@@ -22,13 +22,11 @@
         <v-simple-table>
           <template v-slot:default>
             <thead class="blue-grey darken-2">
-           
-                <th>Profile</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Action</th>
-              
+              <th>Profile</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Action</th>
             </thead>
             <tbody>
               <tr class="data" v-for="(user, index) in userList" :key="index">
@@ -133,12 +131,16 @@
   }
 
   thead {
-    height: 10vh;
+    height: 7vh;
     font-size: 18px;
   }
 
   thead th {
     color: #fff;
+  }
+
+  tbody{
+    height: 10vh;
   }
 
 </style>

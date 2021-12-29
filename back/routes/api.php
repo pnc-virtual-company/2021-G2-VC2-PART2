@@ -50,4 +50,3 @@ Route::get('disciple/search/{class}', [DiscipleController::class, 'search']);
 Route::post('disciple', [DiscipleController::class, 'store']);
 Route::put('disciple/{id}', [DiscipleController::class, 'update']);
 Route::delete('disciple/{id}', [DiscipleController::class, 'destroy']);
-
