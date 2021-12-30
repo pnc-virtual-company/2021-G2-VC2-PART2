@@ -14,7 +14,7 @@ class DiscipleController extends Controller
      */
     public function index()
     {
-        return Disciple::all();
+        return Disciple::with('student')->latest()->get();
     }
 
     /**
@@ -26,7 +26,8 @@ class DiscipleController extends Controller
     public function store(Request $request)
     {
         $disciple = new Disciple();
-        $disciple->class = $request->class;
+        $disciple->student_id = $request->student_id;
+        $disciple->dateWn = $request->dateWn;
         $disciple->type = $request->type;
         $disciple->description = $request->description;
         $disciple->save();
@@ -54,11 +55,11 @@ class DiscipleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $disciple = new Disciple();
-        $disciple->class = $request->class;
+        $disciple = Disciple::findOrFail($id);
+        $disciple->student_id = $request->student_id;
+        $disciple->dateWn = $request->dateWn;
         $disciple->type = $request->type;
         $disciple->description = $request->description;
-
         $disciple->save();
         return response()->json(['message' =>'Updated', 'data' => $disciple], 200);
     }
@@ -71,8 +72,14 @@ class DiscipleController extends Controller
      */
     public function destroy($id)
     {
-        return Disciple::destroy($id);
+        $isDeleted = Disciple::destroy($id);
+        if($isDeleted == 1){
+            return response()->json(['massage'=>'Deleted'], 200);
+        }else{
+            return response()->json(['massage'=>'Not Found'], 404);
+        }
     }
+    
     public function search($class)
     {
         return Disciple::where('class', $class)->get();

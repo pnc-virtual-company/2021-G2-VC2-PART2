@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Disciple extends Model
 {
     use HasFactory;
-    protected $fillable = ['class', 'type', 'description'];
+
+    protected $fillable = [
+        'dateWn', 
+        'type', 
+        'description'
+    ];
+
+    public function Student(){
+        return $this->belongsTo(Student::class);
+    }
 }
