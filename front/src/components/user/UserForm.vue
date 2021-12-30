@@ -7,7 +7,7 @@
       <v-card>
         <div class="">
           <form>
-            <v-text-field v-model="name" prepend-icon="mdi-account" label="Username" required></v-text-field>
+            <v-text-field v-model="username" prepend-icon="mdi-account" label="Username" required></v-text-field>
             <v-text-field v-model="email"  prepend-icon="mdi-email" label="E-mail"  required></v-text-field>
             <v-text-field v-model="setPassword" prepend-icon="mdi-lock"  label="Password" type="password" required></v-text-field>
             <v-select v-model="select" prepend-icon="mdi-lock-reset" :items="items" label="Role" required ></v-select>
@@ -36,7 +36,7 @@
       studentSelected: '',
       showStudents: false,
       dialog: false,
-      name: "",
+      username: "",
       email: "",
       select: null,
       items: ["SOCIAL AFFAIR OFFICER", "STUDENT"],
@@ -47,7 +47,7 @@
     methods: {
       AddNewUser() {
         let newUser = new FormData();
-        newUser.append('username', this.name);
+        newUser.append('username', this.username);
         newUser.append('email', this.email);
         newUser.append('password', this.setPassword);
         newUser.append('role', this.select);
@@ -60,7 +60,7 @@
       },
       cancel() {
         this.dialog = false;
-        this.name = "";
+        this.username = "";
         this.email = "";
         this.setPassword = "";
         this.select = "";

@@ -1,8 +1,6 @@
 <template>
-    <div class="container">
-        <br><br>
-        <h1>Welcome to home page</h1>
-    </div>
+    
+   <h1>Hello</h1>
 </template>
 
 <script>
@@ -19,6 +17,9 @@
         margin: 0;
         padding: 0;
         font-family: sans-serif;
+    }
+    h1{
+        margin-top: 5%;
     }
    
 </style>

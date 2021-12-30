@@ -62,11 +62,6 @@
               this.dialog = false;
             })
           }
-          // this.studentSelected = "";
-          // this.startAt = "";
-          // this.endAt = "";
-          // this.type = "";
-          // this.description = "";
         },
         getAllStudent(){
         axios.get('/students').then(res =>{

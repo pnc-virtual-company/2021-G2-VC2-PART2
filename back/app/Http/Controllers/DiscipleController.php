@@ -55,12 +55,11 @@ class DiscipleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $disciple = DisciplefindOrFail($id);
+        $disciple = Disciple::findOrFail($id);
         $disciple->student_id = $request->student_id;
         $disciple->dateWn = $request->dateWn;
         $disciple->type = $request->type;
         $disciple->description = $request->description;
-
         $disciple->save();
         return response()->json(['message' =>'Updated', 'data' => $disciple], 200);
     }
