@@ -15,10 +15,6 @@ use App\Http\Controllers\DiscipleController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 // Public route
 Route::get('disciple', [DiscipleController::class, 'index']);
 Route::get('disciple/{id}', [DiscipleController::class, 'show']);
