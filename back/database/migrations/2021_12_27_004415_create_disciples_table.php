@@ -15,7 +15,8 @@ class CreateDisciplesTable extends Migration
     {
         Schema::create('disciples', function (Blueprint $table) {
             $table->id();
-            $table->string('class');
+            // $table->foreignId('student_id')->constrained()->onDelete('CASCADE');
+            $table->string('dateWn');
             $table->string('type');
             $table->string('description');
             $table->timestamps();
