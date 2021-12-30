@@ -6,8 +6,8 @@
         <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
       </v-card-title>
       <v-expansion-panels>
-        <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions>
-          <v-expansion-panel-header>
+        <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions class="card-body">
+          <v-expansion-panel-header class="card">
             <v-row align="center"  no-gutters>
               <div class="img-and-name">
                 <div>
@@ -17,7 +17,7 @@
                          <img src='../../assets/warning.png' />
                       </div>
                       <div class="p">
-                         <img :src=imgUrl+disciple.student.image />
+                         <img :src="imgUrl+disciple.student.image" />
                       </div>
                     </div>
                   </v-col>
@@ -50,6 +50,7 @@
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
+            <v-divider></v-divider>
             <v-card-text v-text="disciple.description"></v-card-text>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -82,13 +83,23 @@
 
 <style scoped>
 
+  .card-body{
+    width: 100%;
+    margin-left: 2%;
+  }
+
+  .card{
+     background: rgba(228, 228, 228, 0.836);
+    box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
+  }
+
   .title{
     width: 100%;
-    margin-left: -2%;
+    margin-left: -1%;
   }
 
   .search{
-    margin-right: -2%;
+    margin-right: -2.5%;
   }
 
   .btn {
@@ -131,6 +142,10 @@
   .w,
   .p{
     margin: 10px;
+  }
+
+  .p{
+    border: 1px solid rgb(189, 189, 189);
   }
 
   img{

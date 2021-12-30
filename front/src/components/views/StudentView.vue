@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">   
-    <template v-slot:top><br><br>
+    <template v-slot:top><br><br><br>
       <v-toolbar flat>
         <v-title class="title">Students</v-title>
         <v-spacer></v-spacer>
@@ -235,16 +235,18 @@
   }
 
   #create-user-btn{
-    top: 77vh;
+    top: 74vh;
     float: right;
-    left: 102%;
+    left: 1183px;
     position: fixed;
   }
+
   .form {
     width: 100%;
     height: 100%;
     padding: 20px;
   }
+
   .search{
     margin-right: -10px;
   }

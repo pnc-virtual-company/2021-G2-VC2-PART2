@@ -39,6 +39,8 @@
   };
 </script>
 
-<style scoped>
-  
+<style>
+  body{
+    background: rgb(114, 59, 59);
+  }
 </style>

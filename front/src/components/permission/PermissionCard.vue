@@ -45,14 +45,14 @@
         </v-card>
       </v-dialog>
       <v-expansion-panels>
-        <v-expansion-panel v-for="(permission, i) in permissionList" :key="i" hide-actions>
-          <v-expansion-panel-header>
+        <v-expansion-panel v-for="(permission, i) in permissionList" :key="i" hide-actions class="card-body">
+          <v-expansion-panel-header class="card" >
             <v-row align="center"  no-gutters>
               <div class="img-and-name">
                 <div>
                   <v-col cols="4">
                     <div class="imgp">
-                      <img :src=imgUrl+permission.student.image />
+                      <img :src="imgUrl+permission.student.image" />
                     </div>
                   </v-col>
                 </div>
@@ -184,6 +184,25 @@
 
 <style scoped>
 
+  .card-body{
+    width: 100%;
+    margin-left: 2%;
+  }
+
+  .card{
+    background: rgba(228, 228, 228, 0.836);
+    box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
+  }
+
+  .title{
+    width: 100%;
+    margin-left: -1%;
+  }
+
+  .search{
+    margin-right: -2.5%;
+  }
+
   form{
     padding: 15px;
   }
@@ -197,15 +216,6 @@
     color: rgb(49, 47, 47);
     margin-bottom: 10px;
     border: none;
-  }
-
-  .title{
-    width: 100%;
-    margin-left: -2%;
-  }
-
-  .search{
-    margin-right: -2%;
   }
   
   .btn {

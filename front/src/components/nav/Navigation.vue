@@ -100,7 +100,7 @@
   
   p{
     margin-top: 17px;
-    margin-left: 15px;
+    margin-left: 10px;
     color: white;
     font-size: 15px;
   }
@@ -108,7 +108,7 @@
   img{
     width: 100%;
     height: 100%;
-    border-radius: 360px;
+    border-radius: 50%;
   }
   
   .navbar {
