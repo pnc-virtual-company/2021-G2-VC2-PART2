@@ -11,7 +11,7 @@
           <v-list-item-title class="white--text">Home</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ path: '/user' }" v-if="userAction.role == 'Admin'">
-          <v-icon class="white--text">mdi-account-circle-outline</v-icon>
+          <v-icon class="white--text">mdi-account</v-icon>
           <v-list-item-title class="white--text">Users</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ path: '/student' }" v-if="userAction.role != 'STUDENT'">
@@ -23,7 +23,7 @@
           <v-list-item-title class="white--text">Permission</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ path: '/disciples' }">
-          <v-icon class="white--text">mdi-account-multiple-outline</v-icon>
+          <v-icon class="white--text">mdi-alert-decagram</v-icon>
           <v-list-item-title class="white--text">Disciple</v-list-item-title>
         </v-list-item>
       </ul>
@@ -117,7 +117,7 @@
     z-index: 99;
     width: 100%;
     justify-content: space-between;
-    background-color: #37b8f8;
+    background-color: #000000;
   }
 
   nav{

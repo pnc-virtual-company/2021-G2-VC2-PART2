@@ -190,7 +190,8 @@
   }
 
   .card{
-    background: rgba(228, 228, 228, 0.836);
+    height: 25vh;
+    background: rgba(226, 217, 217, 0.659);
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -227,9 +228,13 @@
     display: flex;
   }
 
+  .imgp{
+    margin-left: -50%;
+  }
+
   .date-time{
     width: 20%;
-    margin-left: 70px;
+    margin-left: 100px;
   }
   .type{
     width: 30%;
@@ -254,6 +259,7 @@
     width: 200px;
     height: auto;
     margin-top: 57px;
+    margin-left: 10%;
   }
 
   .u-name{

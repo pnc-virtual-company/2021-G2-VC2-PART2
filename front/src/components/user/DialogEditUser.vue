@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" width="500">
       <v-card class="pa-md-4 mx-lg-auto">
         <form>
-          <v-text-field v-model="username" label="Name" required></v-text-field>
+          <v-text-field v-model="username" label="Username" required></v-text-field>
           <v-text-field v-model="email" label="E-mail" required></v-text-field>
           <v-text-field v-model="setPassword" label="Password" type="password" required></v-text-field>
           <v-select v-model="select" :items="items" label="Role" required></v-select>
@@ -40,10 +40,10 @@
     methods: {
       UpdateUser(){
         let editUser = {
-          username: this.username,
-          email: this.email,
-          password: this.setPassword,
-          role: this.select
+          'username': this.username,
+          'email': this.email,
+          'password': this.setPassword,
+          'role': this.select
         }
         axios.put('/updateUser/' + this.editID, editUser).then(res =>{
           console.log(res.data);

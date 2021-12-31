@@ -42,7 +42,7 @@
         </v-card>
       </v-dialog>
 
-      <v-expansion-panels>
+      <v-expansion-panels class="disciple-card">
         <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions class="card-body">
           <v-expansion-panel-header class="card">
             <v-row align="center"  no-gutters>
@@ -176,14 +176,15 @@
 </script>
 
 <style scoped>
-
+  
   .card-body{
     width: 100%;
     margin-left: 2%;
   }
 
   .card{
-     background: rgba(228, 228, 228, 0.836);
+    height: 25vh;
+    background: rgba(226, 217, 217, 0.659);
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -238,8 +239,12 @@
     margin: 10px;
   }
 
+  .w{
+    margin-left: -1%;
+  }
+
   .p{
-    border: 1px solid rgb(189, 189, 189);
+    margin-left: 40%;
   }
 
   img{
@@ -258,22 +263,19 @@
     width: 150px;
     height: 30px;
     text-transform: uppercase;
+    margin-left: 30%;
   }
 
   .class{
     width: 150px;
     height: 30px;
+    margin-left: 30%;
   }
 
   .hidden-xs-only{
     margin-left: 2%;
   }
 
-  .name{
-    padding-bottom: 10px;
-  }
-
-/* ========================================================================== */
   .create-user-btn {
     top: 85vh;
     float: right;

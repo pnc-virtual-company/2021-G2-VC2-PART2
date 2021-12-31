@@ -21,7 +21,7 @@
       <v-card color="" green>
         <v-simple-table>
           <template v-slot:default>
-            <thead class="blue-grey darken-2">
+            <thead class="blue lighten-2">
               <th scope="col">Profile</th>
               <th scope="col">Username</th>
               <th scope="col">Email</th>

@@ -5,10 +5,10 @@
       <v-toolbar flat>
         <v-title class="title">Students</v-title>
         <v-spacer></v-spacer>
-        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
+        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchStudent" v-model="searchStudentname"></v-text-field>
         <v-dialog v-model="dialog" max-width="530px">
           <template v-slot:activator="{ on, attrs }" >
-            <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right v-if="userAction.role !=='STUDENT'">+</v-btn>
+            <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right v-if="userAction.role !=='STUDENT'"><v-icon class="white--text">mdi-account-multiple-plus</v-icon></v-btn>
           </template>
           <v-row justify="center" class="a">
               <v-card ref="form" class="form">
@@ -67,6 +67,7 @@
       getClass: "",
       image: null,
       id: null,
+      searchStudentname:'',
       headers: [
         { text: "First Name", align: "start", sortable: false, value: "first_name" },
         { text: "Last Name", value: "last_name" },
@@ -88,7 +89,7 @@
 
     computed: {
       formTitle() {
-        return this.editedIndex === -1 ? "Create" : "Edit Students";
+        return this.editedIndex === -1 ? "Create" : "Update";
       },
     },
 
@@ -201,7 +202,16 @@
           console.log(res.data);
           this.userAction = res.data;
         })
-      }
+      },
+      searchStudent(){
+        if(this.searchStudentname !== ''){
+          axios.get('/searchStudent/search/' + this.searchStudentname).then(res=>{
+            this.student_list = res.data;
+          })
+        }else{
+          this.getStudents();
+        }
+      },
     },
     mounted() {
       this.userID = localStorage.getItem('UserID');

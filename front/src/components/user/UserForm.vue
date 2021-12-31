@@ -2,7 +2,7 @@
   <div class="">
     <v-dialog v-model="dialog" width="500">
       <template v-slot:activator="{ on, attrs }" class="create-user-btn">
-        <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
+        <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right><v-icon class="white--text">mdi-account-plus</v-icon></v-btn>
       </template>
       <v-card>
         <div class="">
@@ -10,11 +10,11 @@
             <v-text-field v-model="username" prepend-icon="mdi-account" label="Username" required></v-text-field>
             <v-text-field v-model="email"  prepend-icon="mdi-email" label="E-mail"  required></v-text-field>
             <v-text-field v-model="setPassword" prepend-icon="mdi-lock"  label="Password" type="password" required></v-text-field>
-            <v-select v-model="select" prepend-icon="mdi-lock-reset" :items="items" label="Role" required ></v-select>
+            <v-select v-model="select" prepend-icon="mdi-lock-reset" :items="items" label="Select Role" required ></v-select>
             <select v-if="select === 'STUDENT'"  name="" id="" v-model="student_id">
               <option v-for="student of studentsList" :key="student.id" :value= student.id>{{student.first_name}} {{student.last_name}}</option>
             </select>
-            <v-file-input label="Choose image" prepend-icon="mdi-file-image" v-model="picture">
+            <v-file-input label="Choose image" prepend-icon="mdi-paperclip" v-model="picture">
             </v-file-input>
              <v-card-actions>
               <v-btn color="error" @click="cancel"> Cancel</v-btn>
@@ -39,7 +39,7 @@
       username: "",
       email: "",
       select: null,
-      items: ["SOCIAL AFFAIR OFFICER", "STUDENT"],
+      items: ["SOCIAL AFFAIR", "STUDENT"],
       picture: null,
       setPassword: '',
       student_id: null,
