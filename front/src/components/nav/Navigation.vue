@@ -3,9 +3,9 @@
     <div class="navbar">
       <ul>
         <div class="circle">
-          <v-img height="40" width="40" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
+          <v-img height="50" width="50" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
         </div>
-        <p>{{userAction.username}}</p>
+        <v-list-item-title class="p">{{userAction.username}}</v-list-item-title>
         <v-list-item :to="{ path: '/home' }">
           <v-icon class="white--text">mdi-home</v-icon>
           <v-list-item-title class="white--text">Home</v-list-item-title>
@@ -94,15 +94,16 @@
   }
 
   .rounded-circle{
-    margin-top: 6px;
-    margin-left: 10px;
+    margin-top: 3px;
+    margin-left: 0px;
   }
   
-  p{
-    margin-top: 17px;
-    margin-left: 10px;
+  .p{
     color: white;
     font-size: 15px;
+    margin: 10px;
+    margin-top: 13px;
+    margin-left: 10px;
   }
 
   img{
@@ -117,7 +118,7 @@
     z-index: 99;
     width: 100%;
     justify-content: space-between;
-    background-color: #37474F;
+    background-color: #40C4FF;
   }
 
   nav{
@@ -136,7 +137,7 @@
     text-transform: uppercase; 
     text-decoration: none;
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 8px;
     margin-right: 20px;
   }
     

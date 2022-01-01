@@ -58,6 +58,10 @@
             this.$emit('add-disciple', res.data);
           })
         }
+        this.studentSelected = "";
+        this.date = "";
+        this.type = "";
+        this.description = "";
       },
       getAllStudent(){
         axios.get('/students').then(res =>{

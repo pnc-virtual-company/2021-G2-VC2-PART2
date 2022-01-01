@@ -12,8 +12,8 @@
               <v-card-title class="red--text">Are you sure you want to delete this Permission?</v-card-title><br>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
+                <v-btn id="action-btn" color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
+                <v-btn id="action-btn" color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -51,7 +51,7 @@
                       <v-chip v-if="permission.new" :color="`${permission.student.first_name} lighten-4`" class="ml-0 mr-2 black--text" label small>
                         {{ permission.new }} new
                       </v-chip>
-                      <strong>{{getGoodDatetimeFormat(permission.startAt)}} - {{getGoodDatetimeFormat(permission.endAt)}}</strong><br><br>
+                      <span>{{getGoodDatetimeFormat(permission.startAt)}} <strong>to</strong> {{getGoodDatetimeFormat(permission.endAt)}}</span><br><br>
                       <div>
                         <span>2 days</span>
                       </div>
@@ -59,14 +59,14 @@
                   </div>
                   <div class="type">
                     <v-col> 
-                      <v-title>{{permission.type}}</v-title>
+                      <v-title><strong>{{permission.type}}</strong></v-title>
                     </v-col>
                   </div>
                   <div class="action">
                     <v-col>
                       <div class="btn">
-                        <v-icon mediem id="edit" class="mr-2" @click="updatePer(permission)">mdi-account-edit</v-icon>
-                        <v-icon mediem id="delete" @click="deleteItem(permission.id)">mdi-delete</v-icon>
+                        <v-icon medium id="edit" class="mr-2" @click="updatePer(permission)">mdi-pencil</v-icon>
+                        <v-icon medium id="delete" @click="deleteItem(permission.id)">mdi-delete</v-icon>
                       </div>
                     </v-col>
                   </div>
@@ -153,7 +153,6 @@
     },
     mounted() {
       this.getAllPermissions();
-      // this.getAllStudent();
     },
   }
 </script>
@@ -161,6 +160,7 @@
 <style scoped>
   section{
     margin-top: 10px;
+    /* background: rgba(221, 221, 221, 0.727); */
   }
 
   .card-body{
@@ -169,7 +169,7 @@
 
   .details{
     height: auto;
-    background: rgba(197, 197, 197, 0.707);
+    background: rgba(148, 148, 148, 0.707);
   }
 
   #card{
@@ -178,7 +178,7 @@
 
   .card{
     height: 25vh;
-    background: rgba(226, 226, 226, 0.755);
+    background: rgba(255, 255, 255, 0.864);
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -276,6 +276,10 @@
 
   .name{
     padding-bottom: 10px;
+  }
+
+  #action-btn{
+    margin-bottom: 20px;
   }
 
   #edit{

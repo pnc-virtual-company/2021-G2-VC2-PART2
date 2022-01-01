@@ -12,8 +12,8 @@
                         <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title><br>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
-                            <v-btn depressed color="error" @click="deleteItemConfirm">YES</v-btn>
+                            <v-btn id="action-btn" depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
+                            <v-btn id="action-btn" depressed color="error" @click="deleteItemConfirm">YES</v-btn>
                             <v-spacer></v-spacer>
                         </v-card-actions>
                         </v-card>
@@ -21,12 +21,12 @@
                     <v-card-title >
                         <strong class="t">Students</strong>
                         <v-spacer></v-spacer>
-                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
+                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details></v-text-field> 
                     </v-card-title>
                     <v-card color="" green>
                         <v-simple-table>
                             <template v-slot:default>
-                                <thead class="light-blue lighten-2" >
+                                <thead class="blue-grey darken-2" >
                                     <th>Profile</th>
                                     <th>First name</th>
                                     <th>Last name</th>
@@ -46,7 +46,7 @@
                                         <td>{{ students.phone }}</td>
                                         <td>{{ students.gender }}</td>
                                         <td> 
-                                            <v-icon id="edit" medium class="mr-2" @click="editItem(students)">mdi-account-edit</v-icon>
+                                            <v-icon id="edit" medium class="mr-2" @click="editItem(students)">mdi-pencil</v-icon>
                                             <v-icon id="delete" medium @click="deleteItem(students)">mdi-delete</v-icon>   
                                         </td>
                                     </tr>
@@ -115,7 +115,8 @@
 
 <style scoped>
     section{
-        margin-top: -1.5px;
+        margin-top: -3%;
+        /* background: rgba(221, 221, 221, 0.727); */
     }
 
     .text-h5{
@@ -152,6 +153,10 @@
     .search{
         margin-right: -1.5%;
         width: 11%;
+    }
+
+    #action-btn{
+        margin-bottom: 20px;
     }
 
     #edit{

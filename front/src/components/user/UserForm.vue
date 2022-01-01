@@ -59,6 +59,12 @@
           console.log(res.data);
           this.dialog = false;
         })
+        this.username = "";
+        this.email = "";
+        this.setPassword = "";
+        this.select = "";
+        this.picture = "";
+        this.student_id = "";
       },
       cancel() {
         this.dialog = false;

@@ -12,8 +12,8 @@
               <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title><br>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
-                <v-btn depressed color="error" @click="deleteItemConfirm">YES</v-btn>
+                <v-btn id="action-btn" depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
+                <v-btn id="action-btn" depressed color="error" @click="deleteItemConfirm">YES</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -21,12 +21,12 @@
           <v-card-title class="title">
             <strong class="t">Users</strong>
             <v-spacer></v-spacer>
-            <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
+            <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
           </v-card-title>
           <v-card color="" green>
             <v-simple-table>
               <template v-slot:default>
-                <thead class="light-blue lighten-2">
+                <thead class="blue-grey darken-2">
                   <th scope="col">Profile</th>
                   <th scope="col">Username</th>
                   <th scope="col">Email</th>
@@ -42,8 +42,8 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
-                      <v-icon mediem id="edit" class="mr-2" @click="editItem(user)">mdi-account-edit</v-icon>
-                      <v-icon mediem id="delete" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
+                      <v-icon medium id="edit" class="mr-2" @click="editItem(user)">mdi-pencil</v-icon>
+                      <v-icon medium id="delete" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
                     </td>
                   </tr>
                   <Updateuser v-if="dialog" :dataStudent="dataStudent" @cancel="cancel" @update="UpdateUser"></Updateuser>
@@ -103,13 +103,13 @@
         this.show_update = true;
         this.userInfo = user;
       },
-      UpdateUser(id,updateUser,isFalse){
-        axios.put('/updateUser/' + id, updateUser).then(res =>{
-          console.log(res.data);
-          this.dialog = isFalse;
-          this.getAllUser();
-        })
-      },
+      // UpdateUser(id,updateUser,isFalse){
+      //   axios.put('/updateUser/' + id, updateUser).then(res =>{
+      //     console.log(res.data);
+      //     this.dialog = isFalse;
+      //     this.getAllUser();
+      //   })
+      // },
       cancel(){
         this.dialog = false;
       },
@@ -130,8 +130,10 @@
 </script>
 
 <style scoped>
+  
   section{
     margin-top: -1.5px;
+    /* background: rgba(221, 221, 221, 0.727); */
   }
 
   .title{
@@ -170,6 +172,10 @@
 
   tbody tr{
     height: 12vh;
+  }
+
+  #action-btn{
+    margin-bottom: 20px;
   }
 
   #edit{

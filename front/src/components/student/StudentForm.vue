@@ -42,6 +42,7 @@
       image: null,
       id: null,
       showfilInput: true,
+      dialog: false,
     }),
     methods: {
       createStudent() {
@@ -85,10 +86,6 @@
       },
       cancelCreate() {
         this.dialog = false;
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1;
-        });
         this.phone = null;
         this.first_name = "";
         this.last_name = "";
@@ -116,5 +113,11 @@
     width: 100%;
     height: 100%;
     padding: 20px;
+  }
+  .a {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
 </style>

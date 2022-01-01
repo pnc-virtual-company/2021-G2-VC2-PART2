@@ -11,8 +11,8 @@
               <v-card-title class="red--text">Are you sure you want to delete this Disciple?</v-card-title><br>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
+                <v-btn id="action-btn" color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
+                <v-btn id="action-btn" color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
                 <v-spacer></v-spacer>
               </v-card-actions>
             </v-card>
@@ -62,8 +62,8 @@
                   </div>
                   <v-card-actions>
                     <div class="action">
-                      <v-icon mediem id="edit" class="mr-2" @click="updateDis(disciple)">mdi-account-edit</v-icon>
-                      <v-icon mediem id="delete" @click="deleteItem(disciple.id)">mdi-delete</v-icon>
+                      <v-icon medium id="edit" class="mr-2" @click="updateDis(disciple)">mdi-pencil</v-icon>
+                      <v-icon medium id="delete" @click="deleteItem(disciple.id)">mdi-delete</v-icon>
                     </div>
                   </v-card-actions>
                 </v-row>
@@ -147,6 +147,7 @@
 <style scoped>
   section{
     margin-top: 10px;
+    /* background: rgba(221, 221, 221, 0.727); */
   }
 
   .card-body{
@@ -155,7 +156,7 @@
 
   .card{
     height: 25vh;
-     background: rgba(226, 226, 226, 0.755);
+    background: rgba(255, 255, 255, 0.864);
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -165,7 +166,7 @@
 
   .details{
     height: auto;
-    background: rgba(197, 197, 197, 0.707);
+    background: rgba(148, 148, 148, 0.707);
   }
 
   .title{
@@ -282,6 +283,10 @@
     color: rgb(49, 47, 47);
     margin-bottom: 10px;
     border: none;
+  }
+
+  #action-btn{
+    margin-bottom: 20px;
   }
 
   #edit{
