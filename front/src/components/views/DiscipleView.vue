@@ -1,27 +1,295 @@
 <template>
   <section>
     <br>
-    <br>
-    <br>
-    <disciple-form></disciple-form>
-    <disciple-card></disciple-card>
+    <disciple-form @add-disciple="getAllDisciple"></disciple-form>
+    <disciple-card>
+      <v-container>
+        <v-row justify="center">
+          <v-dialog v-model="dialogDelete" max-width="480px">
+            <v-card >
+              <br>
+              <v-card-title class="red--text">Are you sure you want to delete this Disciple?</v-card-title><br>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
+                <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-card-title class="title">
+            <strong class="t">Disciples</strong>
+            <v-spacer></v-spacer>
+            <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
+          </v-card-title>
+          <v-expansion-panels id="card">
+            <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions class="card-body">
+              <v-expansion-panel-header class="card">
+                <v-row align="center"  no-gutters>
+                  <div class="img-and-name">
+                    <div>
+                      <v-col cols="4">
+                        <div class="imgp">
+                          <div class="w">
+                            <img src='../../assets/warning.png' />
+                          </div>
+                          <div class="p">
+                            <img :src="imgUrl+disciple.student.image" />
+                          </div>
+                        </div>
+                      </v-col>
+                    </div>
+                    <div class="name">
+                      <v-col class="hidden-xs-only">
+                        <div class="u-name">
+                          <h3>{{disciple.student.first_name}} {{disciple.student.last_name}}</h3><br>
+                        </div>
+                        <div class="class">
+                          <span>{{ disciple.student.class }}</span>
+                        </div>
+                      </v-col>
+                    </div>
+                  </div>
+                  <div class="date-time">
+                    <v-col class="text-no-wrap" cols="5" sm="3">
+                      <strong>{{getGoodDatetimeFormat(disciple.dateWn)}}</strong> 
+                    </v-col>
+                  </div>
+                  <div class="type">
+                    <v-col> 
+                      <v-title>{{disciple.type}}</v-title>
+                    </v-col>
+                  </div>
+                  <v-card-actions>
+                    <div class="action">
+                      <v-icon mediem id="edit" class="mr-2" @click="updateDis(disciple)">mdi-account-edit</v-icon>
+                      <v-icon mediem id="delete" @click="deleteItem(disciple.id)">mdi-delete</v-icon>
+                    </div>
+                  </v-card-actions>
+                </v-row>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="details">
+                <v-divider></v-divider>
+                <v-card-text>
+                  <strong>Student name:</strong> {{disciple.student.first_name}} {{disciple.student.last_name}} <br>
+                  <strong>Class:</strong> {{ disciple.student.class }} <br>
+                  <strong>Date:</strong> {{getGoodDatetimeFormat(disciple.dateWn)}} <br> 
+                  <strong>Discipline type:</strong> {{disciple.type}} <br>
+                  <strong>Reasons:</strong> {{disciple.description}}
+                </v-card-text>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-row>
+      </v-container>
+    </disciple-card>
   </section>  
 </template>
 
 <script>
-
+  import axios from '../../axios-request.js'
   import DiscipleForm from '../disciple/DiscipleForm.vue';
-  import DiscipleCard from '../disciple/DiscipleCard.vue';
+  import moment from "moment";
   export default {
-  components: { DiscipleForm, DiscipleCard },
+  components: { DiscipleForm},
     component: {
       'disciple-form': DiscipleForm,
-      'disciple-card': DiscipleCard
-    }
+    },
+    data: () =>  ({
+        imgUrl: "http://127.0.0.1:8000/storage/images/",
+        dialogUpdate: false,
+        dialogDelete: false,
+        studentSelected: null,
+        description: null,
+        discipleID: null,
+        dateWn: null,
+        type: null,
+        studentList: [],
+        discipleList: [],
+    }),
+    methods: {
+      getAllDisciple(){
+        axios.get('/disciple').then(res=>{
+          this.discipleList = res.data;
+        })
+      },
+      getAllStudent(){
+        axios.get('/students').then(res=>{
+          this.studentList = res.data
+          console.log(res.data);
+        }) 
+      },
+      deleteItem(id){
+        this.dialogDelete = true;
+        this.discipleID = id;
+      },
+      closeDelete(){
+        this.dialogDelete = false;
+      },
+      deleteItemConfirm(){
+        axios.delete('/disciple/'+ this.discipleID).then(res=>{
+          console.log(res.data);
+          this.closeDelete();
+          this.getAllDisciple();
+        })
+      },
+      getGoodDatetimeFormat(datetime) {
+        return moment(String(datetime)).format("D-MMM-Y");
+      },
+    },
+    mounted() {
+      this.getAllDisciple();
+    },
   }
   
 </script>
 
 <style scoped>
+  section{
+    margin-top: 10px;
+  }
+
+  .card-body{
+    margin-left: 0%;
+  }
+
+  .card{
+    height: 25vh;
+     background: rgba(226, 226, 226, 0.755);
+    box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
+  }
+
+  #card{
+    width: 98%;
+  }
+
+  .details{
+    height: auto;
+    background: rgba(197, 197, 197, 0.707);
+  }
+
+  .title{
+    width: 100%;
+    margin-left: -1%;
+  }
+
+  .t{
+    margin-top: 3%;
+  }
+
+  .search{
+    margin-right: -1%;
+    width: 12.8%;
+  }
+
+  .btn {
+    margin-left: 60%;
+  }
+
+  .img-and-name{
+    width: 30%;
+    display: flex;
+  }
+
+  .date-time{
+    width: 20%;
+    height:100%;
+    margin-left: 22%;
+    align-items: center;
+  }
+  .type{
+    width: 15%;
+    margin-left: -5%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin-top: -0.4%;
+  }
+  .action{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    width: 10%;
+    justify-content: flex-start;
+    margin-left: 80%;
+    margin-top: -0.5%;
+  }
+
+  .imgp{
+    display: flex;
+    margin: 0px;
+  }
+
+
+  .w,
+  .p{
+    margin: 10px;
+  }
+
+  .w{
+    margin-left: -1%;
+  }
+
+  .p{
+    margin-left: 40%;
+  }
+
+  img{
+    width: 130px;
+    height: 130px;
+  }
+
+  .name{
+    width: 300px;
+    height: auto;
+    margin-top: 67px;
+  }
+
+  .u-name{
+    display: flex;
+    width: 150px;
+    height: 30px;
+    text-transform: uppercase;
+    margin-left: 30%;
+  }
+
+  .class{
+    width: 150px;
+    height: 30px;
+    margin-left: 30%;
+  }
+
+  .hidden-xs-only{
+    margin-left: 2%;
+  }
+
+  .create-user-btn {
+    top: 85vh;
+    float: right;
+    position: fixed;
+  }
+
+  form{
+    padding: 15px;
+  }
+
+  .selected, input[type=date]{
+    width: 100%;
+    background: rgba(191, 190, 190, 0.809);
+    border-radius: 2px;
+    height: 35px;
+    padding: 0 5px;
+    color: rgb(49, 47, 47);
+    margin-bottom: 10px;
+    border: none;
+  }
+
+  #edit{
+    color: rgb(59, 114, 252);
+  }
+
+  #delete{
+    color: rgb(250, 56, 59);
+  }
 
 </style>

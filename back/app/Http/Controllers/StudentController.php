@@ -31,7 +31,6 @@ class StudentController extends Controller
             'gender' => 'required',
             'image'=>'nullable|image|mimes:jpg,jpeg,png,gif,jfif|max:1999'
         ]);
-
         $request -> file('image')->store('public/images');
         $student = new Student();
         $student->first_name = $request->first_name;
@@ -74,13 +73,14 @@ class StudentController extends Controller
             'phone' => 'required',
             'gender' => 'required',
         ]);
-        
+        // $request -> file('image')->store('public/images');
         $student = Student::findOrFail($id);
         $student->first_name = $request->first_name;
         $student->last_name = $request->last_name;
         $student->class = $request->class;
         $student->phone = $request->phone;
         $student->gender = $request->gender;
+        // $student->image =$request->file('image')->hashName();
         $student->save();
         return response()->json([
             'Message' => 'Updated',

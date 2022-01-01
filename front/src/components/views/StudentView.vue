@@ -1,264 +1,165 @@
 <template>
-<v-container>
-  <v-data-table :headers="headers" :items="student_list" sort-by="class"  hide-default-footer class="table">   
-    <template v-slot:top><br><br><br>
-      <v-toolbar flat>
-        <v-title class="title">Students</v-title>
-        <v-spacer></v-spacer>
-        <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchStudent" v-model="searchStudentname"></v-text-field>
-        <v-dialog v-model="dialog" max-width="530px">
-          <template v-slot:activator="{ on, attrs }" >
-            <v-btn id="create-user-btn" color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right v-if="userAction.role !=='STUDENT'"><v-icon class="white--text">mdi-account-multiple-plus</v-icon></v-btn>
-          </template>
-          <v-row justify="center" class="a">
-              <v-card ref="form" class="form">
-                  <v-text-field ref="first name" v-model="first_name" label="First Name" required></v-text-field>
-                  <v-text-field ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
-                  <v-radio-group v-model="sex" row>
-                    <v-radio label="Female" value="Female"></v-radio>
-                    <v-radio label="Male" value="Male"></v-radio>
-                  </v-radio-group>
-                  <v-autocomplete ref="class" v-model="getClass" :items="classes" label="Class" placeholder="Select class..." required></v-autocomplete>
-                  <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
-                  <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
-                <v-card-actions>
-                  <v-btn color="error"  @click="close"> Cancel </v-btn>
-                  <v-btn color="primary"  @click="save"> {{formTitle}} </v-btn>
-                </v-card-actions>
-              </v-card>
-          </v-row>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="470px">
-          <v-card >
-            <br>
-            <v-card-title class="red--text">Are you sure you want to delete this student?</v-card-title><br>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="white" style="background: #039BE5;" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="white" style="background: #E53935;" text @click="deleteItemConfirm">YES</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:item.actions="{ item }" >
-      <v-icon mediem class="mr-2" @click="editItem(item)"> mdi-account-edit </v-icon>
-      <v-icon mediem @click="deleteItem(item)"> mdi-delete </v-icon>
-    </template>
-  </v-data-table>
-</v-container>
+    <section>
+        <br>
+        <student-form @add-student="getStudents"></student-form>
+        <edit-student></edit-student>
+        <student-card>
+            <v-container>
+                <template>
+                    <v-dialog v-model="dialogDelete" max-width="450px">
+                        <v-card>
+                        <br>
+                        <v-card-title class="red--text">Are you sure you want to remove this user?</v-card-title><br>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn depressed color="primary" @click="dialogDelete = false">Cancel</v-btn>
+                            <v-btn depressed color="error" @click="deleteItemConfirm">YES</v-btn>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                    <v-card-title >
+                        <strong class="t">Students</strong>
+                        <v-spacer></v-spacer>
+                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
+                    </v-card-title>
+                    <v-card color="" green>
+                        <v-simple-table>
+                            <template v-slot:default>
+                                <thead class="light-blue lighten-2" >
+                                    <th>Profile</th>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Class</th>
+                                    <th>Phone</th>
+                                    <th>Gender</th>
+                                    <th>Action</th>
+                                </thead> 
+                                <tbody>
+                                    <tr class="text-center" v-for="(students, index) in student_list" :key="index" style="text-align: center; align-items: center;justify-content: center; height:12vh;">
+                                        <td class="img">
+                                            <v-img  :src="imgUrl + students.image" height="50" width="50"  class="pa-7 secondary rounded-circle d-inline-block"></v-img>
+                                        </td>
+                                        <td>{{ students.first_name }}</td>
+                                        <td>{{ students.last_name }}</td>
+                                        <td>{{ students.class }}</td>
+                                        <td>{{ students.phone }}</td>
+                                        <td>{{ students.gender }}</td>
+                                        <td> 
+                                            <v-icon id="edit" medium class="mr-2" @click="editItem(students)">mdi-account-edit</v-icon>
+                                            <v-icon id="delete" medium @click="deleteItem(students)">mdi-delete</v-icon>   
+                                        </td>
+                                    </tr>
+                                    <Updateuser v-if="dialog" :dataStudent="dataStudent" @cancel="cancel" @update="UpdateUser"></Updateuser>
+                                </tbody>
+                            </template>
+                        </v-simple-table>
+                    </v-card>
+                </template>
+            </v-container>
+        </student-card>
+    </section>
 </template>
 
 <script>
-  import axios from "../../axios-request.js";
-  export default {
-    data: () => ({
-      userID: null,
-      userAction: true,
-      showfilInput: true,
-      dialog: false,
-      dialogDelete: false,
-      classes: ["WEP A", "WEP B", "SNA", "CLASS A", "CLASS B", "CLASS C"],
-      phone: null,
-      first_name: "",
-      last_name: "",
-      sex: "",
-      getClass: "",
-      image: null,
-      id: null,
-      searchStudentname:'',
-      headers: [
-        { text: "First Name", align: "start", sortable: false, value: "first_name" },
-        { text: "Last Name", value: "last_name" },
-        { text: "Class", value: "class" },
-        { text: "Gender", value: "gender" },
-        { text: "Phone", value: "phone" },
-        { text: "Actions", value: "actions", sortable: false },
-      ],
-      student_list: [],
-      editedIndex: -1,
-      editedItem: {
-        first_name: "",
-        last_name: "",
-        class: "",
-        gender: "",
-        phone: "",
-      },
-    }),
-
-    computed: {
-      formTitle() {
-        return this.editedIndex === -1 ? "Create" : "Update";
-      },
-    },
-
-    watch: {
-      dialog(val) {
-        val || this.close();
-      },
-      dialogDelete(val) {
-        val || this.closeDelete();
-      },
-    },
-    methods: {
-      getStudents() {
-        axios.get("/students").then((res) => {
-          this.student_list = res.data;
-        });
-      },
-      editItem(item) {
-        console.log(item);
-        this.editedIndex = 1;
-        this.editedItem = Object.assign({}, item);
-        this.first_name = item.first_name;
-        this.last_name = item.last_name;
-        this.sex = item.gender;
-        this.phone = item.phone;
-        this.getClass = item.class;
-        this.image = item.image;
-        this.id = item.id;
-        this.dialog = true;
-        this.showfilInput = false;
-      },
-      deleteItem(item) {
-        this.id = item.id;
-        this.editedIndex = this.student_list.indexOf(item);
-        this.editedItem = Object.assign({}, item);
-        this.dialogDelete = true;
-      },
-      deleteItemConfirm() {
-        axios.delete("/students/" + this.id).then((res) => {
-          console.log(res.data);
-          this.getStudents();
-        });
-        console.log(this.id);
-        this.closeDelete();
-      },
-
-      close() {
-        this.dialog = false;
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1;
-        });
-        this.phone = null;
-        this.first_name = "";
-        this.last_name = "";
-        this.sex = "";
-        this.getClass = "";
-        this.image = null;
-      },
-
-      closeDelete() {
-        this.dialogDelete = false;
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1;
-        });
-      },
-      save() {
-        if (this.editedIndex > -1) {
-          let editStudent = {
-            "first_name": this.first_name,
-            "last_name": this.last_name,
-            "class": this.getClass,
-            "phone": this.phone,
-            "gender": this.sex
-          }
-          axios.put("/students/" + this.id, editStudent).then((res) => {
-            console.log(res.data);
+    import axios from "../../axios-request.js";
+    import StudentForm from "../student/StudentForm.vue"
+    import EditStudent from '../student/DialogEditStudent.vue'
+    export default {
+        components:{
+            'student-form': StudentForm,
+            'edit-student': EditStudent
+        },
+        data: () => ({
+            imgUrl: "http://127.0.0.1:8000/storage/images/",
+            student_list: [],
+            searchStudentname:'',
+            dialogDelete: false,
+            studentID: null,
+        }),
+        methods: {
+            getStudents() {
+                axios.get("/students").then((res) => {
+                    this.student_list = res.data;
+                });
+            },
+            deleteItem(student) {                
+                this.dialogDelete = true;
+                this.studentID = student.id;
+            },
+            deleteItemConfirm() {
+                axios.delete("/students/" + this.studentID).then((res) => {
+                    console.log(res.data);
+                    this.getStudents();
+                    this.dialogDelete = false;
+                });
+            },
+            cancel(){
+                this.dialog = false;
+            },
+            searchStudent(){
+                if(this.searchStudentname !== ''){
+                    axios.get('/searchStudent/search/' + this.searchStudentname).then(res=>{
+                        this.student_list = res.data;
+                    })
+                }else{
+                    this.getStudents();
+                }
+            },
+        },
+        mounted() {
             this.getStudents();
-          });
-          this.phone = null;
-          this.first_name = "";
-          this.last_name = "";
-          this.sex = "";
-          this.getClass = "";
-          this.image = null;
-        } else {
-          let newStudent = new FormData();
-          newStudent.append("first_name", this.first_name);
-          newStudent.append("last_name", this.last_name);
-          newStudent.append("class", this.getClass);
-          newStudent.append("phone", this.phone);
-          newStudent.append("gender", this.sex);
-          newStudent.append("image", this.image);
-          axios.post("/students", newStudent).then((res) => {
-            console.log(res.data);
-            this.getStudents();
-          })
-          this.phone = null;
-          this.first_name = "";
-          this.last_name = "";
-          this.sex = "";
-          this.getClass = "";
-          this.image = null;
-        }
-        this.close();
-      },
-      getActionUser(){
-        axios.get('/getUserByID/' + this.userID).then(res=> {
-          console.log(res.data);
-          this.userAction = res.data;
-        })
-      },
-      searchStudent(){
-        if(this.searchStudentname !== ''){
-          axios.get('/searchStudent/search/' + this.searchStudentname).then(res=>{
-            this.student_list = res.data;
-          })
-        }else{
-          this.getStudents();
-        }
-      },
-    },
-    mounted() {
-      this.userID = localStorage.getItem('UserID');
-      this.getStudents();
-      this.getActionUser();
-    },
-  };
+        },
+    }
 </script>
 
 <style scoped>
+    section{
+        margin-top: -1.5px;
+    }
 
-  .title{
-    margin-left: -1.5%;
-  }
+    .text-h5{
+        color: white;
+    }
+    .btn-create{
+        margin: 10px; 
+    }
+    v-radio{
+        display: flex;
+    }
 
-  .search{
-    margin-right: -1.5%;
-  }
+    thead {
+        height: 7vh;
+        font-size: 18px;
+    }
 
-  .main{
-    background: #000;
-  }
+    thead th {
+        color: #fff;
+    }
 
-  .a {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    
+    tbody{
+        height: 15vh;
+    }
+    .title{
+        margin-left: -1.5%;
+    }
 
-  }
+    .t{
+        margin-top: 3%;
+        margin-left: -1.5%;
+    }
 
-  #create-user-btn{
-    top: 74vh;
-    float: right;
-    left: 1183px;
-    position: fixed;
-  }
+    .search{
+        margin-right: -1.5%;
+        width: 11%;
+    }
 
-  .form {
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-  }
+    #edit{
+        color: rgb(59, 114, 252);
+    }
 
-  .search{
-    margin-right: -10px;
-  }
+    #delete{
+        color: rgb(250, 56, 59);
+    }
 
 </style>

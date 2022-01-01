@@ -16,10 +16,10 @@
             </select>
             <v-file-input label="Choose image" prepend-icon="mdi-paperclip" v-model="picture">
             </v-file-input>
-             <v-card-actions>
-              <v-btn color="error" @click="cancel"> Cancel</v-btn>
-              <v-btn color="primary" @click="AddNewUser"> Create</v-btn>
-             </v-card-actions> 
+            <v-card-actions>
+            <v-btn color="error" @click="cancel"> Cancel</v-btn>
+            <v-btn color="primary" @click="AddNewUser"> Create</v-btn>
+            </v-card-actions> 
           </form>
         </div>
       </v-card>
@@ -31,6 +31,7 @@
 
   import axios from '../../axios-request.js'
   export default {
+    emits:['add-user'],
     data: () => ({
       studentsList: [],
       studentSelected: '',
@@ -54,6 +55,7 @@
         newUser.append('image', this.picture);
         newUser.append('student_id', this.student_id);
         axios.post('/register', newUser).then(res =>{
+          this.$emit('add-user', res.data);
           console.log(res.data);
           this.dialog = false;
         })
@@ -90,7 +92,7 @@
   }
 
   form{
-    padding: 15px;
+    padding: 20px;
   }
 
   select{

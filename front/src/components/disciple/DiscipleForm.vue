@@ -31,9 +31,9 @@
 </template>
 
 <script>
-
   import axios from '../../axios-request.js'
   export default {
+    emits:['add-disciple'],
     data: () => ({
       studentSelected:null,
       date:null,
@@ -44,21 +44,22 @@
       dialog : false,
     }),
     methods: {
-        CreateDisciple(){
-          let newDisciple = {
-            'student_id': this.studentSelected,
-            'dateWn': this.date,
-            'type': this.type,
-            'description': this.description,
-          }
-          if(this.studentSelected != null){
-            axios.post('/disciple', newDisciple).then(res=>{
-              console.log(res.data);
-              this.dialog = false;
-            })
-          }
-        },
-        getAllStudent(){
+      CreateDisciple(){
+        let newDisciple = {
+          'student_id': this.studentSelected,
+          'dateWn': this.date,
+          'type': this.type,
+          'description': this.description,
+        }
+        if(this.studentSelected != null){
+          axios.post('/disciple', newDisciple).then(res=>{
+            console.log(res.data);
+            this.dialog = false;
+            this.$emit('add-disciple', res.data);
+          })
+        }
+      },
+      getAllStudent(){
         axios.get('/students').then(res =>{
           this.studentsList = res.data;
         })

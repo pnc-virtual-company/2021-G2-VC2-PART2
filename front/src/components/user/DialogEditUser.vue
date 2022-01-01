@@ -10,7 +10,6 @@
           <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :items="studentsList" label="Select Students" required></v-select>
         </form>
         <v-card-actions>
-          <v-spacer></v-spacer>
           <v-btn color="error" @click="dialog = false"> Cancel </v-btn>
           <v-btn color="primary"  class="mr-4" @click="UpdateUser"> Update </v-btn>
         </v-card-actions>
@@ -23,14 +22,15 @@
 
   import axios from '../../axios-request.js'
   export default {
-    props:['dataStudent'],
+    props:['dataStudent', 'data'],
+    emits:['update', 'cancel', 'edit-user'],
     data() {
       return {
         dialog: true,
+        setPassword: '',
         username: '',
         email: '',
         select: '',
-        setPassword: '',
         items: ["SOCIAL AFFAIR OFFICER", "STUDENT"],
         studentsList : [],
         studentSelected: '',
@@ -43,12 +43,9 @@
           'username': this.username,
           'email': this.email,
           'password': this.setPassword,
-          'role': this.select
+          'role': this.select,
         }
-        axios.put('/updateUser/' + this.editID, editUser).then(res =>{
-          console.log(res.data);
-          this.dialog = false;
-        })
+        this.$emit('update',this.editID, editUser, false);  
       },
       getAllStudent(){
         axios.get('/students').then(res =>{
@@ -60,12 +57,18 @@
       },
     },
     mounted() {
-      this.username = this.dataStudent.username;
-      this.email = this.dataStudent.email;
-      this.select = this.dataStudent.role;
-      this.setPassword = this.dataStudent.password;
-      this.editID = this.dataStudent.id;
+      this.username = this.data.username;
+      this.email = this.data.email;
+      this.select = this.data.role;
+      this.editID = this.data.id;
       this.getAllStudent();
+      console.log(this.data);
     },
   };
 </script>
+
+<style scoped>
+  form{
+    padding: 20px;
+  }
+</style>

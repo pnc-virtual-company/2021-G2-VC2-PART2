@@ -117,7 +117,7 @@
     z-index: 99;
     width: 100%;
     justify-content: space-between;
-    background-color: #000000;
+    background-color: #37474F;
   }
 
   nav{
@@ -128,7 +128,7 @@
   ul{
     display: flex;
     float: right;
-    height: 8.5vh;
+    height: 9vh;
   }
   
   .btn-Signout {

@@ -65,12 +65,14 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required|min:8',
         ]);
+        // $request -> file('image')->store('public/images');
         $user = User::findOrFail($id);
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = $request->role;
         $user->student_id = $request->student_id;
+        // $user->image =$request->file('image')->hashName();
         $user->save();
         return response()->json([
             'Message' => 'User Updated',

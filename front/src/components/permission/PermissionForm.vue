@@ -21,7 +21,7 @@
               </select>
             <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
             <v-card-actions>
-              <v-btn color="error" @click="dialog = false"> Cancel</v-btn>
+              <v-btn color="error" @click="cancelCreate"> Cancel</v-btn>
               <v-btn color="primary" @click="CreatePermission"> Create</v-btn>
             </v-card-actions> 
           </form>
@@ -33,37 +33,52 @@
 
 <script>
   import axios from '../../axios-request.js'
-
   export default {
+    emits:['add-permission'],
     data: () => ({
       studentSelected: null,
       startAt: null,
       endAt: null,
       type: null,
       description: null,
-      leavetype: ["play Foodball", "sleep", "tired", "drink beer"],
+      leavetype: ["Sick", "Fever", "Date with doctor", "To visit relatives", "Join wedding", "Handcuffs", "Broken leg"],
       studentsList: [],
       dialog : false,
-
     }),
     methods: {
-        CreatePermission(){
-          let newPermission = {
-            'student_id': this.studentSelected,
-            'startAt': this.startAt,
-            'endAt': this.endAt,
-            'type': this.type,
-            'description': this.description,
-          }
-          console.log(newPermission);
-          if(this.studentSelected != null){
-            axios.post('/permissions', newPermission).then(res=>{
-              console.log(res.data);
-              this.dialog = false;
-            })
-          }
-        },
-        getAllStudent(){
+      CreatePermission(){
+        let newPermission = {
+          'student_id': this.studentSelected,
+          'startAt': this.startAt,
+          'endAt': this.endAt,
+          'type': this.type,
+          'description': this.description,
+        }
+        if(this.studentSelected != null){
+          axios.post('/permissions', newPermission).then(res=>{
+            this.dialog = false;
+            this.$emit('add-permission', res.date);
+          })
+        }
+        this.studentSelected = "";
+        this.startAt = "";
+        this.endAt = "";
+        this.type = "";
+        this.description = "";
+      },
+      cancelCreate(){
+        this.dialog = false;
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem);
+          this.editedIndex = -1;
+        });
+        this.studentSelected = "";
+        this.startAt = "";
+        this.endAt = "";
+        this.type = "";
+        this.description = "";
+      },
+      getAllStudent(){
         axios.get('/students').then(res =>{
           this.studentsList = res.data;
         })
@@ -71,6 +86,7 @@
     },
     mounted() {
       this.getAllStudent();
+      this.CreatePermission();
     },
   }
 </script>
