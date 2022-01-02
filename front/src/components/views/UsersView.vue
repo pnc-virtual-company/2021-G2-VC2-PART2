@@ -2,8 +2,8 @@
   <section>
     <br>
     <user-form @add-user="getAllUser"></user-form>
-    <edit-user v-if="show_update" :data="userInfo" @edit-use="UpdateUser"></edit-user>
-    <user-card>
+    <edit-user v-if="show_update" :data="userInfo" @update="UpdateUser" @cancel="cancel"></edit-user>
+    <div>
       <v-container>
         <template>
           <v-dialog v-model="dialogDelete" max-width="450px">
@@ -21,19 +21,19 @@
           <v-card-title class="title">
             <strong class="t">Users</strong>
             <v-spacer></v-spacer>
-            <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
+            <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
           </v-card-title>
           <v-card color="" green>
             <v-simple-table>
               <template v-slot:default>
-                <thead class="blue-grey darken-2">
+                <thead class="blue-grey darken-3">
                   <th scope="col">Profile</th>
                   <th scope="col">Username</th>
                   <th scope="col">Email</th>
                   <th scope="col">Role</th>
                   <th scope="col">Action</th>
                 </thead>
-                <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center; height:10vh;">
+                <tbody class="text-center" style="text-align: center; align-items: center;justify-content: center; height:8vh;">
                   <tr class="data" v-for="(user, index) in userList" :key="index">
                     <td class="img">
                       <v-img height="50" width="50" :src="imgUrl + user.image" class="pa-7 secondary rounded-circle d-inline-block"></v-img>
@@ -42,23 +42,21 @@
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
-                      <v-icon medium id="edit" class="mr-2" @click="editItem(user)">mdi-pencil</v-icon>
-                      <v-icon medium id="delete" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
+                      <v-icon mediem id="edit" class="mr-2" @click="editItem(user)">mdi-pencil</v-icon>
+                      <v-icon mediem id="delete" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
                     </td>
                   </tr>
-                  <Updateuser v-if="dialog" :dataStudent="dataStudent" @cancel="cancel" @update="UpdateUser"></Updateuser>
                 </tbody>
               </template>
             </v-simple-table>
           </v-card>
         </template>
       </v-container>
-    </user-card>
+    </div>
   </section>
 </template>
 
 <script>
-  
   import axios from "../../axios-request.js";
   import UserForm from "../user/UserForm.vue";
   import EditUser from '../user/DialogEditUser.vue'
@@ -98,20 +96,20 @@
         });
       },
       editItem(user) {
-        this.dialog = true;
         this.dataStudent = user;
         this.show_update = true;
         this.userInfo = user;
+        console.log("hello");
       },
-      // UpdateUser(id,updateUser,isFalse){
-      //   axios.put('/updateUser/' + id, updateUser).then(res =>{
-      //     console.log(res.data);
-      //     this.dialog = isFalse;
-      //     this.getAllUser();
-      //   })
-      // },
-      cancel(){
-        this.dialog = false;
+      UpdateUser(id,updateUser,isFalse){
+        axios.put('/updateUser/' + id, updateUser).then(res =>{
+          console.log(res.data);
+          this.show_update = isFalse;
+          this.getAllUser();
+        })
+      },
+      cancel(isFalse){
+        this.show_update = isFalse;
       },
       searchUser(){
         if(this.searchUsername !== ''){
@@ -130,10 +128,12 @@
 </script>
 
 <style scoped>
-  
+
+  body{
+    background: #CFD8DC;
+  }
   section{
     margin-top: -1.5px;
-    /* background: rgba(221, 221, 221, 0.727); */
   }
 
   .title{

@@ -14,7 +14,7 @@
                   <v-radio label="Female" value="Female"></v-radio>
                   <v-radio label="Male" value="Male"></v-radio>
                 </v-radio-group>
-                <v-autocomplete ref="class" v-model="getClass" :items="classes" label="Class" placeholder="Select class..." required></v-autocomplete>
+                <v-text-field ref="class" prepend-icon="mdi-school" v-model="getClass" label="Class" required></v-text-field>
                 <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
                 <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
                 <v-card-actions>
@@ -34,7 +34,6 @@
   export default {
     emits:['add-student'],
     data: () => ({
-      classes: ["WEP A", "WEP B", "SNA", "CLASS A", "CLASS B", "CLASS C"],
       phone: null,
       first_name: "",
       last_name: "",

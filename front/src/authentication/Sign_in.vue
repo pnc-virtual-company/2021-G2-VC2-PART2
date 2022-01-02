@@ -8,26 +8,11 @@
               <img src="../assets/pnc.png" alt="" />
             </div>
             <div>
-              <v-text-field
-                class="input-field"
-                outlined
-                dense
-                white
-                v-model="email"
-                :error-messages="emailErrors"
-                label="E-mail"
-                required
+              <v-text-field class="input-field" outlined dense white v-model="email" :error-messages="emailErrors" label="E-mail" :append-icon="'mdi-email'"  required
                 @input="$v.email.$touch()"
                 @blur="$v.email.$touch()"
-              ></v-text-field>
-              <v-text-field
-                class="input-field"
-                outlined
-                dense
-                white
-                v-model="password"
-                :error-messages="passwordErrors"
-                label="Password"
+              ><v-scpacer>mdi-email</v-scpacer></v-text-field>
+              <v-text-field class="input-field" outlined dense white v-model="password" :error-messages="passwordErrors" label="Password"
                 required
                 @input="$v.password.$touch()"
                 @blur="$v.password.$touch()"
@@ -38,7 +23,7 @@
                 hint="At least 8 characters"
                 @click:append="show1 = !show1"
               ></v-text-field>
-              <p>{{ errorMessage }}</p>
+              <small>{{ errorMessage }}</small>
               <v-card-actions>
                 <v-btn color="primary" to="/" @click="signin" class="login-btn">Login</v-btn>
               </v-card-actions>
@@ -70,7 +55,6 @@ export default {
     rules: {
       required: (value) => !!value || "Password is required.",
       min: (v) => v.length >= 8 || "Min 8 characters",
-      emailMatch: () => `The email and password you entered don't match`,
     },
   }),
   computed: {
@@ -78,13 +62,12 @@ export default {
       const errors = [];
       if (!this.$v.email.$dirty) return errors;
       !this.$v.email.email && errors.push("Must be valid e-mail");
-      !this.$v.email.required && errors.push("E-mail is required");
       return errors;
     },
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("E-mail is required");
+       !this.$v.password.required && errors.push("Must be valid password");
       return errors;
     },
   },
@@ -99,12 +82,12 @@ export default {
       };
       axios.post("/login", userSignin).then((res) => {
         localStorage.setItem("UserID", res.data.data.id);
-        this.$emit("userLogin", this.islogin);
-        this.$router.push("/home");
+        this.$emit("userLogin", this.islogin); 
+        this.$router.push('/home');
         console.log(res.data);
       }).catch((error) => {
         console.log(error);
-        this.errorMessage = "Your input is not valid, please try again!";
+        this.errorMessage = "Password or Email is not match";
         this.email = "";
         this.password = "";
       });
@@ -116,9 +99,12 @@ export default {
 <style scoped>
 
   #inspire {
+    width: 100%;
+    height: 100%;
     background-image: url("../assets/bg.jpg");
-    overflow-y: hidden;
-    overflow-x: hidden;
+    background-position: center;
+    background-size: cover;
+    display: flex;
   }
 
   form {
@@ -152,9 +138,9 @@ export default {
     margin-left: -3%;
   }
 
-  p {
+  small{
     color: red;
     margin-top: 10px;
-    margin-left: 15%;
+    margin-left: 25%;
   }
 </style>

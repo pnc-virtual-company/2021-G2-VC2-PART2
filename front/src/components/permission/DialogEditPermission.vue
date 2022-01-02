@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <!-- <v-dialog v-model="dialog" width="400">
+    <v-dialog v-model="dialog" width="400">
       <template v-slot:activator="{ on, attrs }" class="create-user-btn">
         <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right> + </v-btn>
       </template>
@@ -21,74 +21,68 @@
               </select>
             <v-textarea label="Description" auto-grow outlined row-height="15" v-model="description"></v-textarea>
             <v-card-actions>
-              <v-btn color="error" @click="dialog = false"> Cancel</v-btn>
-              <v-btn color="primary" @click="CreatePermission"> Create</v-btn>
+              <v-btn color="error" @click="cancel"> Cancel</v-btn>
+              <v-btn color="primary" @click="edit">Update</v-btn>
             </v-card-actions> 
           </form>
         </div>
       </v-card>
-    </v-dialog> -->
+    </v-dialog>
   </div>
 </template>
 
 <script>
-  // import axios from '../../axios-request.js'
-  // export default {
-  //   emits:['add-permission'],
-  //   data: () => ({
-  //     studentSelected: null,
-  //     startAt: null,
-  //     endAt: null,
-  //     type: null,
-  //     description: null,
-  //     leavetype: ["Sick", "Fever", "Date with doctor", "To visit relatives", "Join wedding", "Handcuffs", "Broken leg"],
-  //     studentsList: [],
-  //     dialog : false,
-  //   }),
-  //   methods: {
-  //       updatePer(permission){
-  //           this.dialogUpdate = true;
-  //           this.studentSelected = permission.student.id;
-  //           this.perId = permission.id;
-  //           this.startAt = permission.startAt;
-  //           this.endAt = permission.endAt;
-  //           this.description = permission.description;
-  //           console.log(this.studentSelected);
-  //       },
-  //       UpdatePermission(){
-  //           let updatePermissionItem = {
-  //           'student_id': this.studentSelected,
-  //           'startAt': this.startAt,
-  //           'endAt': this.endAt,
-  //           'type': this.type,
-  //           'description': this.description,
-  //           }
-  //           console.log(updatePermissionItem);
-  //           axios.put('/permissions/'+ this.perId, updatePermissionItem).then(res=>{
-  //           console.log(res.data);
-  //           this.getAllPermissions();
-  //           this.dialogUpdate =false;
-  //           })
-  //           this.studentSelected = "";
-  //           this.startAt = "";
-  //           this.endAt = "";
-  //           this.type = "";
-  //           this.description = "";
-  //       },
-  //       getAllStudent(){
-  //       axios.get('/students').then(res =>{
-  //         this.studentsList = res.data;
-  //       })
-  //     },
-  //   },
-  //   mounted() {
-  //     this.getAllStudent();
-  //   },
-  // }
+  import axios from '../../axios-request.js'
+  export default {
+    props: ['data'],
+    emits:['update', 'cancel'],
+    data: () => ({
+      studentSelected: null,
+      startAt: null,
+      endAt: null,
+      type: null,
+      description: null,
+      leavetype: ["Sick", "Date with doctor", "To visit relatives", "Join wedding"],
+      studentsList: [],
+      dialog : true,
+      perID: null,
+    }),
+    methods: {
+      cancel(){
+        this.$emit('cancel', false);
+      },
+      edit(){
+        let editPermission = {
+          'student_id': this.studentSelected,
+          'startAt': this.startAt,
+          'endAt': this.endAt,
+          'type': this.type,
+          'description': this.description,
+        }
+        if(this.studentSelected != null){
+            this.$emit('update',this.perID, editPermission, false);
+        }
+      },
+      getAllStudent(){
+        axios.get('/students').then(res =>{
+          this.studentsList = res.data;
+        })
+      },
+    },
+    mounted() {
+      this.getAllStudent();
+      this.studentSelected = this.data.student_id;
+      this.startAt = this.data.startAt;
+      this.endAt = this.data.endAt;
+      this.type = this.data.type;
+      this.description = this.data.description;
+      this.perID = this.data.id;
+    },
+  }
 </script>
 
 <style scoped>
-  /* .create-user-btn {
+  .create-user-btn {
     top: 85vh;
     float: right;
     position: fixed;
@@ -106,6 +100,6 @@
     color: rgb(49, 47, 47);
     margin-bottom: 10px;
     border: none;
-  } */
+  }
 
 </style>

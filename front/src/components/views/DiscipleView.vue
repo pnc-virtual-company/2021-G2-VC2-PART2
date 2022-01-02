@@ -1,7 +1,8 @@
 <template>
   <section>
     <br>
-    <disciple-form @add-disciple="getAllDisciple"></disciple-form>
+    <edit-disciple  v-if="update_disc" :data="discInfo" @update="EditDisc" @cancel="cancel"></edit-disciple>
+    <disciple-form  @add-disciple="getAllDisciple"></disciple-form>
     <disciple-card>
       <v-container>
         <v-row justify="center">
@@ -52,12 +53,12 @@
                   </div>
                   <div class="date-time">
                     <v-col class="text-no-wrap" cols="5" sm="3">
-                      <strong>{{getGoodDatetimeFormat(disciple.dateWn)}}</strong> 
+                      <span>{{getGoodDatetimeFormat(disciple.dateWn)}}</span> 
                     </v-col>
                   </div>
                   <div class="type">
                     <v-col> 
-                      <v-title>{{disciple.type}}</v-title>
+                      <strong>{{disciple.type}}</strong>
                     </v-col>
                   </div>
                   <v-card-actions>
@@ -88,16 +89,17 @@
 
 <script>
   import axios from '../../axios-request.js'
-  import DiscipleForm from '../disciple/DiscipleForm.vue';
+  import DialogEdit from '../disciple/DialogEditDisciple.vue';
+  import DiscipleForm from '../disciple/DiscipleForm.vue'
   import moment from "moment";
   export default {
-  components: { DiscipleForm},
-    component: {
+    components:{
+      'edit-disciple': DialogEdit,
       'disciple-form': DiscipleForm,
     },
     data: () =>  ({
         imgUrl: "http://127.0.0.1:8000/storage/images/",
-        dialogUpdate: false,
+        update_disc: false,
         dialogDelete: false,
         studentSelected: null,
         description: null,
@@ -106,8 +108,24 @@
         type: null,
         studentList: [],
         discipleList: [],
+        discInfo: '',
     }),
     methods: {
+      updateDis(disciple){
+        this.discInfo = disciple;
+        this.update_disc = true;
+      },
+      EditDisc(id, updateDiscipleItem, isFalse){
+        console.log(id);
+        axios.put('/disciple/'+ id, updateDiscipleItem).then(res=>{
+          console.log(res.data);
+          this.update_disc = isFalse;
+          this.getAllDisciple();
+        })
+      },
+      cancel(isFalse){
+        this.update_disc = isFalse;
+      },
       getAllDisciple(){
         axios.get('/disciple').then(res=>{
           this.discipleList = res.data;
@@ -134,7 +152,7 @@
         })
       },
       getGoodDatetimeFormat(datetime) {
-        return moment(String(datetime)).format("D-MMM-Y");
+        return moment(String(datetime)).format("DD-MMM-Y");
       },
     },
     mounted() {
@@ -147,7 +165,6 @@
 <style scoped>
   section{
     margin-top: 10px;
-    /* background: rgba(221, 221, 221, 0.727); */
   }
 
   .card-body{
@@ -156,7 +173,6 @@
 
   .card{
     height: 25vh;
-    background: rgba(255, 255, 255, 0.864);
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -166,7 +182,7 @@
 
   .details{
     height: auto;
-    background: rgba(148, 148, 148, 0.707);
+    background: rgba(255, 255, 255, 0.707);
   }
 
   .title{
@@ -204,7 +220,7 @@
     text-align: center;
     justify-content: center;
     display: flex;
-    margin-top: -0.4%;
+    margin-top: -0.5%;
   }
   .action{
     text-align: center;

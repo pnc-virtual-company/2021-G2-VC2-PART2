@@ -1,44 +1,49 @@
 <template>
-   <v-app>
-    <navigation v-if="menubar"></navigation>
+  <v-app>
+    <navigation v-if="menubar" @sign-out="Logout"></navigation>
     <v-main>
-      <router-view @userLogin="logined" @userLogout="Logout"></router-view>  
+      <router-view @userLogin="logined"></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-  import Navigation from "./components/nav/Navigation.vue";
-  export default {
-    name: "App",
-    components: {
-      Navigation,
+import Navigation from "./components/nav/Navigation.vue";
+export default {
+  name: "App",
+  components: {
+    Navigation,
+  },
+  data() {
+    return {
+      menubar: false,
+      userID: "",
+    };
+  },
+  methods: {
+    logined(user) {
+      this.menubar = user;
+      console.log("Logined: " + user);
     },
-    data() {
-      return {
-        menubar: false,
-        userID : '',
-      };
+    Logout(logout) {
+      this.menubar = logout;
+      console.log(logout);
     },
-    methods: {
-      logined(login){
-        this.menubar = login;
-        console.log(login);
-      },
-      Logout(logout){
-        this.menubar = logout;
-        console.log(logout);
-      }
-    },
-    mounted() {
-      this.userID = localStorage.getItem('UserID');
-      if ( this.userID != null){
-        this.menubar = true;
-      }
-    },
-  };
+  },
+
+  mounted() {
+    this.userID = localStorage.getItem("UserID");
+    if (this.userID != null) {
+      this.menubar = true;
+      this.$router.push("/home");
+    }
+  },
+};
 </script>
 
 <style>
- 
+  body{
+    background: #CFD8DC;
+  }
 </style>
+  

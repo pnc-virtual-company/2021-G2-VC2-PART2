@@ -1,25 +1,12 @@
 <template>
-    
-   <h1>Hello</h1>
+   <div class="home-page"></div>
 </template>
 
-<script>
-
-    export default {
-        
-    }
-    
-</script>
-
 <style  scoped>
-
-    body{
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-    }
-    h1{
-        margin-top: 5%;
-    }
-   
+    .home-page{
+        background-image: url('../../assets/home-bg-1.jpg');
+        background-position: center;
+        background-size: cover;
+        display: flex;
+    }   
 </style>

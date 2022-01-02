@@ -41,7 +41,7 @@
       endAt: null,
       type: null,
       description: null,
-      leavetype: ["Sick", "Fever", "Date with doctor", "To visit relatives", "Join wedding", "Handcuffs", "Broken leg"],
+      leavetype: ["Sick", "Date with doctor", "To visit relatives", "Join wedding"],
       studentsList: [],
       dialog : false,
     }),
@@ -92,6 +92,7 @@
 </script>
 
 <style scoped>
+
   .create-user-btn {
     top: 85vh;
     float: right;

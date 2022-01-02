@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="userID" class="navigation" >
+  <nav class="navigation" >
     <div class="navbar">
       <ul>
         <div class="circle">
@@ -52,7 +52,6 @@
     },
     watch:{
       userID(){
-        console.log("isIN")
         return this.userID !== null;
       }
     },
@@ -80,7 +79,7 @@
         }
       })
       this.getActionUser();
-      console.log(this.userID);
+    
     },
   }
 </script>

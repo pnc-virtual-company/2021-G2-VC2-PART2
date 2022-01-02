@@ -10,7 +10,7 @@
           <v-select v-if="select === 'STUDENT'" v-model="studentSelected" :items="studentsList" label="Select Students" required></v-select>
         </form>
         <v-card-actions>
-          <v-btn color="error" @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="error" @click="cancel"> Cancel </v-btn>
           <v-btn color="primary"  class="mr-4" @click="UpdateUser"> Update </v-btn>
         </v-card-actions>
       </v-card>
@@ -23,7 +23,7 @@
   import axios from '../../axios-request.js'
   export default {
     props:['dataStudent', 'data'],
-    emits:['update', 'cancel', 'edit-user'],
+    emits:['update', 'cancel'],
     data() {
       return {
         dialog: true,
@@ -31,7 +31,7 @@
         username: '',
         email: '',
         select: '',
-        items: ["SOCIAL AFFAIR OFFICER", "STUDENT"],
+        items: ["SOCIAL AFFAIR", "STUDENT"],
         studentsList : [],
         studentSelected: '',
         editID: null,
@@ -46,6 +46,9 @@
           'role': this.select,
         }
         this.$emit('update',this.editID, editUser, false);  
+      },
+      cancel(){
+        this.$emit('cancel', false);
       },
       getAllStudent(){
         axios.get('/students').then(res =>{

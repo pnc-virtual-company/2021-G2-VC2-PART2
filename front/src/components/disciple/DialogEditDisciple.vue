@@ -1,7 +1,3 @@
-
-          </v-dialog>
-
-
 <template>
     <section>
         <v-dialog v-model="dialogUpdate" width="400">
@@ -11,7 +7,7 @@
               <h1>Disciple notice</h1><br>
               <label for="cars">Choose student</label>
               <select class="selected" id="cars" v-model="studentSelected">
-                <option v-for="student of studentList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
+                <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
               </select>
               <label for="cars">Choose leave type</label>
               <select class="selected" id="cars" v-model="type">
@@ -21,7 +17,7 @@
               <input type="date" name="" id="" v-model="dateWn"><br>
               <v-textarea label="Description" auto-grow outlined v-model="description"></v-textarea>
               <v-card-actions>
-                <v-btn color="error" @click="dialogUpdate = false"> Cancel</v-btn>
+                <v-btn color="error" @click="cancel"> Cancel</v-btn>
                 <v-btn color="primary" @click="UpdateDisciple()"> Update</v-btn>
               </v-card-actions> 
             </form>
@@ -32,20 +28,23 @@
 </template>
 
 <script>
+    import axios from '../../axios-request.js';
     export default {
+        props: ['data'],
+        emits:['update', 'cancel'],
         data() {
             return {
-                
+              studentSelected:null,
+              dateWn:null,
+              type: null,
+              description: null,
+              leavetype: ["Misconduct", "Oral warning", "Warning letter", "Termination"],
+              studentsList: [],
+              dialogUpdate : true,
+              id: null,
             }
         },
         methods: {
-            updateDis(disciple){
-                this.dialogUpdate = true;
-                this.studentSelected = disciple.student.id;
-                this.discipleID = disciple.id;
-                this.dateWn = disciple.dateWn;
-                this.description = disciple.description;
-            },
             UpdateDisciple(){
                 let updateDiscipleItem = {
                     'student_id': this.studentSelected,
@@ -53,24 +52,51 @@
                     'dateWn': this.dateWn,
                     'description': this.description,
                 }
-                console.log(updateDiscipleItem);
-                axios.put('/disciple/'+ this.discipleID, updateDiscipleItem).then(res=>{
-                    console.log(res.data);
-                    this.getAllDisciple();
-                    this.dialogUpdate = false ;
-                })
-                this.studentSelected = "";
-                this.dateWn = "";
-                this.type = "";
-                this.description = "";
+                this.$emit('update',this.id, updateDiscipleItem, false);
+            },
+            cancel(){
+              this.$emit('cancel', false);
+            },
+            getAllStudent(){
+              axios.get('/students').then(res =>{
+                this.studentsList = res.data;
+              })
             },
         },
         mounted() {
-            
+          this.getAllStudent();
+            this.id = this.data.id;
+            this.studentSelected = this.data.student_id;
+            this.type = this.data.type;
+            this.description = this.data.description;
+            this.dateWn = this.data.dateWn;
         },
     }
 </script>
 
 <style scoped>
+    h1{
+      margin-left: 18%;
+  }
+  
+  .create-user-btn {
+    top: 85vh;
+    float: right;
+    position: fixed;
+  }
 
+  form{
+    padding: 15px;
+  }
+
+  .selected, input[type=date]{
+    width: 100%;
+    background: rgba(191, 190, 190, 0.809);
+    border-radius: 2px;
+    height: 35px;
+    padding: 0 5px;
+    color: rgb(49, 47, 47);
+    margin-bottom: 10px;
+    border: none;
+  } 
 </style>

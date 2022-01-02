@@ -2,8 +2,8 @@
     <section>
         <br>
         <student-form @add-student="getStudents"></student-form>
-        <edit-student></edit-student>
-        <student-card>
+        <edit-student v-if="update_student" :data="studentInfo" @update="UpdateStudent" @cancel="cancel"></edit-student>
+        <div>
             <v-container>
                 <template>
                     <v-dialog v-model="dialogDelete" max-width="450px">
@@ -21,12 +21,12 @@
                     <v-card-title >
                         <strong class="t">Students</strong>
                         <v-spacer></v-spacer>
-                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details></v-text-field> 
+                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
                     </v-card-title>
                     <v-card color="" green>
                         <v-simple-table>
                             <template v-slot:default>
-                                <thead class="blue-grey darken-2" >
+                                <thead class="blue-grey darken-3" >
                                     <th>Profile</th>
                                     <th>First name</th>
                                     <th>Last name</th>
@@ -50,14 +50,13 @@
                                             <v-icon id="delete" medium @click="deleteItem(students)">mdi-delete</v-icon>   
                                         </td>
                                     </tr>
-                                    <Updateuser v-if="dialog" :dataStudent="dataStudent" @cancel="cancel" @update="UpdateUser"></Updateuser>
                                 </tbody>
                             </template>
                         </v-simple-table>
                     </v-card>
                 </template>
             </v-container>
-        </student-card>
+        </div>
     </section>
 </template>
 
@@ -76,8 +75,23 @@
             searchStudentname:'',
             dialogDelete: false,
             studentID: null,
+            update_student: false,
+            studentInfo: '',
         }),
         methods: {
+            editItem(students){
+                this.update_student = true;
+                this.studentInfo = students;
+            },
+
+            UpdateStudent(id,editStudent,isFalse){
+                axios.put('/students/'+ id , editStudent ).then(res=>{
+                    console.log(res.data);
+                    this.update_student = isFalse;
+                    this.getStudents();
+                })
+            },
+
             getStudents() {
                 axios.get("/students").then((res) => {
                     this.student_list = res.data;
@@ -94,8 +108,8 @@
                     this.dialogDelete = false;
                 });
             },
-            cancel(){
-                this.dialog = false;
+            cancel(isFalse){
+                this.update_student = isFalse;
             },
             searchStudent(){
                 if(this.searchStudentname !== ''){
@@ -115,8 +129,7 @@
 
 <style scoped>
     section{
-        margin-top: -3%;
-        /* background: rgba(221, 221, 221, 0.727); */
+        margin-top: -1.5px;
     }
 
     .text-h5{

@@ -2,8 +2,8 @@
   <section>
     <br>
     <permission-form @add-permission="getAllPermissions"></permission-form>
-    <edit-permission></edit-permission>
-    <permission-card>
+    <edit-permission v-if="update_per" :data="perInfo" @update="EditPer" @cancel="cancel"></edit-permission>
+    <div>
       <v-container>
         <v-row justify="center">
           <v-dialog v-model="dialogDelete" max-width="500px">
@@ -51,22 +51,22 @@
                       <v-chip v-if="permission.new" :color="`${permission.student.first_name} lighten-4`" class="ml-0 mr-2 black--text" label small>
                         {{ permission.new }} new
                       </v-chip>
-                      <span>{{getGoodDatetimeFormat(permission.startAt)}} <strong>to</strong> {{getGoodDatetimeFormat(permission.endAt)}}</span><br><br>
+                      <span>{{getGoodDatetimeFormat(permission.startAt)}} to {{getGoodDatetimeFormat(permission.endAt)}}</span><br><br>
                       <div>
-                        <span>2 days</span>
+                        <span v-html="Math.round(((new Date(permission.endAt)).getTime() - (new Date(permission.startAt)).getTime()) / (1000 *  3600 * 24))" ></span> <span>days</span>
                       </div>
                     </v-col>
                   </div>
                   <div class="type">
                     <v-col> 
-                      <v-title><strong>{{permission.type}}</strong></v-title>
+                      <strong>{{permission.type}}</strong>
                     </v-col>
                   </div>
                   <div class="action">
                     <v-col>
                       <div class="btn">
-                        <v-icon medium id="edit" class="mr-2" @click="updatePer(permission)">mdi-pencil</v-icon>
-                        <v-icon medium id="delete" @click="deleteItem(permission.id)">mdi-delete</v-icon>
+                        <v-icon mediem id="edit" class="mr-2" @click="updatePer(permission)">mdi-pencil</v-icon>
+                        <v-icon mediem id="delete" @click="deleteItem(permission.id)">mdi-delete</v-icon>
                       </div>
                     </v-col>
                   </div>
@@ -86,12 +86,11 @@
           </v-expansion-panels>
         </v-row>
       </v-container>
-    </permission-card>
+    </div>
   </section>
 </template>
 
 <script>
-
   import axios from '../../axios-request.js'
   import permissionForm from "../permission/PermissionForm.vue";
   import EditPermission from '../permission/DialogEditPermission.vue'
@@ -102,7 +101,7 @@
       'edit-permission': EditPermission
     },
     data: () => ({
-      dialogUpdate: false,
+      update_per: false,
       dialogDelete: false,
       permissionList: [],
       studentList: [],
@@ -112,18 +111,36 @@
       endAt: null,
       type: null,
       description: null,
+      perInfo: '',
+      userID: '',
+      userInfo: '',
       imgUrl: "http://127.0.0.1:8000/storage/images/",
     }),
     methods: {  
-      getAllPermissions(){
-        axios.get('/permissions').then(res=>{
-          this.permissionList = res.data;
+      cancel(isFalse){
+        this.update_per = isFalse;
+      },
+      updatePer(permission){
+        this.update_per = true;
+        this.perInfo = permission;
+      },
+      EditPer(id, perData, isFalse){
+        console.log(id);
+        axios.put('/permissions/'+ id , perData).then(res=>{
+          console.log(res.data);
+          this.update_per = isFalse;
+          this.getAllPermissions();
         })
+      },
+      getAllPermissions(){
+           axios.get('/permissions').then(res=>{
+            this.permissionList = res.data;
+           }) 
       },
       getAllStudent(){
         axios.get('/students').then(res=>{
           this.studentList = res.data
-        }) 
+        })
       },
       deleteItem(id){
         this.dialogDelete = true;
@@ -140,18 +157,17 @@
         })
       },
       getGoodDatetimeFormat(datetime) {
-        return moment(String(datetime)).format("D-MMM-Y");
+        return moment(String(datetime)).format("DD-MM-Y");
       },
-      // getNumberOfDays(start, end) {
-      //   const date1 = new Date(start);
-      //   const date2 = new Date(end);
-      //   const oneDay = 1000 * 60 * 60 * 24;
-      //   const diffInTime = date2.getTime() - date1.getTime();
-      //   const diffInDays = Math.round(diffInTime / oneDay);
-      //   return diffInDays;
-      // },
+      getUser(){
+        axios.get('/getUserByID/'+ this.userID).then(res=>{
+          this.userInfo = res.data;
+          console.log(this.userInfo);
+        })
+      }
     },
     mounted() {
+      this.userID = localStorage.getItem('UserID');
       this.getAllPermissions();
     },
   }
@@ -160,7 +176,6 @@
 <style scoped>
   section{
     margin-top: 10px;
-    /* background: rgba(221, 221, 221, 0.727); */
   }
 
   .card-body{
@@ -169,7 +184,7 @@
 
   .details{
     height: auto;
-    background: rgba(148, 148, 148, 0.707);
+    background: rgba(255, 255, 255, 0.707);
   }
 
   #card{
@@ -178,7 +193,6 @@
 
   .card{
     height: 25vh;
-    background: rgba(255, 255, 255, 0.864);
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -226,7 +240,7 @@
 
   .date-time{
     width: 20%;
-    margin-left: 120px;
+    margin-left: 140px;
     margin-top: 30px;
   }
   .type{
@@ -234,7 +248,8 @@
     text-align: center;
     justify-content: center;
     display: flex;
-    margin-top: -0.4%;
+    margin-top: -0.5%;
+    margin-left: -5%;
   }
   .action{
     text-align: center;
@@ -289,5 +304,4 @@
   #delete{
     color: rgb(250, 56, 59);
   }
-
 </style>
