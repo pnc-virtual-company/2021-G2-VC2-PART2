@@ -102,13 +102,12 @@ export default {
     width: 100%;
     height: 100%;
     background-image: url("../assets/bg.jpg");
-    background-position: center;
-    background-size: cover;
-    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
 
   form {
-    background: rgba(247, 247, 247, 0.85);
+    background: rgba(255, 255, 255, 0.823);
     height: 50vh;
     width: 80%;
     margin-top: 7vh;

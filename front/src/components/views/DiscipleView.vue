@@ -71,12 +71,19 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content class="details">
                 <v-divider></v-divider>
-                <v-card-text>
-                  <strong>Student name:</strong> {{disciple.student.first_name}} {{disciple.student.last_name}} <br>
-                  <strong>Class:</strong> {{ disciple.student.class }} <br>
-                  <strong>Date:</strong> {{getGoodDatetimeFormat(disciple.dateWn)}} <br> 
-                  <strong>Discipline type:</strong> {{disciple.type}} <br>
-                  <strong>Reasons:</strong> {{disciple.description}}
+                <v-card-text class="detail-info">
+                  <div class="text-info">
+                    <strong>First name:</strong> {{disciple.student.first_name}}<br>
+                    <strong>Last name:</strong>  {{disciple.student.last_name}} <br>
+                    <strong>Class:</strong> {{ disciple.student.class }} <br>
+                    <strong>Date:</strong> {{getGoodDatetimeFormat(disciple.dateWn)}} <br> 
+                  </div>
+                  <div class="disciple-type">
+                    <strong>Discipline type:</strong> {{disciple.type}}
+                  </div>
+                  <div class="reason">
+                     <strong>Reasons:</strong> <br> {{disciple.description}}
+                  </div>                 
                 </v-card-text>
               </v-expansion-panel-content>
             </v-expansion-panel>
@@ -167,6 +174,31 @@
     margin-top: 10px;
   }
 
+  .details{
+    height: auto;
+    background: rgba(255, 255, 255, 0.707);
+    width: 100%;
+  }
+
+  .detail-info{
+    display: flex;
+    float: right;
+  }
+
+  .text-info{
+    width: 25%;
+    box-sizing: border-box;
+  }
+
+  .disciple-type{
+    width: 25%;
+  }
+
+  .reason{
+    width: 50%;
+    box-sizing: border-box;
+  }
+
   .card-body{
     margin-left: 0%;
   }
@@ -178,11 +210,6 @@
 
   #card{
     width: 98%;
-  }
-
-  .details{
-    height: auto;
-    background: rgba(255, 255, 255, 0.707);
   }
 
   .title{

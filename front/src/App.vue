@@ -46,4 +46,3 @@ export default {
     background: #CFD8DC;
   }
 </style>
-  

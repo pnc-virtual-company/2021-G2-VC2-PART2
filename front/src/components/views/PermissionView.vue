@@ -74,13 +74,18 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content class="details">
                 <v-divider></v-divider>
-                <v-card-text>
-                  <strong>Student name:</strong> {{permission.student.first_name}} {{permission.student.last_name}} <br>
-                  <strong>Class:</strong> {{ permission.student.class }} <br>
-                  <strong>Start date:</strong> {{getGoodDatetimeFormat(permission.startAt)}} <br>
-                  <strong>End date:</strong> {{getGoodDatetimeFormat(permission.endAt)}} <br>
-                  <strong>Permission type:</strong> {{permission.type}} <br>
-                  <strong>Reasons:</strong> {{permission.description}}</v-card-text>
+                <v-card-text class="detail-info">
+                  <div class="text-info">
+                    <strong>Student name:</strong> {{permission.student.first_name}} {{permission.student.last_name}} <br>
+                    <strong>Class:</strong> {{ permission.student.class }} <br>
+                    <strong>Start date:</strong> {{getGoodDatetimeFormat(permission.startAt)}} <br>
+                    <strong>End date:</strong> {{getGoodDatetimeFormat(permission.endAt)}} <br>
+                  </div>
+                  <div class="reason">
+                    <strong>Permission type:</strong> {{permission.type}} <br>
+                    <strong>Reasons:</strong> <br> {{permission.description}}
+                  </div>
+                </v-card-text>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -187,6 +192,21 @@
     background: rgba(255, 255, 255, 0.707);
   }
 
+  .detail-info{
+    display: flex;
+    float: right;
+  }
+
+  .text-info{
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+  .reason{
+    width: 50%;
+    box-sizing: border-box;
+  }
+
   #card{
     width: 98%;
   }
@@ -241,14 +261,14 @@
   .date-time{
     width: 20%;
     margin-left: 140px;
-    margin-top: 30px;
+    margin-top: 5px;
   }
   .type{
     width: 30%;
     text-align: center;
     justify-content: center;
     display: flex;
-    margin-top: -0.5%;
+    margin-top: -2.7%;
     margin-left: -5%;
   }
   .action{
@@ -257,7 +277,7 @@
     display: flex;
     width: 20%;
     margin-left: -16%;
-    margin-top: -0.5%;
+    margin-top: -2.7%;
   }
 
   img{
@@ -268,7 +288,7 @@
   .name{
     width: 200px;
     height: auto;
-    margin-top: 57px;
+    margin-top: 50px;
     margin-left: 10%;
   }
 
@@ -289,9 +309,9 @@
     margin-left: 2%;
   }
 
-  .name{
+  /* .name{
     padding-bottom: 10px;
-  }
+  } */
 
   #action-btn{
     margin-bottom: 20px;
