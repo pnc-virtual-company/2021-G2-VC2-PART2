@@ -7,7 +7,7 @@
                 <v-icon class="white--text">mdi-arrow-left-bold-circle</v-icon>
                 <v-list-item-title class="white--text">Back</v-list-item-title>
             </v-list-item>
-        </v-btn><br><br>
+        </v-btn><br>
         <div class="detail-card">
             <div class="profile">
                 <img :src="imgUrl+studentInfo.image" />
@@ -93,27 +93,28 @@
         display: flex;
     }
     .profile{
-        width: 20%;
+        width: 25%;
     }
     .name{
         margin-top: 1%;
-        margin-left: 8%;
+        margin-left: 3%;
     }
     .name,
     .class,
     .school{
         width: 25%;
+        margin-top: 3%;
     }
 
     .class,
     .school{
-        margin-top: 3%;
+        margin-top: 4.8%;
     }
 
     img{
-        width: 100px;
-        height: 100px;
-        margin-left: 50%;
+        width: 120px;
+        height: 120px;
+        margin-left: 42%;
         margin-top: 4%;
         border-radius: 50%;
     }
