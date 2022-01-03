@@ -93,6 +93,7 @@
                 this.ishowDetail = true;
                 this.studentInfo = studentInfo;
                 this.hidForm = false;
+                console.log(studentInfo);
             },
             editItem(students){
                 this.update_student = true;

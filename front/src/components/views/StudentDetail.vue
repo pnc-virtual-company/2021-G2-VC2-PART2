@@ -38,19 +38,54 @@
         <template>
             <v-toolbar>
                 <v-tabs dark background-color="blue-grey darken-3" grow>
-                <v-tab>
-                    <v-badge color="green" content="1"> Permission </v-badge>
+                <v-tab @click="showPer">
+                    <v-badge color="green" :content="numOfPermissions"> Permission </v-badge>
                 </v-tab>
-                 <v-tab>
-                    <v-badge color="pink" dot> Discipline </v-badge>
+                 <v-tab @click="showDisc">
+                    <v-badge color="pink" :content="numOfDisciples"> Discipline </v-badge>
                 </v-tab>
+                
                 </v-tabs>
             </v-toolbar>
+            <template>
+                    <v-expansion-panels v-if="isPermission"  class="cardItem">
+                    <v-expansion-panel
+                    v-for="(item,i) in perEachStudentList"
+                    :key="i"
+                    >
+                    <v-expansion-panel-header>
+                        <v-icon>mdi-link-variant</v-icon>
+                        <span>{{getGoodDatetimeFormat(item.startAt)}} to {{getGoodDatetimeFormat(item.endAt)}}</span><br><br>
+                        <div>
+                            <span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 *  3600 * 24))" ></span> <span>days</span>
+                        </div>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        {{item.description}}
+                    </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+                <v-expansion-panels v-if="isDisciple">
+                    <v-expansion-panel
+                    v-for="(item,i) in discEachStudentList"
+                    :key="i"
+                    >
+                    <v-expansion-panel-header>
+                        <v-icon>mdi-link-variant</v-icon>
+                        <span>{{item.dateWn}}</span><br><br>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        {{item.description}}
+                    </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>             
+            </template>
         </template>
     </v-container>
 </template>
 
 <script>
+    import moment from "moment";
     export default {
         emits:['back'],
         props:['studentInfo'],
@@ -60,21 +95,50 @@
             searchStudentname:'',
             studentID: null,
             studentInfo: '',
+            perEachStudentList: [],
+            perList: [],
+            discEachStudentList: [],
             numOfPermissions: 0,
             numOfDisciples: 0,
+            isPermission: true,
+            isDisciple: false,
         }),
         methods: {
+            showPer(){
+                this.isPermission = true
+                this.isDisciple = false;
+            },
+            showDisc(){
+                this.isPermission = false
+                this.isDisciple = true;
+            },
+            getGoodDatetimeFormat(datetime) {
+                return moment(String(datetime)).format("DD-MM-Y");
+            },
             back(){
                 this.$emit('back', false);
             }
         },
         mounted() {
-            console.log(this.studentInfo.student);
+            this.perEachStudentList = this.studentInfo.permission;
+            this.discEachStudentList = this.studentInfo.disciple;
+            for(let i of this.perEachStudentList){
+                this.numOfPermissions++;
+                console.log(i);
+            }
+            for(let n of this.perEachStudentList){
+                this.numOfDisciples++;
+                console.log(n);
+            }
         },
     }
 </script>
 
 <style scoped>
+    .cardItem{
+        width: 75.5%;
+        margin-left: 10%;
+    }
     .v-toolbar{
         width: 75.5%;
         margin-left: 10%;
