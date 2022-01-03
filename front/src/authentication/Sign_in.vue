@@ -83,8 +83,12 @@ export default {
       axios.post("/login", userSignin).then((res) => {
         localStorage.setItem("UserID", res.data.data.id);
         localStorage.setItem("UserRole", res.data.data.role);
-        this.$emit("userLogin", this.islogin); 
-        this.$router.push('/home');
+        this.$emit("userLogin", this.islogin);
+        if(res.data.data.role == "STUDENT"){
+          this.$router.push('/studentInfo')
+        }else{
+          this.$router.push('/home');
+        }
         console.log(res.data);
       }).catch((error) => {
         console.log(error);

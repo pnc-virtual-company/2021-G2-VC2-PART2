@@ -5,25 +5,24 @@
         <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right>+</v-btn>
       </template>
       <v-row justify="center" class="a">
-          <v-card ref="form" class="form">
-            <div>
-              <form>
-                <v-text-field ref="first name" v-model="first_name" label="First Name" required></v-text-field>
-                <v-text-field ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
-                <v-radio-group v-model="sex" row>
-                  <v-radio label="Female" value="Female"></v-radio>
-                  <v-radio label="Male" value="Male"></v-radio>
-                </v-radio-group>
-                <v-text-field ref="class" prepend-icon="mdi-school" v-model="getClass" label="Class" required></v-text-field>
-                <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
-                <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
-                <v-card-actions>
-                  <v-btn color="error"  @click="cancelCreate"> Cancel </v-btn>
-                  <v-btn color="primary"  @click="createStudent"> Create </v-btn>
-                </v-card-actions>
-              </form>
-            </div>             
-          </v-card>
+        <v-card ref="form" class="form">
+          <h2 class="c-s">Create Student</h2>
+          <form>
+            <v-text-field ref="first name" v-model="first_name" label="First Name" required></v-text-field>
+            <v-text-field ref="last name" v-model="last_name" label="Last Name" required></v-text-field>
+            <v-radio-group v-model="sex" row>
+              <v-radio label="Female" value="Female"></v-radio>
+              <v-radio label="Male" value="Male"></v-radio>
+            </v-radio-group>
+            <v-text-field ref="class" prepend-icon="mdi-school" v-model="getClass" label="Class" required></v-text-field>
+            <v-text-field prepend-icon="mdi-phone-in-talk" ref="phone number" v-model="phone" label="Phone Number" required></v-text-field>
+            <v-file-input prepend-icon="mdi-paperclip" label="Choose image" v-model="image" v-if="showfilInput"></v-file-input>
+            <v-card-actions>
+              <v-btn color="error"  @click="cancelCreate"> Cancel </v-btn>
+              <v-btn color="primary"  @click="createStudent"> Create </v-btn>
+            </v-card-actions>
+          </form>            
+        </v-card>
       </v-row>
     </v-dialog>
   </div>
@@ -108,6 +107,11 @@
 </script>
 
 <style scoped>
+  .c-s{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
   .form {
     width: 100%;
     height: 100%;

@@ -24,7 +24,7 @@
             </div>
             <div class="class">
                  <v-list-item>
-                    <v-icon>mdi-trackpad</v-icon>
+                    <v-icon>mdi-theater</v-icon>
                     <v-list-item-title>{{studentInfo.class}}</v-list-item-title>
                 </v-list-item>
             </div>
@@ -38,13 +38,12 @@
         <template>
             <v-toolbar>
                 <v-tabs dark background-color="blue-grey darken-3" grow>
-                <v-tab @click="showPer">
-                    <v-badge color="green" :content="numOfPermissions"> Permission </v-badge>
-                </v-tab>
-                 <v-tab @click="showDisc">
-                    <v-badge color="pink" :content="numOfDisciples"> Discipline </v-badge>
-                </v-tab>
-                
+                    <v-tab @click="showPer">
+                        <v-badge color="green" :content="numOfPermissions"> Permission </v-badge>
+                    </v-tab>
+                    <v-tab @click="showDisc">
+                        <v-badge color="pink" :content="numOfDisciples"> Discipline </v-badge>
+                    </v-tab>  
                 </v-tabs>
             </v-toolbar>
             <template>
@@ -68,7 +67,6 @@
                             <v-icon class="red--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
                             <span class="red--text">{{item.type}}</span>
                             <span>{{item.dateWn}}</span><br><br>
-
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
                             Reasons: <br>{{item.description}}
@@ -138,12 +136,13 @@
         width: 75.5%;
         margin-left: 10%;
     }
+
     .v-toolbar{
         width: 75.5%;
         margin-left: 10%;
     }
+
     .btn{
-        
         width: 80px;
         height: 5vh;
         border-radius: 5px;
@@ -155,13 +154,16 @@
         border-radius: 5px;
         display: flex;
     }
+
     .profile{
         width: 20%;
     }
+
     .name{
-        margin-top: 1.5%;
+        margin-top: 1%;
         margin-left: 8%;
     }
+    
     .name,
     .class,
     .school{

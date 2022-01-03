@@ -200,7 +200,7 @@
 
   .details{
     height: auto;
-    background: rgba(255, 255, 255, 0.707);
+    background: rgba(201, 201, 201, 0.707);
     width: 100%;
   }
 
@@ -228,7 +228,7 @@
   }
 
   .card{
-    height: 25vh;
+    height: 22vh;
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -263,6 +263,7 @@
     width: 20%;
     height:100%;
     margin-left: 22%;
+    margin-top: -0%;
     align-items: center;
   }
   .type{
@@ -271,7 +272,7 @@
     text-align: center;
     justify-content: center;
     display: flex;
-    margin-top: -0.5%;
+    margin-top: 0%;
   }
   .action{
     text-align: center;
@@ -303,14 +304,14 @@
   }
 
   img{
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
   }
 
   .name{
     width: 300px;
     height: auto;
-    margin-top: 67px;
+    margin-top: 63px;
   }
 
   .u-name{

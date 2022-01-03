@@ -202,7 +202,7 @@
 
   .details{
     height: auto;
-    background: rgba(255, 255, 255, 0.707);
+    background: rgba(201, 201, 201, 0.707);
   }
 
   .detail-info{
@@ -225,7 +225,7 @@
   }
 
   .card{
-    height: 25vh;
+    height: 22vh;
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -273,36 +273,36 @@
 
   .date-time{
     width: 20%;
-    margin-left: 140px;
-    margin-top: 5px;
+    margin-left: 120px;
+    margin-top: 28px;
   }
   .type{
     width: 30%;
     text-align: center;
     justify-content: center;
     display: flex;
-    margin-top: -2.7%;
-    margin-left: -5%;
+    margin-top: -0%;
+    margin-left: -3%;
   }
   .action{
     text-align: center;
     justify-content: center;
     display: flex;
     width: 20%;
-    margin-left: -16%;
-    margin-top: -2.7%;
+    margin-left: -14%;
+    margin-top: -0.5%;
   }
 
   img{
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
   }
 
   .name{
     width: 200px;
     height: auto;
     margin-top: 50px;
-    margin-left: 10%;
+    margin-left: 12%;
   }
 
   .u-name{
@@ -321,10 +321,6 @@
   .hidden-xs-only{
     margin-left: 2%;
   }
-
-  /* .name{
-    padding-bottom: 10px;
-  } */
 
   #action-btn{
     margin-bottom: 20px;

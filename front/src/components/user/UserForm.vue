@@ -5,25 +5,25 @@
         <v-btn color="red darken-1" dark class="mb-2" v-bind="attrs" v-on="on" bottom fab fixed right><v-icon class="white--text">mdi-account-plus</v-icon></v-btn>
       </template>
       <v-card>
-        <div class="">
-          <form>
-            <v-text-field v-model="username" prepend-icon="mdi-account" label="Username" required></v-text-field>
-            <v-text-field v-model="email" prepend-icon="mdi-email" label="E-mail" required></v-text-field>
-            <v-text-field v-model="setPassword" prepend-icon="mdi-lock" label="Password" type="password" required ></v-text-field>
-            <v-select v-model="role" prepend-icon="mdi-lock-reset" :items="items" label="Select Role" required></v-select>
-            <select v-if="role === 'STUDENT'" name="" id="" v-model="student_id">
-              <option v-for="student of studentsList" :key="student.id" :value="student.id">
-                 {{ student.first_name }} {{ student.last_name }}
-              </option>
-            </select>
-            <v-file-input label="Choose image" prepend-icon="mdi-paperclip" v-model="picture" >
-            </v-file-input>
-            <v-card-actions>
-              <v-btn color="error" @click="cancel"> Cancel</v-btn>
-              <v-btn color="primary" @click="AddNewUser"> Create</v-btn>
-            </v-card-actions>
-          </form>
-        </div>
+        <br>
+        <h2 class="c-u">Create User</h2>
+        <form>
+          <v-text-field v-model="username" prepend-icon="mdi-account" label="Username" required></v-text-field>
+          <v-text-field v-model="email" prepend-icon="mdi-email" label="E-mail" required></v-text-field>
+          <v-text-field v-model="setPassword" prepend-icon="mdi-lock" label="Password" type="password" required ></v-text-field>
+          <v-select v-model="role" prepend-icon="mdi-lock-reset" :items="items" label="Select Role" required></v-select>
+          <select v-if="role === 'STUDENT'" name="" id="" v-model="student_id">
+            <option v-for="student of studentsList" :key="student.id" :value="student.id">
+                {{ student.first_name }} {{ student.last_name }}
+            </option>
+          </select>
+          <v-file-input label="Choose image" prepend-icon="mdi-paperclip" v-model="picture" >
+          </v-file-input>
+          <v-card-actions>
+            <v-btn color="error" @click="cancel"> Cancel</v-btn>
+            <v-btn color="primary" @click="AddNewUser"> Create</v-btn>
+          </v-card-actions>
+        </form>
       </v-card>
     </v-dialog>
   </div>
@@ -90,6 +90,11 @@
 </script>
 
 <style scoped>
+  .c-u{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
   .create-user-btn {
     top: 85vh;
     float: right;

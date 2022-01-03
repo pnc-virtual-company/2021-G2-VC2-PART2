@@ -39,7 +39,7 @@
                                 </thead> 
                                 <tbody>
                                     <tr class="text-center" v-for="(students, index) in student_list" :key="index" style="text-align: center; align-items: center;justify-content: center; height:12vh;">
-                                        <td class="img">
+                                        <td class="img" @click="studentDetail(students)">
                                             <v-img  :src="imgUrl + students.image" height="50" width="50"  class="pa-7 secondary rounded-circle d-inline-block"></v-img>
                                         </td>
                                         <td @click="studentDetail(students)">{{ students.first_name }}</td>
@@ -169,7 +169,9 @@
 
     tbody{
         height: 15vh;
+        cursor: pointer;
     }
+
     .title{
         margin-left: -1.5%;
     }

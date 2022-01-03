@@ -2,7 +2,7 @@
    <v-app class="">
        <div class="home-page">
            <div class="text">
-                <h1>Welcome back to our application</h1><br>
+                <h1>Welcome to our application</h1><br>
                 <span class="tt">
                     Passerelles numériques is a non-profit organization under <br>  French law,
                     created in 2005, operating in three Asian countries: <br> 
@@ -96,6 +96,7 @@
     }
     .tt{
         margin-top: 4%;
+        margin-left: -1%;
     }
 
     button{
@@ -104,12 +105,12 @@
         height: 50px;
         border: none;
         outline: none;
-        margin-left: 21%;
+        margin-left: 22%;
         margin-top: 5%;
         font-size: 20px;
         border-radius: 8px;
         cursor: pointer;
-        background: rgb(255, 167, 4);
+        background: rgb(255, 205, 4);
     }
 
 

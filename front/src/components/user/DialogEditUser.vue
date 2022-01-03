@@ -2,6 +2,7 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="500">
       <v-card class="pa-md-4 mx-lg-auto">
+        <h2 class="u-u">Update User</h2>
         <form>
           <v-text-field v-model="username" label="Username" required></v-text-field>
           <v-text-field v-model="email" label="E-mail" required></v-text-field>
@@ -73,5 +74,11 @@
 <style scoped>
   form{
     padding: 20px;
+  }
+
+  .u-u{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
   }
 </style>
