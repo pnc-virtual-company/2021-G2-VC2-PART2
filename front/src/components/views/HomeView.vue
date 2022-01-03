@@ -1,7 +1,9 @@
 <template>
-   <v-app class="home-page">
-       <div class="text">
-           <h1>Welcome back ! ! !</h1>
+   <v-app class="">
+       <div class="home-page">
+           <div class="text">
+                <h1>Welcome back ! ! !</h1>
+           </div>
        </div>
    </v-app>
 </template>
@@ -12,6 +14,7 @@
         background-position: center;
         background-size: cover;
         display: flex;
+        height: 100vh;
     }  
     
     .text{

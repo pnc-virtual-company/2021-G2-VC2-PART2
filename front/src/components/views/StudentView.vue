@@ -1,9 +1,11 @@
 <template>
     <section>
         <br>
+        
         <student-form @add-student="getStudents"></student-form>
         <edit-student v-if="update_student" :data="studentInfo" @update="UpdateStudent" @cancel="cancel"></edit-student>
-        <div>
+        <student-detail v-if="ishowDetail" @back="closeDetail" :studentInfo="studentInfo"></student-detail>
+        <div v-else>
             <v-container>
                 <template>
                     <v-dialog v-model="dialogDelete" max-width="450px">
@@ -23,7 +25,7 @@
                         <v-spacer></v-spacer>
                         <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
                     </v-card-title>
-                    <v-card color="" green>
+                    <v-card color="" green >
                         <v-simple-table>
                             <template v-slot:default>
                                 <thead class="blue-grey darken-3" >
@@ -40,11 +42,11 @@
                                         <td class="img">
                                             <v-img  :src="imgUrl + students.image" height="50" width="50"  class="pa-7 secondary rounded-circle d-inline-block"></v-img>
                                         </td>
-                                        <td>{{ students.first_name }}</td>
-                                        <td>{{ students.last_name }}</td>
-                                        <td>{{ students.class }}</td>
-                                        <td>{{ students.phone }}</td>
-                                        <td>{{ students.gender }}</td>
+                                        <td @click="studentDetail(students)">{{ students.first_name }}</td>
+                                        <td @click="studentDetail(students)">{{ students.last_name }}</td>
+                                        <td @click="studentDetail(students)">{{ students.class }}</td>
+                                        <td @click="studentDetail(students)">{{ students.phone }}</td>
+                                        <td @click="studentDetail(students)">{{ students.gender }}</td>
                                         <td> 
                                             <v-icon id="edit" medium class="mr-2" @click="editItem(students)">mdi-pencil</v-icon>
                                             <v-icon id="delete" medium @click="deleteItem(students)">mdi-delete</v-icon>   
@@ -62,12 +64,14 @@
 
 <script>
     import axios from "../../axios-request.js";
+    import StudentDetail from './StudentDetail.vue';
     import StudentForm from "../student/StudentForm.vue"
     import EditStudent from '../student/DialogEditStudent.vue'
     export default {
         components:{
             'student-form': StudentForm,
-            'edit-student': EditStudent
+            'edit-student': EditStudent,
+            'student-detail': StudentDetail,
         },
         data: () => ({
             imgUrl: "http://127.0.0.1:8000/storage/images/",
@@ -77,8 +81,16 @@
             studentID: null,
             update_student: false,
             studentInfo: '',
+            ishowDetail: false,
         }),
         methods: {
+            closeDetail(back){
+                this.ishowDetail = back;
+            },
+            studentDetail(studentInfo){
+                this.ishowDetail = true;
+                this.studentInfo = studentInfo;
+            },
             editItem(students){
                 this.update_student = true;
                 this.studentInfo = students;

@@ -9,7 +9,7 @@
               <select class="selected" id="cars" v-model="studentSelected">
                 <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
               </select>
-              <label for="cars">Choose leave type</label>
+              <label for="cars">Choose discipline notice type</label>
               <select class="selected" id="cars" v-model="type">
                 <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
               </select>

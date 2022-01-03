@@ -3,7 +3,7 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <div class="form-container">
-          <form>
+          <form >
             <div class="logo">
               <img src="../assets/pnc.png" alt="" />
             </div>
