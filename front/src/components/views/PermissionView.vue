@@ -1,7 +1,7 @@
 <template>
   <section>
     <br>
-    <permission-form @add-permission="getAllPermissions"></permission-form>
+    <permission-form @add-permission="getAllPermissions" v-if="role != 'STUDENT'"></permission-form>
     <edit-permission v-if="update_per" :data="perInfo" @update="EditPer" @cancel="cancel"></edit-permission>
     <div>
       <v-container>
@@ -65,8 +65,8 @@
                   <div class="action">
                     <v-col>
                       <div class="btn">
-                        <v-icon mediem id="edit" class="mr-2" @click="updatePer(permission)">mdi-pencil</v-icon>
-                        <v-icon mediem id="delete" @click="deleteItem(permission.id)">mdi-delete</v-icon>
+                        <v-icon mediem id="edit" class="mr-2" @click="updatePer(permission)" v-if="role != 'STUDENT'">mdi-pencil</v-icon>
+                        <v-icon mediem id="delete" @click="deleteItem(permission.id)" v-if="role != 'STUDENT'">mdi-delete</v-icon>
                       </div>
                     </v-col>
                   </div>
@@ -120,6 +120,8 @@
       userID: '',
       userInfo: '',
       imgUrl: "http://127.0.0.1:8000/storage/images/",
+      studentID: '',
+      role: '',
     }),
     methods: {  
       cancel(isFalse){
@@ -130,7 +132,6 @@
         this.perInfo = permission;
       },
       EditPer(id, perData, isFalse){
-        console.log(id);
         axios.put('/permissions/'+ id , perData).then(res=>{
           console.log(res.data);
           this.update_per = isFalse;
@@ -138,9 +139,19 @@
         })
       },
       getAllPermissions(){
-           axios.get('/permissions').then(res=>{
+        this.getUser();
+        axios.get('/permissions').then(res=>{
+          let store = res.data;
+          if(this.role == "STUDENT"){
+            for(let i of store){
+              if(this.studentID == i.student_id){
+                this.permissionList.push(i);
+              }
+            }  
+          }else{
             this.permissionList = res.data;
-           }) 
+          }               
+        }) 
       },
       getAllStudent(){
         axios.get('/students').then(res=>{
@@ -167,13 +178,15 @@
       getUser(){
         axios.get('/getUserByID/'+ this.userID).then(res=>{
           this.userInfo = res.data;
-          console.log(this.userInfo);
+          this.studentID = res.data.student_id;
         })
       }
     },
     mounted() {
+      this.role = localStorage.getItem("UserRole");
       this.userID = localStorage.getItem('UserID');
       this.getAllPermissions();
+      this.getUser();
     },
   }
 </script>
