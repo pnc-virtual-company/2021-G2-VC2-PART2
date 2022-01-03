@@ -64,7 +64,6 @@
       },
       getActionUser(){
         axios.get('/getUserByID/' + this.userID).then(res=> {
-          console.log(res.data);
           this.userAction = res.data;
         })
       }
