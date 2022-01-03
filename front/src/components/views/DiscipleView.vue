@@ -1,8 +1,8 @@
 <template>
   <section>
     <br>
-    <edit-disciple  v-if="update_disc" :data="discInfo" @update="EditDisc" @cancel="cancel"></edit-disciple>
-    <disciple-form  @add-disciple="getAllDisciple"></disciple-form>
+    <edit-disciple  v-if="update_disc" :data="discInfo" @update="EditDisc" @cancel="cancel" ></edit-disciple>
+    <disciple-form  @add-disciple="getAllDisciple" v-if="role != 'STUDENT'"></disciple-form>
     <disciple-card>
       <v-container>
         <v-row justify="center">
@@ -63,8 +63,8 @@
                   </div>
                   <v-card-actions>
                     <div class="action">
-                      <v-icon medium id="edit" class="mr-2" @click="updateDis(disciple)">mdi-pencil</v-icon>
-                      <v-icon medium id="delete" @click="deleteItem(disciple.id)">mdi-delete</v-icon>
+                      <v-icon medium id="edit" class="mr-2" @click="updateDis(disciple)" v-if="role != 'STUDENT'">mdi-pencil</v-icon>
+                      <v-icon medium id="delete" @click="deleteItem(disciple.id)" v-if="role != 'STUDENT'">mdi-delete</v-icon>
                     </div>
                   </v-card-actions>
                 </v-row>
@@ -116,6 +116,10 @@
         studentList: [],
         discipleList: [],
         discInfo: '',
+        userInfo: '',
+        studentID: '',
+        role: '',
+        userID: '',
     }),
     methods: {
       updateDis(disciple){
@@ -123,7 +127,8 @@
         this.update_disc = true;
       },
       EditDisc(id, updateDiscipleItem, isFalse){
-        console.log(id);
+        console.log(id)
+;
         axios.put('/disciple/'+ id, updateDiscipleItem).then(res=>{
           console.log(res.data);
           this.update_disc = isFalse;
@@ -134,8 +139,18 @@
         this.update_disc = isFalse;
       },
       getAllDisciple(){
+        this.getUser();
         axios.get('/disciple').then(res=>{
-          this.discipleList = res.data;
+          let store = res.data;
+          if(this.role == "STUDENT"){
+            for(let i of store){
+              if(this.studentID == i.student_id){
+                this.discipleList.push(i)
+              }
+            }  
+          }else{
+            this.discipleList = res.data;
+          } 
         })
       },
       getAllStudent(){
@@ -161,9 +176,18 @@
       getGoodDatetimeFormat(datetime) {
         return moment(String(datetime)).format("DD-MMM-Y");
       },
+      getUser(){
+        axios.get('/getUserByID/'+ this.userID).then(res=>{
+          this.userInfo = res.data;
+          this.studentID = res.data.student_id;
+        })
+      }
     },
     mounted() {
+      this.role = localStorage.getItem("UserRole");
+      this.userID = localStorage.getItem('UserID');
       this.getAllDisciple();
+      this.getUser();
     },
   }
   
