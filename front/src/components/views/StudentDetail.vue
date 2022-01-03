@@ -65,7 +65,7 @@
                     </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
-                <v-expansion-panels v-if="isDisciple">
+                <v-expansion-panels v-if="isDisciple" class="cardItem">
                     <v-expansion-panel
                     v-for="(item,i) in discEachStudentList"
                     :key="i"
@@ -98,8 +98,8 @@
             perEachStudentList: [],
             perList: [],
             discEachStudentList: [],
-            numOfPermissions: 0,
-            numOfDisciples: 0,
+            numOfPermissions: '0',
+            numOfDisciples: '0',
             isPermission: true,
             isDisciple: false,
         }),
@@ -117,19 +117,22 @@
             },
             back(){
                 this.$emit('back', false);
-            }
+            },
+            getNumD(){
+                for(let i in this.perEachStudentList){
+                    this.numOfPermissions++;
+                    console.log(i);
+                }
+                for(let u in this.discEachStudentList){
+                    this.numOfDisciples++;
+                    console.log(u);
+                }
+            },
         },
         mounted() {
             this.perEachStudentList = this.studentInfo.permission;
             this.discEachStudentList = this.studentInfo.disciple;
-            for(let i of this.perEachStudentList){
-                this.numOfPermissions++;
-                console.log(i);
-            }
-            for(let n of this.perEachStudentList){
-                this.numOfDisciples++;
-                console.log(n);
-            }
+            this.getNumD();
         },
     }
 </script>
