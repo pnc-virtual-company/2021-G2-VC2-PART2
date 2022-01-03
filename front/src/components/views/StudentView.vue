@@ -23,7 +23,7 @@
                     <v-card-title >
                         <strong class="t">Students</strong>
                         <v-spacer></v-spacer>
-                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field> 
+                        <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details></v-text-field> 
                     </v-card-title>
                     <v-card color="" green >
                         <v-simple-table>
@@ -93,6 +93,7 @@
                 this.ishowDetail = true;
                 this.studentInfo = studentInfo;
                 this.hidForm = false;
+                console.log(studentInfo);
             },
             editItem(students){
                 this.update_student = true;

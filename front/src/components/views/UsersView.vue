@@ -21,7 +21,7 @@
           <v-card-title class="title">
             <strong class="t">Users</strong>
             <v-spacer></v-spacer>
-            <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
+            <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
           </v-card-title>
           <v-card color="" green>
             <v-simple-table>

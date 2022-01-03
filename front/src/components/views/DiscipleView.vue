@@ -21,7 +21,7 @@
           <v-card-title class="title">
             <strong class="t">Disciples</strong>
             <v-spacer></v-spacer>
-            <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details ></v-text-field>
+            <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details ></v-text-field>
           </v-card-title>
           <v-expansion-panels id="card">
             <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions class="card-body">
