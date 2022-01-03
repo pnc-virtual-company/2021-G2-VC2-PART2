@@ -11,7 +11,7 @@ class UserController extends Controller
 {   
     public function index()
     {
-        return User::latest()->get();
+        return User::with('student')->latest()->get();
     }
 
     public function register(Request $request)

@@ -2,7 +2,7 @@
     <section>
         <br>
         
-        <student-form @add-student="getStudents"></student-form>
+        <student-form @add-student="getStudents" v-if="hidForm"></student-form>
         <edit-student v-if="update_student" :data="studentInfo" @update="UpdateStudent" @cancel="cancel"></edit-student>
         <student-detail v-if="ishowDetail" @back="closeDetail" :studentInfo="studentInfo"></student-detail>
         <div v-else>
@@ -82,14 +82,17 @@
             update_student: false,
             studentInfo: '',
             ishowDetail: false,
+            hidForm: true,
         }),
         methods: {
             closeDetail(back){
                 this.ishowDetail = back;
+                this.hidForm = true;
             },
             studentDetail(studentInfo){
                 this.ishowDetail = true;
                 this.studentInfo = studentInfo;
+                this.hidForm = false;
             },
             editItem(students){
                 this.update_student = true;

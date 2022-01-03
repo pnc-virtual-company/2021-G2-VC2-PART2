@@ -6,7 +6,7 @@
           <v-img height="50" width="50" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
         </div>
         <v-list-item-title class="p">{{userAction.username}}</v-list-item-title>
-        <v-list-item :to="{ path: '/home' }">
+        <v-list-item :to="{ path: '/home' }"  v-if="userAction.role != 'STUDENT'">
           <v-icon class="white--text">mdi-home</v-icon>
           <v-list-item-title class="white--text">Home</v-list-item-title>
         </v-list-item>
@@ -14,17 +14,21 @@
           <v-icon class="white--text">mdi-account</v-icon>
           <v-list-item-title class="white--text">Users</v-list-item-title>
         </v-list-item>
-        <v-list-item :to="{ path: '/student' }" v-if="userAction.role != 'STUDENT'">
+        <v-list-item :to="{ path: '/students' }" v-if="userAction.role != 'STUDENT'">
           <v-icon class="white--text">mdi-account-group-outline</v-icon>
           <v-list-item-title class="white--text">Students</v-list-item-title>
         </v-list-item>
+        <v-list-item :to="{ path: '/studentInfo' }" v-if="userAction.role == 'STUDENT'">
+          <v-icon class="white--text">mdi-account-group-outline</v-icon>
+          <v-list-item-title class="white--text">Student</v-list-item-title>
+        </v-list-item>
         <v-list-item :to="{ path: '/permission' }">
           <v-icon class="white--text">mdi-comment-account-outline</v-icon>
-          <v-list-item-title class="white--text">Permission</v-list-item-title>
+          <v-list-item-title class="white--text">Permissions</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ path: '/disciples' }">
           <v-icon class="white--text">mdi-alert-decagram</v-icon>
-          <v-list-item-title class="white--text">Disciple</v-list-item-title>
+          <v-list-item-title class="white--text">Disciples</v-list-item-title>
         </v-list-item>
       </ul>
       <div class="navbar-right">

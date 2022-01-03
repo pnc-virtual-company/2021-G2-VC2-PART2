@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Signin from '../authentication/Sign_in.vue';
 import Home from '../components/views/HomeView.vue';
 import Users from '../components/views/UsersView.vue';
-import Student from '../components/views/StudentView.vue';
+import Students from '../components/views/StudentView.vue';
+import StudentInfo from '../components/views/StudentInfo.vue';
 import Permission from '../components/views/PermissionView.vue';
 import Disciples from '../components/views/DiscipleView.vue';
 
@@ -26,8 +27,12 @@ const routes = [
     component: Users
   },
   {
-    path: '/student',
-    component: Student
+    path: '/students',
+    component: Students
+  },
+  {
+    path: '/studentInfo',
+    component: StudentInfo
   },
   {
     path: '/permission',
