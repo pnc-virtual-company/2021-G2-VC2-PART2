@@ -42,7 +42,7 @@
       endAt: null,
       type: null,
       description: null,
-      leavetype: ["Sick", "Date with doctor", "To visit relatives", "Join wedding"],
+      leavetype: ["Authorize", "Unauthorize"],
       studentsList: [],
       dialog : true,
       perID: null,
