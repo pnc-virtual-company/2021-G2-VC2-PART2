@@ -45,7 +45,7 @@
                                         <td @click="studentDetail(students)">{{ students.first_name }}</td>
                                         <td @click="studentDetail(students)">{{ students.last_name }}</td>
                                         <td @click="studentDetail(students)">{{ students.class }}</td>
-                                        <td @click="studentDetail(students)">{{ students.phone }}</td>
+                                        <td @click="studentDetail(students)">0{{ students.phone }}</td>
                                         <td @click="studentDetail(students)">{{ students.gender }}</td>
                                         <td> 
                                             <v-icon id="edit" medium class="mr-2" @click="editItem(students)">mdi-pencil</v-icon>
@@ -144,6 +144,7 @@
 </script>
 
 <style scoped>
+
     section{
         margin-top: -1.5px;
     }
@@ -151,9 +152,11 @@
     .text-h5{
         color: white;
     }
+
     .btn-create{
         margin: 10px; 
     }
+
     v-radio{
         display: flex;
     }

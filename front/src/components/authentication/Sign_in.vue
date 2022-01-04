@@ -3,9 +3,9 @@
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
         <div class="form-container">
-          <form >
+          <form @submit.prevent="signin">
             <div class="logo">
-              <img src="../assets/pnc.png" alt="" />
+              <img src="../../assets/pnc.png" alt="" />
             </div>
             <div>
               <v-text-field class="input-field" outlined dense white v-model="email" :error-messages="emailErrors" label="E-mail" :append-icon="'mdi-email'"  required
@@ -36,69 +36,70 @@
 </template>
 
 <script>
-import axios from "../axios-request.js";
-import { validationMixin } from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
-export default {
-  emits: ["userLogin"],
-  mixins: [validationMixin],
-  validations: {
-    email: { required, email },
-    password: { required },
-  },
-  data: () => ({
-    email: '',
-    password: '',
-    islogin: true,
-    errorMessage: '',
-    show1: false,
-    rules: {
-      required: (value) => !!value || "Password is required.",
-      min: (v) => v.length >= 8 || "Min 8 characters",
+  import axios from '../../axios-request.js'
+  import { validationMixin } from "vuelidate";
+  import { required, email } from "vuelidate/lib/validators";
+  export default {
+    emits: ["userLogin"],
+    mixins: [validationMixin],
+    validations: {
+      email: { required, email },
+      password: { required },
     },
-  }),
-  computed: {
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("Must be valid e-mail");
-      return errors;
+    data: () => ({
+      email: '',
+      password: '',
+      islogin: true,
+      errorMessage: '',
+      show1: false,
+      rules: {
+        required: (value) => !!value || "Password is required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
+      },
+    }),
+    computed: {
+      emailErrors() {
+        const errors = [];
+        if (!this.$v.email.$dirty) return errors;
+        !this.$v.email.email && errors.push("Must be valid e-mail");
+        return errors;
+      },
+      passwordErrors() {
+        const errors = [];
+        if (!this.$v.password.$dirty) return errors;
+        !this.$v.password.required && errors.push("Must be valid password");
+        return errors;
+      },
     },
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-       !this.$v.password.required && errors.push("Must be valid password");
-      return errors;
+    methods: {
+      submit() {
+        this.$v.$touch();
+      },
+      signin() {
+        let userSignin = {
+          email: this.email,
+          password: this.password,
+        };
+        axios.post("/login", userSignin).then((res) => {
+          localStorage.setItem("UserID", res.data.data.id);
+          localStorage.setItem("UserRole", res.data.data.role);
+          this.$emit("userLogin", this.islogin);
+          if(res.data.data.role == "STUDENT"){
+            this.$router.push('/studentInfo')``
+          }
+          else{
+            this.$router.push('/home');
+          }
+          console.log(res.data);
+        }).catch((error) => {
+          console.log(error);
+          this.errorMessage = "Password or Email is not match";
+          this.email = "";
+          this.password = "";
+        });
+      },
     },
-  },
-  methods: {
-    submit() {
-      this.$v.$touch();
-    },
-    signin() {
-      let userSignin = {
-        email: this.email,
-        password: this.password,
-      };
-      axios.post("/login", userSignin).then((res) => {
-        localStorage.setItem("UserID", res.data.data.id);
-        localStorage.setItem("UserRole", res.data.data.role);
-        this.$emit("userLogin", this.islogin);
-        if(res.data.data.role == "STUDENT"){
-          this.$router.push('/studentInfo')
-        }else{
-          this.$router.push('/home');
-        }
-        console.log(res.data);
-      }).catch((error) => {
-        console.log(error);
-        this.errorMessage = "Password or Email is not match";
-        this.email = "";
-        this.password = "";
-      });
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
@@ -106,9 +107,7 @@ export default {
   #inspire {
     width: 100%;
     height: 100%;
-    background-image: url("../assets/bg.jpg");
-    overflow-x: hidden;
-    overflow-y: hidden;
+    background-image: url("../../assets/bg.jpg");
   }
 
   form {

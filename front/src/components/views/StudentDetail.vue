@@ -47,13 +47,16 @@
                 </v-tabs>
             </v-toolbar>
             <template>
-                    <v-expansion-panels v-if="isPermission"  class="cardItem">
-                        <v-expansion-panel v-for="(item,i) in perEachStudentList" :key="i">
+                <v-expansion-panels v-if="isPermission"  class="cardItem">
+                    <v-expansion-panel v-for="(item,i) in perEachStudentList" :key="i">
                         <v-expansion-panel-header>
-                            <v-icon>mdi-link-variant</v-icon>
+                            <v-icon style="font-size: 40px">mdi-link-variant</v-icon>
                             <span>{{getGoodDatetimeFormat(item.startAt)}} to {{getGoodDatetimeFormat(item.endAt)}}</span><br><br>
                             <div>
-                                <span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
+                                <strong>Amount: </strong><span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
+                            </div>
+                            <div>
+                                <strong>{{item.type}}</strong>
                             </div>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>

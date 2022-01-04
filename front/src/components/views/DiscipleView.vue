@@ -127,8 +127,7 @@
         this.update_disc = true;
       },
       EditDisc(id, updateDiscipleItem, isFalse){
-        console.log(id)
-;
+        console.log(id);
         axios.put('/disciple/'+ id, updateDiscipleItem).then(res=>{
           console.log(res.data);
           this.update_disc = isFalse;
@@ -316,7 +315,7 @@
 
   .u-name{
     display: flex;
-    width: 150px;
+    width: 1000px;
     height: 30px;
     text-transform: uppercase;
     margin-left: 30%;

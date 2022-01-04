@@ -2,11 +2,16 @@
   <nav class="navigation" >
     <div class="navbar">
       <ul>
-        <div class="circle">
-          <v-img height="50" width="50" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
-        </div>
+        <template class="circle">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img height="50" width="50" v-bind="attrs" v-on="on" :src="imgUrl + userAction.image" class="rounded-circle"></v-img>
+            </template>
+            <span>User Profile</span>
+          </v-tooltip>
+        </template>
         <v-list-item-title class="p">{{userAction.username}}</v-list-item-title>
-        <v-list-item :to="{ path: '/home' }"  v-if="userAction.role != 'STUDENT'">
+        <v-list-item :to="{ path: '/home' }">
           <v-icon class="white--text">mdi-home</v-icon>
           <v-list-item-title class="white--text">Home</v-list-item-title>
         </v-list-item>
@@ -19,7 +24,7 @@
           <v-list-item-title class="white--text">Students</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ path: '/studentInfo' }" v-if="userAction.role == 'STUDENT'">
-          <v-icon class="white--text">mdi-account-group-outline</v-icon>
+          <v-icon class="white--text">mdi-account</v-icon>
           <v-list-item-title class="white--text">Student</v-list-item-title>
         </v-list-item>
         <v-list-item :to="{ path: '/permission' }">
@@ -33,9 +38,18 @@
       </ul>
       <div class="navbar-right">
         <span>{{user.role}}</span>
-        <v-btn icon class="btn-Signout">
-          <v-icon @click="Signout" style="font-size:35px;" class="white--text">mdi-import</v-icon>
-        </v-btn>
+        <template>
+          <div class="text-center d-flex align-center">
+            <v-tooltip left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon class="btn-Signout">
+                  <v-icon @click="Signout" style="font-size:35px;" class="white--text" v-bind="attrs" v-on="on">mdi-import</v-icon>
+                </v-btn>
+              </template>
+              <span>Sign out</span>
+            </v-tooltip>
+          </div>
+        </template>
       </div>
     </div>
   </nav>
@@ -82,7 +96,6 @@
         }
       })
       this.getActionUser();
-    
     },
   }
 </script>

@@ -12,7 +12,7 @@
            </div>
         </div>
         <div id="about" class="free">
-            <h3 class="ab">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+            <h3 class="ab">Our value such as  Trust  Responsibility Solidarity Respect Demanding approach</h3>
         </div>
         <br>
         <div class="for-country">
@@ -120,7 +120,7 @@
         display: flex;
         text-align: center;
         justify-content: center;
-        background:#263238;
+        background: rgb(60, 95, 95);
     }
 
     .ab{

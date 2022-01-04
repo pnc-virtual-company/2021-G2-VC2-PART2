@@ -95,5 +95,4 @@ class PermissionController extends Controller
             return response()->json(['massage'=>'Not Found'], 404);
         }
     }
-
 }

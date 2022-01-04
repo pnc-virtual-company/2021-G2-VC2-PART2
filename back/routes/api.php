@@ -55,7 +55,6 @@ Route::delete('permissions/{id}', [PermissionController::class, 'destroy']);
 // Ppublic route
 Route::get('disciple', [DiscipleController::class, 'index']);
 Route::get('disciple/{id}', [DiscipleController::class, 'show']);
-Route::get('disciple/search/{class}', [DiscipleController::class, 'search']);
 
 // Private route
 Route::post('disciple', [DiscipleController::class, 'store']);

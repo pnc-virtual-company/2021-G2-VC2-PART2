@@ -43,30 +43,33 @@
                 </v-tabs>
             </v-toolbar>
             <template>
-                    <v-expansion-panels v-if="isPermission"  class="cardItem">
+                <v-expansion-panels v-if="isPermission"  class="cardItem">
                     <v-expansion-panel v-for="(item,i) in perEachStudentList" :key="i">
-                    <v-expansion-panel-header>
-                        <v-icon>mdi-link-variant</v-icon>
-                        <span>{{getGoodDatetimeFormat(item.startAt)}} to {{getGoodDatetimeFormat(item.endAt)}}</span><br><br>
-                        <div>
-                            <span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 *  3600 * 24))" ></span> <span>days</span>
-                        </div>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <strong>Reasons:</strong> <br>{{item.description}}
-                    </v-expansion-panel-content>
+                        <v-expansion-panel-header>
+                            <v-icon style="font-size: 40px">mdi-link-variant</v-icon>
+                            <span>{{getGoodDatetimeFormat(item.startAt)}} to {{getGoodDatetimeFormat(item.endAt)}}</span><br><br>
+                            <div>
+                                <span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 *  3600 * 24))" ></span> <span>days</span>
+                            </div>
+                            <div>
+                                <strong>{{item.type}}</strong>
+                            </div>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <strong>Reasons:</strong> <br>{{item.description}}
+                        </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
                 <v-expansion-panels v-if="isDisciple" class="cardItem">
                     <v-expansion-panel v-for="(item,i) in discEachStudentList" :key="i">
-                    <v-expansion-panel-header>
-                        <v-icon class="red--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
-                        <span class="red--text">{{item.type}}</span>
-                        <span>{{getGoodDatetimeFormat(item.dateWn)}}</span><br><br>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <strong>Reasons:</strong> <br>{{item.description}}
-                    </v-expansion-panel-content>
+                        <v-expansion-panel-header>
+                            <v-icon class="red--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
+                            <span class="red--text">{{item.type}}</span>
+                            <span>{{getGoodDatetimeFormat(item.dateWn)}}</span><br><br>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <strong>Reasons:</strong> <br>{{item.description}}
+                        </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>             
             </template>
@@ -75,8 +78,8 @@
 </template>
 
 <script>
-    import moment from "moment";
     import axios from "../../axios-request.js";
+    import moment from "moment";
     export default {
         data: () => ({
             imgUrl: "http://127.0.0.1:8000/storage/images/",

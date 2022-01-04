@@ -46,6 +46,7 @@
                       <v-icon mediem id="delete" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
                     </td>
                   </tr>
+                  <p></p>
                 </tbody>
               </template>
             </v-simple-table>
@@ -76,6 +77,7 @@
       searchUsername:'',
       show_update: false,
       userInfo: '',
+      dataNotAviable: '',
     }),
     methods: {
       getAllUser() {
@@ -99,7 +101,6 @@
         this.dataStudent = user;
         this.show_update = true;
         this.userInfo = user;
-        console.log("hello");
       },
       UpdateUser(id,updateUser,isFalse){
         axios.put('/updateUser/' + id, updateUser).then(res =>{

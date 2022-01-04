@@ -30,12 +30,12 @@ export default {
       console.log(logout);
     },
   },
-
   mounted() {
     this.userID = localStorage.getItem("UserID");
+    this.UserRole = localStorage.getItem('UserRole');
     if (this.userID != null) {
       this.menubar = true;
-      this.$router.push("/home");
+        this.$router.push("/home");
     }
   },
 };
