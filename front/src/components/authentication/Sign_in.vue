@@ -8,11 +8,11 @@
               <img src="../../assets/pnc.png" alt="" />
             </div>
             <div>
-              <v-text-field class="input-field" outlined dense white v-model="email" :error-messages="emailErrors" label="E-mail" :append-icon="'mdi-email'"  required
+              <v-text-field class="input-field" outlined dense lightblue v-model="email" :error-messages="emailErrors" label="E-mail" :append-icon="'mdi-email'"  required
                 @input="$v.email.$touch()"
                 @blur="$v.email.$touch()"
               ><v-scpacer>mdi-email</v-scpacer></v-text-field>
-              <v-text-field class="input-field" outlined dense white v-model="password" :error-messages="passwordErrors" label="Password"
+              <v-text-field class="input-field" outlined dense lightblue v-model="password" :error-messages="passwordErrors" label="Password"
                 required
                 @input="$v.password.$touch()"
                 @blur="$v.password.$touch()"
@@ -107,12 +107,12 @@
   #inspire {
     width: 100%;
     height: 100%;
-    background-image: url("../../assets/bg.jpg");
+    background-image: url("../../assets/authen_bg.jpg");
   }
 
   form {
-    background: rgba(255, 255, 255, 0.823);
-    height: 50vh;
+    background: #03A9F4;
+    height: 53vh;
     width: 80%;
     margin-top: 7vh;
     align-items: center;
@@ -134,11 +134,13 @@
 
   .input-field {
     width: 100%;
+
   }
 
   .login-btn {
     width: 105%;
     margin-left: -3%;
+    margin-top: -5%;
   }
 
   small{
