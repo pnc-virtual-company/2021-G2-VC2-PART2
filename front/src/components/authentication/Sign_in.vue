@@ -133,11 +133,13 @@
 
   .input-field {
     width: 100%;
+
   }
 
   #login-btn {
     width: 105%;
     margin-left: -3%;
+    margin-top: -5%;
   }
 
   small{
