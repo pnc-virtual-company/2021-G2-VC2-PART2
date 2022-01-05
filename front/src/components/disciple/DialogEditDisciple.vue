@@ -8,7 +8,7 @@
             <select class="selected" id="cars" v-model="studentSelected">
               <option v-for="student of studentsList" :key="student.id" :value=student.id>{{student.first_name}} {{student.last_name}}</option>
             </select>
-            <label for="cars">Notation</label>
+            <label for="cars">Choose discipline notice type</label>
             <select class="selected" id="cars" v-model="type">
               <option v-for="leave of leavetype" :key="leave" :value=leave>{{leave}}</option>
             </select>
@@ -36,7 +36,7 @@
               dateWn:null,
               type: null,
               description: null,
-              leavetype: ["Misconduct", "Oral warning", "Warning letter", "Termination"],
+              leavetype: ["Notation", "Oral warning", "Warning letter", "Termination"],
               studentsList: [],
               dialogUpdate : true,
               id: null,

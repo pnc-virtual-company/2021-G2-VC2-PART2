@@ -89,8 +89,8 @@
                             <strong v-if="item.type === 'Termination'" class="red--text">{{item.type}}</strong>
                             <v-icon v-if="item.type === 'Oral warning'" class="blue--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
                             <strong v-if="item.type === 'Oral warning'" class="blue--text">{{item.type}}</strong>
-                            <v-icon v-if="item.type === 'Misconduct'" class="black--text" style="font-size: 40px">mdi-alert-box</v-icon>
-                            <strong v-if="item.type === 'Misconduct'" class="black--text">{{item.type}}</strong>
+                            <v-icon v-if="item.type === 'Notation'" class="black--text" style="font-size: 40px">mdi-alert-box</v-icon>
+                            <strong v-if="item.type === 'Notation'" class="black--text">{{item.type}}</strong>
                             <span>{{getGoodDatetimeFormat(item.dateWn)}}</span><br><br>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content class="detail">

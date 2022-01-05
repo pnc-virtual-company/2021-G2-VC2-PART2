@@ -38,7 +38,7 @@
                             <v-icon v-if="disciple.type === 'Warning letter'" style="font-size: 100px; margin-top: 15px; color: #FFC107;">mdi-alert</v-icon>
                             <v-icon v-if="disciple.type === 'Termination'" class="red--text" style="font-size: 100px; margin-top: 15px;">mdi-close-circle</v-icon>
                             <v-icon v-if="disciple.type === 'Oral warning'" class="blue--text" style="font-size: 100px; margin-top: 15px;">mdi-alert-octagram</v-icon>
-                            <v-icon v-if="disciple.type === 'Misconduct'" class="black--text" style="font-size: 100px; margin-top: 15px; ">mdi-alert-box</v-icon>
+                            <v-icon v-if="disciple.type === 'Notation'" class="black--text" style="font-size: 100px; margin-top: 15px; ">mdi-alert-box</v-icon>
                           </div>
                           <div class="p">
                             <img :src="imgUrl+disciple.student.image" />
@@ -81,11 +81,9 @@
                     <strong>Last name:</strong>  {{disciple.student.last_name}} <br>
                     <strong>Class:</strong> {{ disciple.student.class }} <br>
                     <strong>Date:</strong> {{getGoodDatetimeFormat(disciple.dateWn)}} <br> 
-                  </div>
-                  <div class="disciple-type">
-                    <strong>Discipline type:</strong> {{disciple.type}}
-                  </div>
+                  </div>   
                   <div class="reason">
+                    <strong>Discipline type:</strong> {{disciple.type}} <br>
                      <strong>Reasons:</strong> <br> {{disciple.description}}
                   </div>                 
                 </v-card-text>
@@ -198,6 +196,7 @@
 </script>
 
 <style scoped>
+
   section{
     margin-top: 10px;
   }
@@ -214,12 +213,8 @@
   }
 
   .text-info{
-    width: 25%;
+    width: 50%;
     box-sizing: border-box;
-  }
-
-  .disciple-type{
-    width: 25%;
   }
 
   .reason{
@@ -262,6 +257,7 @@
   .img-and-name{
     width: 30%;
     display: flex;
+    margin-left: 2%;
   }
 
   .date-time{
@@ -305,7 +301,7 @@
   }
 
   .p{
-    margin-left: 50%;
+    margin-left: 75%;
   }
 
   img{

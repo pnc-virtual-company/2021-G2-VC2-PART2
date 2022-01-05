@@ -67,12 +67,17 @@
                     <v-expansion-panel class="blue-grey lighten-5" v-for="(item,i) in perEachStudentList" :key="i">
                         <v-expansion-panel-header>
                             <v-icon style="font-size: 40px">mdi-link-variant</v-icon>
-                            <span>{{getGoodDatetimeFormat(item.startAt)}} to {{getGoodDatetimeFormat(item.endAt)}}</span><br><br>
+                            <span>{{item.startAt}} to {{item.endAt}}</span><br><br>
                             <div>
                                 <strong>Amount: </strong><span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 * 3600 * 24))" ></span> <span>days</span>
                             </div>
                             <div>
-                                <strong>{{item.type}}</strong>
+                                <v-col v-if="item.type === 'Unauthorize' "> 
+                                <strong class="red--text">{{item.type}}</strong>
+                                </v-col>
+                                <v-col v-else> 
+                                <strong class="green--text">{{item.type}}</strong>
+                                </v-col>
                             </div>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content class="detail">
@@ -93,9 +98,9 @@
                             <strong v-if="item.type === 'Termination'" class="red--text">{{item.type}}</strong>
                             <v-icon v-if="item.type === 'Oral warning'" class="blue--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
                             <strong v-if="item.type === 'Oral warning'" class="blue--text">{{item.type}}</strong>
-                            <v-icon v-if="item.type === 'Misconduct'" class="black--text" style="font-size: 40px">mdi-alert-box</v-icon>
-                            <strong v-if="item.type === 'Misconduct'" class="black--text">{{item.type}}</strong>
-                            <span>{{item.dateWn}}</span>
+                            <v-icon v-if="item.type === 'Notation'" class="black--text" style="font-size: 40px">mdi-alert-box</v-icon>
+                            <strong v-if="item.type === 'Notation'" class="black--text">{{item.type}}</strong>
+                            <span>{{getGoodDatetimeFormat(item.dateWn)}}</span> 
                             <br><br>
                         </v-expansion-panel-header>
                         <v-expansion-panel-content class="detail">
@@ -139,7 +144,7 @@
                 this.isDisciple = true;
             },
             getGoodDatetimeFormat(datetime) {
-                return moment(String(datetime)).format("DD-MM-Y");
+                return moment(String(datetime)).format("DD-MMM-Y");
             },
             back(){
                 this.$emit('back', false);

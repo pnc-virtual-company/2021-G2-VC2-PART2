@@ -275,6 +275,7 @@
   .img-and-name{
     width: 30%;
     display: flex;
+    margin-left: 1%;
   }
 
   .imgp{
