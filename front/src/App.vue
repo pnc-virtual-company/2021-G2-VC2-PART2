@@ -32,10 +32,15 @@ export default {
   },
   mounted() {
     this.userID = localStorage.getItem("UserID");
+   this.userID = localStorage.getItem("UserID");
     this.UserRole = localStorage.getItem('UserRole');
     if (this.userID != null) {
       this.menubar = true;
+      if(this.UserRole != "STUDENT"){
         this.$router.push("/home");
+      }else{
+        this.$router.push('/studentInfo');
+      }
     }
   },
 };

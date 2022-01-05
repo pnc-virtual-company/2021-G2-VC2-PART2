@@ -25,17 +25,21 @@
                         <v-spacer></v-spacer>
                         <v-text-field @keyup="searchStudent" v-model="searchStudentname" class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details></v-text-field> 
                     </v-card-title>
-                    <v-card color="" green >
+                    <div v-if="student_list == ''" class="ms">
+                        <br>
+                        <h2 >{{noData}}</h2>
+                    </div>
+                    <v-card v-else color="" green >
                         <v-simple-table>
                             <template v-slot:default>
                                 <thead class="blue-grey darken-3" >
-                                    <th>Profile</th>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Class</th>
-                                    <th>Phone</th>
-                                    <th>Gender</th>
-                                    <th>Action</th>
+                                    <th scope="col">Profile</th>
+                                    <th scope="col">First name</th>
+                                    <th scope="col">Last name</th>
+                                    <th scope="col">Class</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Action</th>
                                 </thead> 
                                 <tbody>
                                     <tr class="text-center" v-for="(students, index) in student_list" :key="index" style="text-align: center; align-items: center;justify-content: center; height:12vh;">
@@ -83,6 +87,7 @@
             studentInfo: '',
             ishowDetail: false,
             hidForm: true,
+            noData: "No data available",
         }),
         methods: {
             closeDetail(back){
@@ -145,6 +150,14 @@
 
 <style scoped>
 
+    .ms{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        color: grey;
+    }
+
     section{
         margin-top: -1.5px;
     }
@@ -168,6 +181,7 @@
 
     thead th {
         color: #fff;
+        font-size: 15px;
     }
 
     tbody{

@@ -21,8 +21,11 @@
           <v-card-title class="title">
             <strong class="t">Disciples</strong>
             <v-spacer></v-spacer>
-            <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details ></v-text-field>
           </v-card-title>
+          <div v-if="discipleList == 0">
+            <br>
+            <h2 class="grey--text">{{noData}}</h2>
+          </div>
           <v-expansion-panels id="card">
             <v-expansion-panel v-for="(disciple, i) in discipleList" :key="i" hide-actions class="card-body">
               <v-expansion-panel-header class="card">
@@ -32,7 +35,10 @@
                       <v-col cols="4">
                         <div class="imgp">
                           <div class="w">
-                            <img src='../../assets/warning.png' />
+                            <v-icon v-if="disciple.type === 'Warning letter'" style="font-size: 100px; margin-top: 15px; color: #FFC107;">mdi-alert</v-icon>
+                            <v-icon v-if="disciple.type === 'Termination'" class="red--text" style="font-size: 100px; margin-top: 15px;">mdi-close-circle</v-icon>
+                            <v-icon v-if="disciple.type === 'Oral warning'" class="blue--text" style="font-size: 100px; margin-top: 15px;">mdi-alert-octagram</v-icon>
+                            <v-icon v-if="disciple.type === 'Misconduct'" class="black--text" style="font-size: 100px; margin-top: 15px; ">mdi-alert-box</v-icon>
                           </div>
                           <div class="p">
                             <img :src="imgUrl+disciple.student.image" />
@@ -57,9 +63,7 @@
                     </v-col>
                   </div>
                   <div class="type">
-                    <v-col> 
-                      <strong>{{disciple.type}}</strong>
-                    </v-col>
+                    <strong class="black--text">{{disciple.type}}</strong>
                   </div>
                   <v-card-actions>
                     <div class="action">
@@ -120,6 +124,7 @@
         studentID: '',
         role: '',
         userID: '',
+        noData:"No data on discipline"
     }),
     methods: {
       updateDis(disciple){
@@ -199,7 +204,7 @@
 
   .details{
     height: auto;
-    background: rgba(201, 201, 201, 0.707);
+    background: #ECEFF1;
     width: 100%;
   }
 
@@ -228,6 +233,7 @@
 
   .card{
     height: 22vh;
+    background: #ECEFF1;
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -299,7 +305,7 @@
   }
 
   .p{
-    margin-left: 40%;
+    margin-left: 50%;
   }
 
   img{

@@ -23,7 +23,11 @@
             <v-spacer></v-spacer>
             <v-text-field class="search" append-icon="mdi-magnify" label="Search..." single-line hide-details @keyup="searchUser" v-model="searchUsername"></v-text-field>
           </v-card-title>
-          <v-card color="" green>
+          <div v-if="userList == ''" class="ms">
+              <br>
+              <h2 >{{noData}}</h2>
+          </div>
+          <v-card v-else color="" green>
             <v-simple-table>
               <template v-slot:default>
                 <thead class="blue-grey darken-3">
@@ -46,7 +50,6 @@
                       <v-icon mediem id="delete" @click="deleteItem(user)" v-if="user.role != 'Admin'">mdi-delete</v-icon>
                     </td>
                   </tr>
-                  <p></p>
                 </tbody>
               </template>
             </v-simple-table>
@@ -77,7 +80,7 @@
       searchUsername:'',
       show_update: false,
       userInfo: '',
-      dataNotAviable: '',
+      noData: "No data available",
     }),
     methods: {
       getAllUser() {
@@ -130,6 +133,14 @@
 
 <style scoped>
 
+  .ms{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: grey;
+  }
+
   body{
     background: #CFD8DC;
   }
@@ -169,6 +180,7 @@
 
   thead th {
     color: #fff;
+    font-size: 15px;
   }
 
   tbody tr{

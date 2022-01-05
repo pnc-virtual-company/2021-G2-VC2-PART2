@@ -106,6 +106,6 @@ class StudentController extends Controller
 
     public function searchStudent($studentname)
     {
-        return Student::where('first_name','like', '%'.$studentname.'%')->get();
+        return Student::where('first_name','like', '%'.$studentname.'%')->with('permission', 'disciple')->get();
     }
 }

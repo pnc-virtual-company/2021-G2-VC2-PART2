@@ -50,7 +50,6 @@
                 </div>
             </div>
         </div>
-        <br>
         <div class="in-contact" id="contact">
             <div id="all-in-contact">
                 <div id="about-us">
@@ -59,8 +58,8 @@
                 </div>
                 <div id="get-in-touch">
                     <h3 style="color: #ffff;">Get in Touch</h3>
-                    <small style="color: rgb(179, 176, 176);">BP 511 St. 371 Phum Tropeang Chhuk (Borey Sorla) Sangkat Tek Thla,  <br> Khan Sen Sok  Phnom Penh CAMBODIA</small>
-                    <small style="color: rgb(179, 176, 176);">Phone: +855 23 99 55 00</small>
+                    <small style="color: rgb(179, 176, 176);">BP 511 St. 371 Phum Tropeang Chhuk (Borey Sorla) Sangkat Tek Thla, Khan Sen Sok  Phnom Penh CAMBODIA</small><br>
+                    <small style="color: rgb(179, 176, 176);">Phone: +855 23 99 55 00</small><br>
                     <small style="color: rgb(179, 176, 176);">Email: info.cambodia@passerellesnumeriques.org</small>
                 </div>
                 <div id="social-media">
@@ -101,16 +100,16 @@
 
     button{
         margin: 10px;
-        width: 200px;
+        width: 180px;
         height: 50px;
         border: none;
         outline: none;
-        margin-left: 22%;
+        margin-left: 23%;
         margin-top: 5%;
         font-size: 20px;
         border-radius: 8px;
         cursor: pointer;
-        background: rgb(255, 205, 4);
+        background: rgb(240, 206, 12);
     }
 
 

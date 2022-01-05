@@ -11,7 +11,7 @@
           </v-tooltip>
         </template>
         <v-list-item-title class="p">{{userAction.username}}</v-list-item-title>
-        <v-list-item :to="{ path: '/home' }">
+        <v-list-item :to="{ path: '/home' }" v-if="userAction.role != 'STUDENT'">
           <v-icon class="white--text">mdi-home</v-icon>
           <v-list-item-title class="white--text">Home</v-list-item-title>
         </v-list-item>

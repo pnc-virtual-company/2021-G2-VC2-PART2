@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-container fluid fill-height>
+  <div class="login-page">
+    <v-container fluid fill-height class="bg">
       <v-layout align-center justify-center>
         <div class="form-container">
           <form @submit.prevent="signin">
@@ -8,34 +8,22 @@
               <img src="../../assets/pnc.png" alt="" />
             </div>
             <div>
-              <v-text-field class="input-field" outlined dense white v-model="email" :error-messages="emailErrors" label="E-mail" :append-icon="'mdi-email'"  required
-                @input="$v.email.$touch()"
-                @blur="$v.email.$touch()"
-              ><v-scpacer>mdi-email</v-scpacer></v-text-field>
-              <v-text-field class="input-field" outlined dense white v-model="password" :error-messages="passwordErrors" label="Password"
-                required
-                @input="$v.password.$touch()"
-                @blur="$v.password.$touch()"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
-                :type="show1 ? 'text' : 'password'"
-                name="input-10-1"
-                hint="At least 8 characters"
-                @click:append="show1 = !show1"
-              ></v-text-field>
+              <v-text-field class="input-field" outlined dense white v-model="email" :error-messages="emailErrors" label="E-mail" :append-icon="'mdi-email'"  required @input="$v.email.$touch()" @blur="$v.email.$touch()"><v-scpacer>mdi-email</v-scpacer></v-text-field>
+              <v-text-field class="input-field" outlined dense white v-model="password" :error-messages="passwordErrors" label="Password" required @input="$v.password.$touch()" @blur="$v.password.$touch()" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" hint="At least 8 characters" @click:append="show1 = !show1"></v-text-field>
               <small>{{ errorMessage }}</small>
               <v-card-actions>
-                <v-btn color="primary" to="/" @click="signin" class="login-btn">Login</v-btn>
+                <v-btn color="primary" to="/" @click="signin" id="login-btn">Login</v-btn>
               </v-card-actions>
             </div>
           </form>
         </div>
       </v-layout>
     </v-container>
-  </v-app>
+  </div>
 </template>
 
 <script>
+
   import axios from '../../axios-request.js'
   import { validationMixin } from "vuelidate";
   import { required, email } from "vuelidate/lib/validators";
@@ -66,7 +54,8 @@
       },
       passwordErrors() {
         const errors = [];
-        if (!this.$v.password.$dirty) return errors;
+        if (!this.$v.password.$dirty) 
+        return errors;
         !this.$v.password.required && errors.push("Must be valid password");
         return errors;
       },
@@ -85,7 +74,7 @@
           localStorage.setItem("UserRole", res.data.data.role);
           this.$emit("userLogin", this.islogin);
           if(res.data.data.role == "STUDENT"){
-            this.$router.push('/studentInfo')``
+            this.$router.push('/studentInfo');
           }
           else{
             this.$router.push('/home');
@@ -104,17 +93,27 @@
 
 <style scoped>
 
-  #inspire {
+  .login-page {
+    height: 100vh;
     width: 100%;
-    height: 100%;
-    background-image: url("../../assets/bg.jpg");
+    background-image: url("../../assets/bbb.jpg");
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .bg{
+    background: rgba(0, 0, 0, 0.261);
   }
 
   form {
-    background: rgba(255, 255, 255, 0.823);
+    background: rgb(243, 243, 243);
+    box-shadow: 0px 4px 8px 8px rgba(0, 0, 0, 0.25);
     height: 50vh;
     width: 80%;
-    margin-top: 7vh;
+    margin-top: -2vh;
     align-items: center;
     margin-left: 10%;
     padding: 20px;
@@ -136,7 +135,7 @@
     width: 100%;
   }
 
-  .login-btn {
+  #login-btn {
     width: 105%;
     margin-left: -3%;
   }
@@ -146,4 +145,5 @@
     margin-top: 10px;
     margin-left: 25%;
   }
+
 </style>

@@ -21,11 +21,14 @@
           <v-card-title class="title">
             <strong class="t">Permissions</strong>
             <v-spacer></v-spacer>
-            <v-text-field class="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
           </v-card-title>
+          <div v-if="permissionList == 0">
+            <br>
+            <h2 class="grey--text" >{{noData}}</h2>
+          </div>
           <v-expansion-panels id="card">
             <v-expansion-panel v-for="(permission, i) in permissionList" :key="i" hide-actions class="card-body">
-              <v-expansion-panel-header class="card" >
+              <v-expansion-panel-header class="card">
                 <v-row align="center"  no-gutters>
                   <div class="img-and-name">
                     <div>
@@ -58,8 +61,11 @@
                     </v-col>
                   </div>
                   <div class="type">
-                    <v-col> 
-                      <strong>{{permission.type}}</strong>
+                    <v-col v-if="permission.type === 'Unauthorize' "> 
+                      <strong class="red--text">{{permission.type}}</strong>
+                    </v-col>
+                    <v-col v-else> 
+                      <strong class="green--text">{{permission.type}}</strong>
                     </v-col>
                   </div>
                   <div class="action">
@@ -110,6 +116,7 @@
       dialogDelete: false,
       permissionList: [],
       studentList: [],
+      permissions: [],
       perId: null,
       studentSelected: null,
       startAt: null,
@@ -122,6 +129,7 @@
       imgUrl: "http://127.0.0.1:8000/storage/images/",
       studentID: '',
       role: '',
+      noData: "No data on Permission",
     }),
     methods: {  
       cancel(isFalse){
@@ -150,6 +158,7 @@
             }  
           }else{
             this.permissionList = res.data;
+            this.perInfo = this.permissionList;
           }               
         }) 
       },
@@ -202,7 +211,7 @@
 
   .details{
     height: auto;
-    background: rgba(201, 201, 201, 0.707);
+    background: #ECEFF1;
   }
 
   .detail-info{
@@ -226,6 +235,7 @@
 
   .card{
     height: 22vh;
+    background: #ECEFF1;
     box-shadow: 0px 2px 4px 2px rgba(99, 99, 99, 0.25);
   }
 
@@ -268,7 +278,7 @@
   }
 
   .imgp{
-    margin-left: -50%;
+    margin-left: 40%;
   }
 
   .date-time{

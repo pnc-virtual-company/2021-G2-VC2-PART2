@@ -24,16 +24,28 @@
                 </v-list-item>
             </div>
             <div class="school">
-                <v-list-item>
-                    <v-icon class="green--text">mdi-school</v-icon>
-                    <v-list-item-title class="green--text">At School</v-list-item-title>
+                <div v-if="numOfDisciples > 0">
+                    <v-list-item v-for="(item,i) in discEachStudentList" :key="i">
+                    <div v-if="item.type != 'Termination'" id="dd" >
+                        <v-icon  class="green--text">mdi-school</v-icon>
+                        <strong class="green--text">At School</strong>             
+                    </div>
+                    <div v-else>
+                        <v-icon class="red--text">mdi-cancel</v-icon>
+                        <strong class="red--text">Out School</strong> 
+                    </div>
                 </v-list-item>
+                </div>
+                <div v-else>
+                    <v-icon  class="green--text">mdi-school</v-icon>
+                    <strong class="green--text">At School</strong>     
+                </div>
             </div>
         </div>
         <br>
         <template>
             <v-toolbar>
-                <v-tabs dark background-color="blue-grey darken-3" grow>
+                <v-tabs dark class="tb" grow>
                     <v-tab @click="showPer">
                         <v-badge color="green" :content="numOfPermissions"> Permission </v-badge>
                     </v-tab>
@@ -43,31 +55,45 @@
                 </v-tabs>
             </v-toolbar>
             <template>
-                <v-expansion-panels v-if="isPermission"  class="cardItem">
-                    <v-expansion-panel v-for="(item,i) in perEachStudentList" :key="i">
+                <v-expansion-panels v-if="isPermission"  id="cardItem">
+                    <div v-if="numOfPermissions == 0">
+                        <br>
+                        <h2 class="grey--text">{{nodata}}</h2>
+                    </div>
+                    <v-expansion-panel  class="blue-grey lighten-5" v-for="(item,i) in perEachStudentList" :key="i">
                         <v-expansion-panel-header>
                             <v-icon style="font-size: 40px">mdi-link-variant</v-icon>
                             <span>{{getGoodDatetimeFormat(item.startAt)}} to {{getGoodDatetimeFormat(item.endAt)}}</span><br><br>
                             <div>
-                                <span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 *  3600 * 24))" ></span> <span>days</span>
+                                <strong>Amount: </strong><span v-html="Math.round(((new Date(item.endAt)).getTime() - (new Date(item.startAt)).getTime()) / (1000 *  3600 * 24))" ></span> <span>days</span>
                             </div>
                             <div>
                                 <strong>{{item.type}}</strong>
                             </div>
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content>
+                        <v-expansion-panel-content class="detail">
                             <strong>Reasons:</strong> <br>{{item.description}}
-                        </v-expansion-panel-content>
+                        </v-expansion-panel-content>  
                     </v-expansion-panel>
                 </v-expansion-panels>
-                <v-expansion-panels v-if="isDisciple" class="cardItem">
-                    <v-expansion-panel v-for="(item,i) in discEachStudentList" :key="i">
+                <v-expansion-panels v-if="isDisciple" id="cardItem">
+                    <div v-if="numOfDisciples == 0">
+                        <br>
+                        <h2 class="grey--text">{{noDiscipledata}}</h2>
+                    </div>
+                    <v-expansion-panel class="blue-grey lighten-5" v-for="(item,i) in discEachStudentList" :key="i">
                         <v-expansion-panel-header>
-                            <v-icon class="red--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
-                            <span class="red--text">{{item.type}}</span>
+                            <v-icon v-if="item.type === 'Warning letter'" style="font-size: 40px; color: #FFC107;">mdi-alert</v-icon>
+                            <strong v-if="item.type === 'Warning letter'" style="color: #FFC107;">{{item.type}}</strong>
+                            <v-icon v-if="item.type === 'Termination'" class="red--text" style="font-size: 40px">mdi-close-circle</v-icon>
+                            <strong v-if="item.type === 'Termination'" class="red--text">{{item.type}}</strong>
+                            <v-icon v-if="item.type === 'Oral warning'" class="blue--text" style="font-size: 40px">mdi-alert-octagram</v-icon>
+                            <strong v-if="item.type === 'Oral warning'" class="blue--text">{{item.type}}</strong>
+                            <v-icon v-if="item.type === 'Misconduct'" class="black--text" style="font-size: 40px">mdi-alert-box</v-icon>
+                            <strong v-if="item.type === 'Misconduct'" class="black--text">{{item.type}}</strong>
                             <span>{{getGoodDatetimeFormat(item.dateWn)}}</span><br><br>
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content>
+                        <v-expansion-panel-content class="detail">
                             <strong>Reasons:</strong> <br>{{item.description}}
                         </v-expansion-panel-content>
                     </v-expansion-panel>
@@ -95,6 +121,8 @@
             isPermission: true,
             isDisciple: false,
             userID: '',
+            nodata: "No data on Permission",
+            noDiscipledata:"No data on discipline"
         }),
         methods: {
             showPer(){
@@ -147,9 +175,19 @@
 
 <style scoped>
 
-    .cardItem{
+    #cardItem{
         width: 75.5%;
         margin-left: 10%;
+        margin-top: 7px;
+    }
+
+     #dd{
+        margin-left: -2%;
+    }
+
+    .tb{
+        background: #37474F;
+        box-shadow: 0px 3px 8px 1px rgba(148, 146, 146, 0.768);
     }
 
     .v-toolbar{
@@ -170,12 +208,15 @@
         display: flex;
     }
 
+     .detail{
+        background: rgb(255, 255, 255);
+    }
     .profile{
         width: 20%;
     }
 
     .name{
-        margin-top: 1%;
+        margin-top: 2.5%;
         margin-left: 8%;
     }
 
@@ -187,7 +228,7 @@
 
     .class,
     .school{
-        margin-top: 3%;
+        margin-top: 4.5%;
     }
 
     img{
