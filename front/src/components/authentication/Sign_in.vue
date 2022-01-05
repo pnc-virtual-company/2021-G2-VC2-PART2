@@ -100,8 +100,6 @@
     background-position: center;
     background-size: cover;
     display: flex;
-    overflow-x: hidden;
-    overflow-y: hidden;
   }
 
   .bg{
@@ -139,7 +137,7 @@
   #login-btn {
     width: 105%;
     margin-left: -3%;
-    margin-top: -5%;
+    margin-top: -1%;
   }
 
   small{
